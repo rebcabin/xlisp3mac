@@ -357,6 +357,7 @@
 		FC6F6898172A3D7C00940643 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"DEBUG_INFORMATION_FORMAT[sdk=*]" = dwarf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -387,6 +388,7 @@
 				FC6F6899172A3D7C00940643 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

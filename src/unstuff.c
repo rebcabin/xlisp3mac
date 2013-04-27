@@ -16,7 +16,8 @@ extern xlValue s_unbound;
 
 /* local variables */
 #define LBSIZE 1000
-static char progpath[LBSIZE+1] = "./";
+// static char progpath[LBSIZE+1] = "./";
+static char *progpath = 0;
 static int lposition;
 
 static char *osloadpath(void);
@@ -188,15 +189,17 @@ static xlValue xloadlibrary(void)
 xlEXPORT xlCallbacks *xlDefaultCallbacks(char *programPath)
 {
     static xlCallbacks callbacks;
-    char *p;
+    // char *p;
 
     /* get the program path */
     if (programPath) {
-	char *lastDelimiter,*p;
+	    char *lastDelimiter,*p;
         int len,ch;
 
         /* copy the full path to the program */
-	strcpy(progpath,programPath);
+        size_t programPathLen = strlen(programPath);
+        progpath = malloc(programPathLen) + 1;
+	    strcpy(progpath,programPath);
 
         /* find the last delimiter */
         for (p = progpath, lastDelimiter = NULL; (ch = *p) != '\0'; ++p)
@@ -210,7 +213,7 @@ xlEXPORT xlCallbacks *xlDefaultCallbacks(char *programPath)
             progpath[0] = '\0';
 
         /* check for a trailing /bin/ */
-        if ((len = strlen(progpath)) >= 5
+        if ((len = strlen(progpath)) >= 5L
         &&  strcmp(&progpath[len - 5],"/bin/") == 0)
             progpath[len - 4] = '\0';
     }
