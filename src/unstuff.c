@@ -15,7 +15,7 @@
 extern xlValue s_unbound;
 
 /* local variables */
-#define LBSIZE 100
+#define LBSIZE 1000
 static char progpath[LBSIZE+1] = "./";
 static int lposition;
 

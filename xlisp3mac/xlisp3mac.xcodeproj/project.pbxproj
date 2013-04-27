@@ -1,0 +1,394 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FC6F6894172A3D7C00940643 /* xlisp3mac.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = FC6F6893172A3D7C00940643 /* xlisp3mac.1 */; };
+		FC6F68B7172AAF9900940643 /* unstuff.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F689A172AAF9900940643 /* unstuff.c */; };
+		FC6F68B8172AAF9900940643 /* xlansi.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F689B172AAF9900940643 /* xlansi.c */; };
+		FC6F68B9172AAF9900940643 /* xlapi.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F689C172AAF9900940643 /* xlapi.c */; };
+		FC6F68BA172AAF9900940643 /* xlbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F689E172AAF9900940643 /* xlbuffer.c */; };
+		FC6F68BB172AAF9900940643 /* xlcom.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68A0172AAF9900940643 /* xlcom.c */; };
+		FC6F68BC172AAF9900940643 /* xldbg.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68A1172AAF9900940643 /* xldbg.c */; };
+		FC6F68BD172AAF9900940643 /* xldmem.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68A2172AAF9900940643 /* xldmem.c */; };
+		FC6F68BE172AAF9900940643 /* xledit.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68A3172AAF9900940643 /* xledit.c */; };
+		FC6F68BF172AAF9900940643 /* xlfasl.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68A4172AAF9900940643 /* xlfasl.c */; };
+		FC6F68C0172AAF9900940643 /* xlftab.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68A5172AAF9900940643 /* xlftab.c */; };
+		FC6F68C1172AAF9900940643 /* xlfun1.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68A6172AAF9900940643 /* xlfun1.c */; };
+		FC6F68C2172AAF9900940643 /* xlfun2.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68A7172AAF9900940643 /* xlfun2.c */; };
+		FC6F68C3172AAF9900940643 /* xlfun3.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68A8172AAF9900940643 /* xlfun3.c */; };
+		FC6F68C4172AAF9900940643 /* xlimage.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68A9172AAF9900940643 /* xlimage.c */; };
+		FC6F68C5172AAF9900940643 /* xlinit.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68AA172AAF9900940643 /* xlinit.c */; };
+		FC6F68C6172AAF9900940643 /* xlint.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68AB172AAF9900940643 /* xlint.c */; };
+		FC6F68C7172AAF9900940643 /* xlio.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68AC172AAF9900940643 /* xlio.c */; };
+		FC6F68C8172AAF9900940643 /* xlitersq.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68AD172AAF9900940643 /* xlitersq.c */; };
+		FC6F68C9172AAF9900940643 /* xlmain.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68AE172AAF9900940643 /* xlmain.c */; };
+		FC6F68CA172AAF9900940643 /* xlmath.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68AF172AAF9900940643 /* xlmath.c */; };
+		FC6F68CB172AAF9900940643 /* xlobj.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68B0172AAF9900940643 /* xlobj.c */; };
+		FC6F68CC172AAF9900940643 /* xlosint.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68B1172AAF9900940643 /* xlosint.c */; };
+		FC6F68CD172AAF9900940643 /* xlprint.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68B2172AAF9900940643 /* xlprint.c */; };
+		FC6F68CE172AAF9900940643 /* xlread.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68B3172AAF9900940643 /* xlread.c */; };
+		FC6F68CF172AAF9900940643 /* xlsym.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68B4172AAF9900940643 /* xlsym.c */; };
+		FC6F68D0172AAF9900940643 /* xlterm.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68B5172AAF9900940643 /* xlterm.c */; };
+		FC6F68D4172AB02D00940643 /* xlisp.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68D3172AB02D00940643 /* xlisp.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FC6F688C172A3D7C00940643 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				FC6F6894172A3D7C00940643 /* xlisp3mac.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		FC6F688E172A3D7C00940643 /* xlisp3mac */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = xlisp3mac; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC6F6893172A3D7C00940643 /* xlisp3mac.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = xlisp3mac.1; sourceTree = "<group>"; };
+		FC6F689A172AAF9900940643 /* unstuff.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unstuff.c; path = ../../src/unstuff.c; sourceTree = "<group>"; };
+		FC6F689B172AAF9900940643 /* xlansi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlansi.c; path = ../../src/xlansi.c; sourceTree = "<group>"; };
+		FC6F689C172AAF9900940643 /* xlapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlapi.c; path = ../../src/xlapi.c; sourceTree = "<group>"; };
+		FC6F689D172AAF9900940643 /* xlbcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xlbcode.h; path = ../../src/xlbcode.h; sourceTree = "<group>"; };
+		FC6F689E172AAF9900940643 /* xlbuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlbuffer.c; path = ../../src/xlbuffer.c; sourceTree = "<group>"; };
+		FC6F689F172AAF9900940643 /* xlbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xlbuffer.h; path = ../../src/xlbuffer.h; sourceTree = "<group>"; };
+		FC6F68A0172AAF9900940643 /* xlcom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlcom.c; path = ../../src/xlcom.c; sourceTree = "<group>"; };
+		FC6F68A1172AAF9900940643 /* xldbg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xldbg.c; path = ../../src/xldbg.c; sourceTree = "<group>"; };
+		FC6F68A2172AAF9900940643 /* xldmem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xldmem.c; path = ../../src/xldmem.c; sourceTree = "<group>"; };
+		FC6F68A3172AAF9900940643 /* xledit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xledit.c; path = ../../src/xledit.c; sourceTree = "<group>"; };
+		FC6F68A4172AAF9900940643 /* xlfasl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlfasl.c; path = ../../src/xlfasl.c; sourceTree = "<group>"; };
+		FC6F68A5172AAF9900940643 /* xlftab.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlftab.c; path = ../../src/xlftab.c; sourceTree = "<group>"; };
+		FC6F68A6172AAF9900940643 /* xlfun1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlfun1.c; path = ../../src/xlfun1.c; sourceTree = "<group>"; };
+		FC6F68A7172AAF9900940643 /* xlfun2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlfun2.c; path = ../../src/xlfun2.c; sourceTree = "<group>"; };
+		FC6F68A8172AAF9900940643 /* xlfun3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlfun3.c; path = ../../src/xlfun3.c; sourceTree = "<group>"; };
+		FC6F68A9172AAF9900940643 /* xlimage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlimage.c; path = ../../src/xlimage.c; sourceTree = "<group>"; };
+		FC6F68AA172AAF9900940643 /* xlinit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlinit.c; path = ../../src/xlinit.c; sourceTree = "<group>"; };
+		FC6F68AB172AAF9900940643 /* xlint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlint.c; path = ../../src/xlint.c; sourceTree = "<group>"; };
+		FC6F68AC172AAF9900940643 /* xlio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlio.c; path = ../../src/xlio.c; sourceTree = "<group>"; };
+		FC6F68AD172AAF9900940643 /* xlitersq.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlitersq.c; path = ../../src/xlitersq.c; sourceTree = "<group>"; };
+		FC6F68AE172AAF9900940643 /* xlmain.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlmain.c; path = ../../src/xlmain.c; sourceTree = "<group>"; };
+		FC6F68AF172AAF9900940643 /* xlmath.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlmath.c; path = ../../src/xlmath.c; sourceTree = "<group>"; };
+		FC6F68B0172AAF9900940643 /* xlobj.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlobj.c; path = ../../src/xlobj.c; sourceTree = "<group>"; };
+		FC6F68B1172AAF9900940643 /* xlosint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlosint.c; path = ../../src/xlosint.c; sourceTree = "<group>"; };
+		FC6F68B2172AAF9900940643 /* xlprint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlprint.c; path = ../../src/xlprint.c; sourceTree = "<group>"; };
+		FC6F68B3172AAF9900940643 /* xlread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlread.c; path = ../../src/xlread.c; sourceTree = "<group>"; };
+		FC6F68B4172AAF9900940643 /* xlsym.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlsym.c; path = ../../src/xlsym.c; sourceTree = "<group>"; };
+		FC6F68B5172AAF9900940643 /* xlterm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlterm.c; path = ../../src/xlterm.c; sourceTree = "<group>"; };
+		FC6F68B6172AAF9900940643 /* xlterm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xlterm.h; path = ../../src/xlterm.h; sourceTree = "<group>"; };
+		FC6F68D1172AAFB400940643 /* xledit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xledit.h; path = ../../include/xledit.h; sourceTree = "<group>"; };
+		FC6F68D2172AAFB400940643 /* xlisp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xlisp.h; path = ../../include/xlisp.h; sourceTree = "<group>"; };
+		FC6F68D3172AB02D00940643 /* xlisp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xlisp.c; path = ../../xlisp/xlisp.c; sourceTree = "<group>"; };
+		FC6F68D7172AB04500940643 /* xlisp.dsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xlisp.dsp; sourceTree = "<group>"; };
+		FC6F68D8172AB04500940643 /* xlisp.dsw */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xlisp.dsw; sourceTree = "<group>"; };
+		FC6F68DD172AB8E200940643 /* clisp.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = clisp.lsp; path = ../../clisp.lsp; sourceTree = "<group>"; };
+		FC6F68DE172AB8FA00940643 /* compile.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = compile.lsp; path = ../../compile.lsp; sourceTree = "<group>"; };
+		FC6F68DF172AB90800940643 /* crec.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = crec.lsp; path = ../../crec.lsp; sourceTree = "<group>"; };
+		FC6F68E0172AB90800940643 /* debugw.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = debugw.lsp; path = ../../debugw.lsp; sourceTree = "<group>"; };
+		FC6F68E1172AB90800940643 /* env.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = env.lsp; path = ../../env.lsp; sourceTree = "<group>"; };
+		FC6F68E2172AB90800940643 /* fact.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fact.lsp; path = ../../fact.lsp; sourceTree = "<group>"; };
+		FC6F68E3172AB90800940643 /* fasl.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fasl.lsp; path = ../../fasl.lsp; sourceTree = "<group>"; };
+		FC6F68E4172AB92E00940643 /* macros.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = macros.lsp; path = ../../macros.lsp; sourceTree = "<group>"; };
+		FC6F68E5172AB92E00940643 /* math.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = math.lsp; path = ../../math.lsp; sourceTree = "<group>"; };
+		FC6F68E6172AB92E00940643 /* obj.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = obj.lsp; path = ../../obj.lsp; sourceTree = "<group>"; };
+		FC6F68E7172AB92E00940643 /* objects.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = objects.lsp; path = ../../objects.lsp; sourceTree = "<group>"; };
+		FC6F68E8172AB92E00940643 /* pp.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = pp.lsp; path = ../../pp.lsp; sourceTree = "<group>"; };
+		FC6F68E9172AB92E00940643 /* qquote.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = qquote.lsp; path = ../../qquote.lsp; sourceTree = "<group>"; };
+		FC6F68EA172AB92E00940643 /* tk.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = tk.lsp; path = ../../tk.lsp; sourceTree = "<group>"; };
+		FC6F68EB172AB92E00940643 /* xlinit.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = xlinit.lsp; path = ../../xlinit.lsp; sourceTree = "<group>"; };
+		FC6F68EC172AB92E00940643 /* xlisp.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = xlisp.lsp; path = ../../xlisp.lsp; sourceTree = "<group>"; };
+		FC6F68ED172AB92E00940643 /* xlisptk.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = xlisptk.lsp; path = ../../xlisptk.lsp; sourceTree = "<group>"; };
+		FC6F68EE172AB92E00940643 /* xlispw.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = xlispw.lsp; path = ../../xlispw.lsp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FC6F688B172A3D7C00940643 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FC6F6885172A3D7C00940643 = {
+			isa = PBXGroup;
+			children = (
+				FC6F6890172A3D7C00940643 /* xlisp3mac */,
+				FC6F688F172A3D7C00940643 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FC6F688F172A3D7C00940643 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FC6F688E172A3D7C00940643 /* xlisp3mac */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FC6F6890172A3D7C00940643 /* xlisp3mac */ = {
+			isa = PBXGroup;
+			children = (
+				FC6F68DC172AB8C900940643 /* lispSource */,
+				FC6F68D5172AB04500940643 /* xlisp */,
+				FC6F68D3172AB02D00940643 /* xlisp.c */,
+				FC6F68D1172AAFB400940643 /* xledit.h */,
+				FC6F68D2172AAFB400940643 /* xlisp.h */,
+				FC6F689A172AAF9900940643 /* unstuff.c */,
+				FC6F689B172AAF9900940643 /* xlansi.c */,
+				FC6F689C172AAF9900940643 /* xlapi.c */,
+				FC6F689D172AAF9900940643 /* xlbcode.h */,
+				FC6F689E172AAF9900940643 /* xlbuffer.c */,
+				FC6F689F172AAF9900940643 /* xlbuffer.h */,
+				FC6F68A0172AAF9900940643 /* xlcom.c */,
+				FC6F68A1172AAF9900940643 /* xldbg.c */,
+				FC6F68A2172AAF9900940643 /* xldmem.c */,
+				FC6F68A3172AAF9900940643 /* xledit.c */,
+				FC6F68A4172AAF9900940643 /* xlfasl.c */,
+				FC6F68A5172AAF9900940643 /* xlftab.c */,
+				FC6F68A6172AAF9900940643 /* xlfun1.c */,
+				FC6F68A7172AAF9900940643 /* xlfun2.c */,
+				FC6F68A8172AAF9900940643 /* xlfun3.c */,
+				FC6F68A9172AAF9900940643 /* xlimage.c */,
+				FC6F68AA172AAF9900940643 /* xlinit.c */,
+				FC6F68AB172AAF9900940643 /* xlint.c */,
+				FC6F68AC172AAF9900940643 /* xlio.c */,
+				FC6F68AD172AAF9900940643 /* xlitersq.c */,
+				FC6F68AE172AAF9900940643 /* xlmain.c */,
+				FC6F68AF172AAF9900940643 /* xlmath.c */,
+				FC6F68B0172AAF9900940643 /* xlobj.c */,
+				FC6F68B1172AAF9900940643 /* xlosint.c */,
+				FC6F68B2172AAF9900940643 /* xlprint.c */,
+				FC6F68B3172AAF9900940643 /* xlread.c */,
+				FC6F68B4172AAF9900940643 /* xlsym.c */,
+				FC6F68B5172AAF9900940643 /* xlterm.c */,
+				FC6F68B6172AAF9900940643 /* xlterm.h */,
+				FC6F6893172A3D7C00940643 /* xlisp3mac.1 */,
+			);
+			path = xlisp3mac;
+			sourceTree = "<group>";
+		};
+		FC6F68D5172AB04500940643 /* xlisp */ = {
+			isa = PBXGroup;
+			children = (
+				FC6F68D7172AB04500940643 /* xlisp.dsp */,
+				FC6F68D8172AB04500940643 /* xlisp.dsw */,
+			);
+			name = xlisp;
+			path = ../../xlisp;
+			sourceTree = "<group>";
+		};
+		FC6F68DC172AB8C900940643 /* lispSource */ = {
+			isa = PBXGroup;
+			children = (
+				FC6F68E4172AB92E00940643 /* macros.lsp */,
+				FC6F68E5172AB92E00940643 /* math.lsp */,
+				FC6F68E6172AB92E00940643 /* obj.lsp */,
+				FC6F68E7172AB92E00940643 /* objects.lsp */,
+				FC6F68E8172AB92E00940643 /* pp.lsp */,
+				FC6F68E9172AB92E00940643 /* qquote.lsp */,
+				FC6F68EA172AB92E00940643 /* tk.lsp */,
+				FC6F68EB172AB92E00940643 /* xlinit.lsp */,
+				FC6F68EC172AB92E00940643 /* xlisp.lsp */,
+				FC6F68ED172AB92E00940643 /* xlisptk.lsp */,
+				FC6F68EE172AB92E00940643 /* xlispw.lsp */,
+				FC6F68DF172AB90800940643 /* crec.lsp */,
+				FC6F68E0172AB90800940643 /* debugw.lsp */,
+				FC6F68E1172AB90800940643 /* env.lsp */,
+				FC6F68E2172AB90800940643 /* fact.lsp */,
+				FC6F68E3172AB90800940643 /* fasl.lsp */,
+				FC6F68DE172AB8FA00940643 /* compile.lsp */,
+				FC6F68DD172AB8E200940643 /* clisp.lsp */,
+			);
+			name = lispSource;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FC6F688D172A3D7C00940643 /* xlisp3mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC6F6897172A3D7C00940643 /* Build configuration list for PBXNativeTarget "xlisp3mac" */;
+			buildPhases = (
+				FC6F688A172A3D7C00940643 /* Sources */,
+				FC6F688B172A3D7C00940643 /* Frameworks */,
+				FC6F688C172A3D7C00940643 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = xlisp3mac;
+			productName = xlisp3mac;
+			productReference = FC6F688E172A3D7C00940643 /* xlisp3mac */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FC6F6886172A3D7C00940643 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Reb Cabin";
+			};
+			buildConfigurationList = FC6F6889172A3D7C00940643 /* Build configuration list for PBXProject "xlisp3mac" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = FC6F6885172A3D7C00940643;
+			productRefGroup = FC6F688F172A3D7C00940643 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FC6F688D172A3D7C00940643 /* xlisp3mac */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FC6F688A172A3D7C00940643 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC6F68B7172AAF9900940643 /* unstuff.c in Sources */,
+				FC6F68B8172AAF9900940643 /* xlansi.c in Sources */,
+				FC6F68B9172AAF9900940643 /* xlapi.c in Sources */,
+				FC6F68BA172AAF9900940643 /* xlbuffer.c in Sources */,
+				FC6F68BB172AAF9900940643 /* xlcom.c in Sources */,
+				FC6F68BC172AAF9900940643 /* xldbg.c in Sources */,
+				FC6F68BD172AAF9900940643 /* xldmem.c in Sources */,
+				FC6F68BE172AAF9900940643 /* xledit.c in Sources */,
+				FC6F68BF172AAF9900940643 /* xlfasl.c in Sources */,
+				FC6F68C0172AAF9900940643 /* xlftab.c in Sources */,
+				FC6F68C1172AAF9900940643 /* xlfun1.c in Sources */,
+				FC6F68C2172AAF9900940643 /* xlfun2.c in Sources */,
+				FC6F68C3172AAF9900940643 /* xlfun3.c in Sources */,
+				FC6F68C4172AAF9900940643 /* xlimage.c in Sources */,
+				FC6F68C5172AAF9900940643 /* xlinit.c in Sources */,
+				FC6F68C6172AAF9900940643 /* xlint.c in Sources */,
+				FC6F68C7172AAF9900940643 /* xlio.c in Sources */,
+				FC6F68C8172AAF9900940643 /* xlitersq.c in Sources */,
+				FC6F68C9172AAF9900940643 /* xlmain.c in Sources */,
+				FC6F68CA172AAF9900940643 /* xlmath.c in Sources */,
+				FC6F68CB172AAF9900940643 /* xlobj.c in Sources */,
+				FC6F68CC172AAF9900940643 /* xlosint.c in Sources */,
+				FC6F68CD172AAF9900940643 /* xlprint.c in Sources */,
+				FC6F68CE172AAF9900940643 /* xlread.c in Sources */,
+				FC6F68CF172AAF9900940643 /* xlsym.c in Sources */,
+				FC6F68D0172AAF9900940643 /* xlterm.c in Sources */,
+				FC6F68D4172AB02D00940643 /* xlisp.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		FC6F6895172A3D7C00940643 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		FC6F6896172A3D7C00940643 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		FC6F6898172A3D7C00940643 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FC6F6899172A3D7C00940643 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FC6F6889172A3D7C00940643 /* Build configuration list for PBXProject "xlisp3mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC6F6895172A3D7C00940643 /* Debug */,
+				FC6F6896172A3D7C00940643 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FC6F6897172A3D7C00940643 /* Build configuration list for PBXNativeTarget "xlisp3mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC6F6898172A3D7C00940643 /* Debug */,
+				FC6F6899172A3D7C00940643 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FC6F6886172A3D7C00940643 /* Project object */;
+}
