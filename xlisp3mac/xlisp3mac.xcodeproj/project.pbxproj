@@ -35,6 +35,8 @@
 		FC6F68CF172AAF9900940643 /* xlsym.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68B4172AAF9900940643 /* xlsym.c */; };
 		FC6F68D0172AAF9900940643 /* xlterm.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68B5172AAF9900940643 /* xlterm.c */; };
 		FC6F68D4172AB02D00940643 /* xlisp.c in Sources */ = {isa = PBXBuildFile; fileRef = FC6F68D3172AB02D00940643 /* xlisp.c */; };
+		FCA717B0172C286F00080BFA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA717AF172C286F00080BFA /* SenTestingKit.framework */; };
+		FCA717B2172C286F00080BFA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA717B1172C286F00080BFA /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -105,6 +107,12 @@
 		FC6F68EC172AB92E00940643 /* xlisp.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = xlisp.lsp; path = ../../xlisp.lsp; sourceTree = "<group>"; };
 		FC6F68ED172AB92E00940643 /* xlisptk.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = xlisptk.lsp; path = ../../xlisptk.lsp; sourceTree = "<group>"; };
 		FC6F68EE172AB92E00940643 /* xlispw.lsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = xlispw.lsp; path = ../../xlispw.lsp; sourceTree = "<group>"; };
+		FCA717AD172C286F00080BFA /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCA717AF172C286F00080BFA /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		FCA717B1172C286F00080BFA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		FCA717B4172C286F00080BFA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		FCA717B5172C286F00080BFA /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		FCA717B6172C286F00080BFA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +123,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FCA717A9172C286F00080BFA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCA717B0172C286F00080BFA /* SenTestingKit.framework in Frameworks */,
+				FCA717B2172C286F00080BFA /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -122,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				FC6F6890172A3D7C00940643 /* xlisp3mac */,
+				FCA717AE172C286F00080BFA /* Frameworks */,
 				FC6F688F172A3D7C00940643 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				FC6F688E172A3D7C00940643 /* xlisp3mac */,
+				FCA717AD172C286F00080BFA /* UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,40 +156,10 @@
 		FC6F6890172A3D7C00940643 /* xlisp3mac */ = {
 			isa = PBXGroup;
 			children = (
+				FCA717C5172C28F800080BFA /* headers */,
+				FCA717C4172C28B700080BFA /* src */,
 				FC6F68DC172AB8C900940643 /* lispSource */,
 				FC6F68D5172AB04500940643 /* xlisp */,
-				FC6F68D3172AB02D00940643 /* xlisp.c */,
-				FC6F68D1172AAFB400940643 /* xledit.h */,
-				FC6F68D2172AAFB400940643 /* xlisp.h */,
-				FC6F689A172AAF9900940643 /* unstuff.c */,
-				FC6F689B172AAF9900940643 /* xlansi.c */,
-				FC6F689C172AAF9900940643 /* xlapi.c */,
-				FC6F689D172AAF9900940643 /* xlbcode.h */,
-				FC6F689E172AAF9900940643 /* xlbuffer.c */,
-				FC6F689F172AAF9900940643 /* xlbuffer.h */,
-				FC6F68A0172AAF9900940643 /* xlcom.c */,
-				FC6F68A1172AAF9900940643 /* xldbg.c */,
-				FC6F68A2172AAF9900940643 /* xldmem.c */,
-				FC6F68A3172AAF9900940643 /* xledit.c */,
-				FC6F68A4172AAF9900940643 /* xlfasl.c */,
-				FC6F68A5172AAF9900940643 /* xlftab.c */,
-				FC6F68A6172AAF9900940643 /* xlfun1.c */,
-				FC6F68A7172AAF9900940643 /* xlfun2.c */,
-				FC6F68A8172AAF9900940643 /* xlfun3.c */,
-				FC6F68A9172AAF9900940643 /* xlimage.c */,
-				FC6F68AA172AAF9900940643 /* xlinit.c */,
-				FC6F68AB172AAF9900940643 /* xlint.c */,
-				FC6F68AC172AAF9900940643 /* xlio.c */,
-				FC6F68AD172AAF9900940643 /* xlitersq.c */,
-				FC6F68AE172AAF9900940643 /* xlmain.c */,
-				FC6F68AF172AAF9900940643 /* xlmath.c */,
-				FC6F68B0172AAF9900940643 /* xlobj.c */,
-				FC6F68B1172AAF9900940643 /* xlosint.c */,
-				FC6F68B2172AAF9900940643 /* xlprint.c */,
-				FC6F68B3172AAF9900940643 /* xlread.c */,
-				FC6F68B4172AAF9900940643 /* xlsym.c */,
-				FC6F68B5172AAF9900940643 /* xlterm.c */,
-				FC6F68B6172AAF9900940643 /* xlterm.h */,
 				FC6F6893172A3D7C00940643 /* xlisp3mac.1 */,
 			);
 			path = xlisp3mac;
@@ -211,6 +200,72 @@
 			name = lispSource;
 			sourceTree = "<group>";
 		};
+		FCA717AE172C286F00080BFA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FCA717AF172C286F00080BFA /* SenTestingKit.framework */,
+				FCA717B1172C286F00080BFA /* Cocoa.framework */,
+				FCA717B3172C286F00080BFA /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FCA717B3172C286F00080BFA /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FCA717B4172C286F00080BFA /* AppKit.framework */,
+				FCA717B5172C286F00080BFA /* CoreData.framework */,
+				FCA717B6172C286F00080BFA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		FCA717C4172C28B700080BFA /* src */ = {
+			isa = PBXGroup;
+			children = (
+				FC6F68A0172AAF9900940643 /* xlcom.c */,
+				FC6F68A1172AAF9900940643 /* xldbg.c */,
+				FC6F68A2172AAF9900940643 /* xldmem.c */,
+				FC6F68A3172AAF9900940643 /* xledit.c */,
+				FC6F68A4172AAF9900940643 /* xlfasl.c */,
+				FC6F68A5172AAF9900940643 /* xlftab.c */,
+				FC6F68A6172AAF9900940643 /* xlfun1.c */,
+				FC6F68A7172AAF9900940643 /* xlfun2.c */,
+				FC6F68A8172AAF9900940643 /* xlfun3.c */,
+				FC6F68A9172AAF9900940643 /* xlimage.c */,
+				FC6F68AA172AAF9900940643 /* xlinit.c */,
+				FC6F68AB172AAF9900940643 /* xlint.c */,
+				FC6F68AC172AAF9900940643 /* xlio.c */,
+				FC6F68AD172AAF9900940643 /* xlitersq.c */,
+				FC6F68AE172AAF9900940643 /* xlmain.c */,
+				FC6F68AF172AAF9900940643 /* xlmath.c */,
+				FC6F68B0172AAF9900940643 /* xlobj.c */,
+				FC6F68B1172AAF9900940643 /* xlosint.c */,
+				FC6F68B2172AAF9900940643 /* xlprint.c */,
+				FC6F68B3172AAF9900940643 /* xlread.c */,
+				FC6F68B4172AAF9900940643 /* xlsym.c */,
+				FC6F68B5172AAF9900940643 /* xlterm.c */,
+				FC6F689E172AAF9900940643 /* xlbuffer.c */,
+				FC6F689A172AAF9900940643 /* unstuff.c */,
+				FC6F689B172AAF9900940643 /* xlansi.c */,
+				FC6F689C172AAF9900940643 /* xlapi.c */,
+				FC6F68D3172AB02D00940643 /* xlisp.c */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		FCA717C5172C28F800080BFA /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				FC6F68D1172AAFB400940643 /* xledit.h */,
+				FC6F68D2172AAFB400940643 /* xlisp.h */,
+				FC6F689D172AAF9900940643 /* xlbcode.h */,
+				FC6F689F172AAF9900940643 /* xlbuffer.h */,
+				FC6F68B6172AAF9900940643 /* xlterm.h */,
+			);
+			name = headers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -230,6 +285,24 @@
 			productName = xlisp3mac;
 			productReference = FC6F688E172A3D7C00940643 /* xlisp3mac */;
 			productType = "com.apple.product-type.tool";
+		};
+		FCA717AC172C286F00080BFA /* UnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCA717C1172C286F00080BFA /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildPhases = (
+				FCA717A8172C286F00080BFA /* Sources */,
+				FCA717A9172C286F00080BFA /* Frameworks */,
+				FCA717AA172C286F00080BFA /* Resources */,
+				FCA717AB172C286F00080BFA /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UnitTests;
+			productName = UnitTests;
+			productReference = FCA717AD172C286F00080BFA /* UnitTests.octest */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -253,9 +326,36 @@
 			projectRoot = "";
 			targets = (
 				FC6F688D172A3D7C00940643 /* xlisp3mac */,
+				FCA717AC172C286F00080BFA /* UnitTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FCA717AA172C286F00080BFA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FCA717AB172C286F00080BFA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FC6F688A172A3D7C00940643 /* Sources */ = {
@@ -289,6 +389,13 @@
 				FC6F68CF172AAF9900940643 /* xlsym.c in Sources */,
 				FC6F68D0172AAF9900940643 /* xlterm.c in Sources */,
 				FC6F68D4172AB02D00940643 /* xlisp.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCA717A8172C286F00080BFA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +476,32 @@
 			};
 			name = Release;
 		};
+		FCA717C2172C286F00080BFA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UnitTests/UnitTests-Prefix.pch";
+				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		FCA717C3172C286F00080BFA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UnitTests/UnitTests-Prefix.pch";
+				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -389,6 +522,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		FCA717C1172C286F00080BFA /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCA717C2172C286F00080BFA /* Debug */,
+				FCA717C3172C286F00080BFA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
