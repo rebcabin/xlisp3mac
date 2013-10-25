@@ -1,0 +1,3974 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>XLISP: An Object-Oriented Lisp</title>
+<!-- 2013-10-25 Fri 07:14 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="author" content="David Michael Betz"/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">XLISP: An Object-Oriented Lisp</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. xlisp</a>
+<ul>
+<li><a href="#sec-1-1">1.1. Introduction</a></li>
+<li><a href="#sec-1-2">1.2. A Note from the Author</a></li>
+<li><a href="#sec-1-3">1.3. Constants</a></li>
+<li><a href="#sec-1-4">1.4. Built-In Variables</a></li>
+<li><a href="#sec-1-5">1.5. Expressions</a></li>
+<li><a href="#sec-1-6">1.6. Multiple Values</a></li>
+<li><a href="#sec-1-7">1.7. Non-Local Exits</a></li>
+<li><a href="#sec-1-8">1.8. Binding Forms</a></li>
+<li><a href="#sec-1-9">1.9. Sequencing</a></li>
+<li><a href="#sec-1-10">1.10. Delayed Evaluation</a></li>
+<li><a href="#sec-1-11">1.11. Iteration</a></li>
+<li><a href="#sec-1-12">1.12. Definitions</a></li>
+<li><a href="#sec-1-13">1.13. The Object System</a></li>
+<li><a href="#sec-1-14">1.14. Methods for the Built-In Classes</a></li>
+<li><a href="#sec-1-15">1.15. List Functions</a></li>
+<li><a href="#sec-1-16">1.16. Destructive List Functions</a></li>
+<li><a href="#sec-1-17">1.17. Sequence Functions</a></li>
+<li><a href="#sec-1-18">1.18. Symbol Functions</a></li>
+<li><a href="#sec-1-19">1.19. Package Functions</a></li>
+<li><a href="#sec-1-20">1.20. Vector Functions</a></li>
+<li><a href="#sec-1-21">1.21. Array Functions</a></li>
+<li><a href="#sec-1-22">1.22. Table Functions</a></li>
+<li><a href="#sec-1-23">1.23. Conversion Functions</a></li>
+<li><a href="#sec-1-24">1.24. Logical Functions</a></li>
+<li><a href="#sec-1-25">1.25. Type Predicates</a></li>
+<li><a href="#sec-1-26">1.26. Equality Predicates</a></li>
+<li><a href="#sec-1-27">1.27. Arithmetic Functions</a></li>
+<li><a href="#sec-1-28">1.28. Comparison Functions</a></li>
+<li><a href="#sec-1-29">1.29. Bitwise Logical Functions</a></li>
+<li><a href="#sec-1-30">1.30. String Functions</a></li>
+<li><a href="#sec-1-31">1.31. String Comparison Functions</a></li>
+<li><a href="#sec-1-32">1.32. Character Functions</a></li>
+<li><a href="#sec-1-33">1.33. Character Comparison Functions</a></li>
+<li><a href="#sec-1-34">1.34. The Reader</a></li>
+<li><a href="#sec-1-35">1.35. The Printer</a></li>
+<li><a href="#sec-1-36">1.36. Input/Output Functions</a></li>
+<li><a href="#sec-1-37">1.37. Format</a></li>
+<li><a href="#sec-1-38">1.38. Output Control Functions</a></li>
+<li><a href="#sec-1-39">1.39. File I/O Functions</a></li>
+<li><a href="#sec-1-40">1.40. String Stream Functions</a></li>
+<li><a href="#sec-1-41">1.41. Control Features</a></li>
+<li><a href="#sec-1-42">1.42. Environment Functions</a></li>
+<li><a href="#sec-1-43">1.43. Utility Functions</a></li>
+<li><a href="#sec-1-44">1.44. Fast Loading</a></li>
+<li><a href="#sec-1-45">1.45. C Records</a></li>
+<li><a href="#sec-1-46">1.46. Debugging Functions</a></li>
+<li><a href="#sec-1-47">1.47. System Functions</a></li>
+<li><a href="#sec-1-48">1.48. Object Representations</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> xlisp</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+XLISP: An Object-Oriented Lisp
+</p>
+
+<p>
+Version 3.0
+January 28, 1997
+</p>
+
+<p>
+David Michael Betz
+18 Garrison Drive
+Bedford, NH 03110
+</p>
+
+<p>
+(603) 472-2389 (home)
+</p>
+
+<p>
+Copyright (c) 1984-2002, by David Michael Betz
+All Rights Reserved
+See the included file 'license.txt' for the full license.
+</p>
+</div>
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Introduction</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+XLISP is a dialect of the Lisp programming language with extensions
+to support object-oriented programming. Over the years I have
+released many versions of XLISP with differing goals. The original
+XLISP was written to run on tiny machines like the Z80 under CP/M
+and hence was a small language. When Common Lisp came around, I made
+an attempt to bring XLISP into conformance with that standard. Later
+I learned about Scheme, an elegant dialect of Lisp designed by
+Gerald Sussman and Guy Steele Jr. and realized that it more closely
+matched my desire for a small but powerful language. This version of
+XLISP is mostly based on Scheme with my own object system and some
+Common Lispish extensions. It is derived from XScheme, my earlier
+implementation of Scheme.
+</p>
+
+<p>
+Unlike the original XLISP, this version compiles to bytecodes
+instead of directly interpreting the source s-expressions. This
+makes it somewhat faster than the old XLISP for normal functions and
+much faster for macros since they are expanded at compile time not
+run time.
+</p>
+
+<p>
+There are currently implementations of XLISP running on the IBM-PC
+and clones under MS-DOS, on the Macintosh and under OS/2. It is
+completely written in ANSI C and is easily extended with user
+written built-in functions and classes. It is available in source
+form to non-commercial users.
+</p>
+
+<p>
+This document is a brief description of XLISP. XLISP follows the
+"Revised<sup>3</sup> Report on the Algorithmic Language Scheme" with
+extensions. It assumes some knowledge of Scheme or LISP and some
+understanding of the concepts of object-oriented programming.
+</p>
+
+<p>
+I recommend the book "Structure and Interpretation of Computer
+Programs" by Harold Abelson and Gerald Jay Sussman and published by
+MIT Press and the McGraw-Hill Book Company for learning Scheme (and
+programming in general). You might also find "The Scheme Programming
+Language" by R. Kent Dybvig and "The Little Lisper" by Daniel
+P. Friedman and Matthias Felleisen to be helpful.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> A Note from the Author</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+If you have any problems with XLISP, feel free to contact me for
+help or advice. Please remember that since XLISP is available in
+source form in a high level language many users have been making
+versions available on a variety of machines. If you call to report a
+problem with a specific version, I may not be able to help you if
+that version runs on a machine I don't have access to. Please have
+the version number of XLISP that you are running readily accessible
+before calling me.
+</p>
+
+<p>
+If you find a bug in XLISP, first try to fix the bug yourself using
+the source code provided. If you are successful in fixing the bug,
+send the bug report along with the fix to me. If you don't have
+access to a C compiler or are unable to fix a bug, please send the
+bug report to me and I'll try to fix it.
+</p>
+
+<p>
+Any suggestions for improvements will be welcomed. Feel free to
+extend the language in whatever way suits your needs. However,
+PLEASE DO NOT RELEASE ENHANCED VERSIONS WITHOUT CHECKING WITH ME
+FIRST!! I would like to be the clearing house for new features added
+to XLISP. If you want to add features for your own personal use, go
+ahead. But, if you want to distribute your enhanced version, contact
+me first.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Constants</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+#T
+#!TRUE
+</p>
+
+<p>
+The true value.  Where boolean expressions are required, any value other
+than #F is interpreted as a true value.
+</p>
+
+<p>
+#F
+#!FALSE
+</p>
+
+<p>
+The false value.  In XLISP, false and the empty list are the same value.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Built-In Variables</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+<b>PACKAGE</b>
+</p>
+
+<p>
+Bound to the default package.
+</p>
+
+<p>
+<b>READTABLE</b>
+</p>
+
+<p>
+Bound to the current read table.
+</p>
+
+<p>
+<b>ERROR-HANDLER</b>
+</p>
+
+<p>
+Bound to a function to handle errors.  The function should take two
+arguments, the function where the error occured and the environment at
+the time of the error.  It shouldn't return.
+</p>
+
+<p>
+<b>UNBOUND-HANDLER</b>
+</p>
+
+<p>
+Bound to a function to handle unbound symbol errors.  The function
+should take two arguments, the symbol that is unbound and a continuation
+to call after correcting the error.
+</p>
+
+<p>
+<b>LOAD-PATH</b>
+</p>
+
+<p>
+Bound to the path used by the LOAD function.  This is initialized to the
+contents of the XLISP environment variable or, if that is not defined,
+to the path where the XLISP executable was found.  The value consists of
+a list of strings that should be paths to directories XLISP should
+search for files being loaded.  Each string should end with an
+appropriate directory terminator (the backslash under MS-DOS, the slash
+under UNIX or a colon on the Macintosh.
+</p>
+
+<p>
+<b>STANDARD-INPUT</b>
+</p>
+
+<p>
+Bound to the standard input port.
+</p>
+
+<p>
+<b>STANDARD-OUTPUT</b>
+</p>
+
+<p>
+Bound to the standard output port.
+</p>
+
+<p>
+<b>ERROR-OUTPUT</b>
+</p>
+
+<p>
+Bound to the error output port.
+</p>
+
+<p>
+<b>FIXNUM-FORMAT</b>
+</p>
+
+<p>
+A printf style format string for printing fixed point numbers.  FIXNUMs
+are generally represented by long integers so this should usually be set
+to "%ld".
+</p>
+
+<p>
+<b>HEXNUM-FORMAT</b>
+</p>
+
+<p>
+A printf style format string for printing fixed point numbers in
+hexadecimal.  FIXNUMs are generally represented by long integers so this
+should usually be set to "%lx".
+</p>
+
+<p>
+<b>FLONUM-FORMAT</b>
+</p>
+
+<p>
+A printf style format string for printing floating point numbers.  This
+is usually set to "%.15g".
+</p>
+
+<p>
+<b>PRINT-CASE</b>
+</p>
+
+<p>
+Bound to a symbol that controls the case in which symbols are printed.
+Can be set to UPCASE or DOWNCASE.
+</p>
+
+<p>
+<b>SOFTWARE-TYPE</b>
+</p>
+
+<p>
+Bound to a symbol that indicates the host software.  The following types
+are defined currently:
+</p>
+
+<p>
+    win95    Windows 95
+    dos32    Command line DOS under Windows 95
+    unix    Unix or Linux
+    mac    Macintosh
+T
+</p>
+
+<p>
+Bound to #t.
+</p>
+
+<p>
+NIL
+</p>
+
+<p>
+Bound to the empty list.
+</p>
+
+<p>
+OBJECT
+</p>
+
+<p>
+Bound to the class "Object".
+</p>
+
+<p>
+CLASS
+</p>
+
+<p>
+Bound to the class "Class".
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> Expressions</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+variable
+</p>
+
+<p>
+An expression consisting of a variable is a variable reference. The
+value of the variable reference is the value stored in the location to
+which the variable is bound. It is an error to reference an unbound
+variable.
+</p>
+
+<p>
+(QUOTE datum)
+'datum
+</p>
+
+<p>
+(QUOTE datum) evaluates to datum. Datum may be any external
+representation of an XLISP value. This notation is used to include
+literal constants in XLISP code. (QUOTE datum) may be abbreviated as
+'datum. The two notations are equivalent in all respects.
+</p>
+
+<p>
+constant
+</p>
+
+<p>
+Numeric constants, string constants, character constants and boolean
+constants evaluate "to themselves"; they need not be quoted.
+</p>
+
+<p>
+(operator operand&#x2026;)
+</p>
+
+<p>
+A procedure call is written by simply enclosing in parentheses
+expressions for the procedure to be called and the arguments to be
+passed to it. The operator and operand expressions are evaluated and the
+resulting procedure is passed the resulting arguments.
+</p>
+
+<p>
+(object selector operand&#x2026;)
+</p>
+
+<p>
+A message sending form is written by enclosing in parentheses
+expressions for the receiving object, the message selector, and the
+arguments to be passed to the method. The receiver, selector, and
+argument expressions are evaluated, the message selector is used to
+select an appropriate method to handle the message, and the resulting
+method is passed the resulting arguments.  (LAMBDA formals body)
+</p>
+
+<p>
+Formals should be a formal argument list as described below, and body
+should be a sequence of one or more expressions. A lambda expression
+evaluates to a procedure. The environment in effect when the lambda
+expression is evaluated is remembered as part of the procedure. When the
+procedure is later called with some actual arguments, the environment in
+which the lambda expression was evaluated will be extended by binding
+the variables in the formal argument list to fresh locations, the
+corresponding actual argument values will be stored in those locations,
+and the expressions in the body of the lambda expression will be
+evaluated sequentially in the extended environment. The result of the
+last expression in the body will be returned as the result of the
+procedure call.
+</p>
+
+<p>
+Formals should have the following form:
+</p>
+
+<p>
+(var&#x2026; [#!OPTIONAL ovar&#x2026;] [. rvar])
+</p>
+
+<p>
+or
+</p>
+
+<p>
+(var&#x2026; [#!OPTIONAL ovar&#x2026;] [#!REST rvar])
+</p>
+
+<p>
+where:
+</p>
+
+<p>
+var is a required argument
+ovar is an optional argument
+rvar is a "rest" argument
+</p>
+
+<p>
+There are three parts to a formals list. The first lists the required
+arguments of the procedure. All calls to the procedure must supply
+values for each of the required arguments. The second part lists the
+optional arguments of the procedure. An optional argument may be
+supplied in a call or omitted. If it is omitted, a special value is
+given to the argument that satisfies the default-object? predicate. This
+provides a way to test to see if an optional argument was provided in a
+call or omitted. The last part of the formals list gives the "rest"
+argument. This argument will be bound to the rest of the list of
+arguments supplied to a call after the required and optional arguments
+have been removed.
+</p>
+
+<p>
+Alternatively, you can use Common Lisp syntax for the formal parameters:
+</p>
+
+<p>
+(var&#x2026;
+ [&amp;optional {ovar | (ovar [init [svar]])}&#x2026;
+ [&amp;rest rvar]
+ [&amp;key {kvar | ({kvar | (key kvar)} [init [svar]])}&#x2026;
+ [&amp;aux {avar | (avar [init])}])
+</p>
+
+<p>
+where:
+</p>
+
+<p>
+var is a required argument
+ovar is an optional argument
+rvar is a "rest" argument
+kvar is a keyword argument
+avar is an aux variable
+svar is a "supplied-p" variable
+</p>
+
+<p>
+See "Common Lisp, the Language" by Guy Steele Jr. for a description of
+this syntax.
+</p>
+
+<p>
+(NAMED-LAMBDA name formals body)
+</p>
+
+<p>
+NAMED-LAMBDA is the same as LAMBDA except that the specified name is
+associated with the procedure.
+</p>
+
+<p>
+(IF test consequent [alternate])
+</p>
+
+<p>
+An if expression is evaluated as follows: first, test is evaluated. If
+it yields a true value, then consequent is evaluated and its value is
+returned. Otherwise, alternate is evaluated and its value is
+returned. If test yields a false value and no alternate is specified,
+then the result of the expression is unspecified.
+</p>
+
+<p>
+A false value is nil or the empty list.  Every other value is a true
+value.
+</p>
+
+<p>
+(SET! variable expression)
+</p>
+
+<p>
+Expression is evaluated, and the resulting value is stored in the
+location to which variable is bound. Variable must be bound in some
+region or at the top level. The result of the set! expression is
+unspecified.
+</p>
+
+<p>
+(COND clause&#x2026;)
+</p>
+
+<p>
+Each clause should be of the form
+</p>
+
+<p>
+(test expression&#x2026;)
+</p>
+
+<p>
+where test is any expression. The last clause may be an "else clause,"
+which has the form
+</p>
+
+<p>
+(ELSE expression&#x2026;)
+</p>
+
+<p>
+A cond expression is evaluated by evaluating the test expressions of
+successive clauses in order until one of them evaluates to a true
+value. When a test evaluates to a true value, then the remaining
+expressions in its clause are evaluated in order, and the result of the
+last expression in the clause is returned as the result of the entire
+cond expression. If the selected clause contains only the test and no
+expressions, then the value of the test is returned as the result. If
+all tests evaluate to false values, and there is no else clause, then
+the result of the conditional expression is unspecified; if there is an
+else clause, then its expressions are evaluated, and the value of the
+last one is returned.
+</p>
+
+<p>
+(AND test&#x2026;)
+</p>
+
+<p>
+The test expressions are evaluated from left to right, and the value of
+the first expression that evaluates to a false value is returned. Any
+remaining expressions are not evaluated. If all the expressions evaluate
+to true values, the value of the last expression is returned. If there
+are no expressions then #t is returned.
+</p>
+
+<p>
+(OR test&#x2026;)
+</p>
+
+<p>
+The test expressions are evaluated from left to right, and the value of
+the first expression that evaluates to a true value is returned. Any
+remaining expressions are not evaluated. If all expressions evaluate to
+false values, the value of the last expression is returned. If there are
+no expressions then #f is returned.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> Multiple Values</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+(VALUES expr&#x2026;)
+</p>
+
+<p>
+The results of evaluating this expression are the values of the
+expressions given as arguments.  It is legal to pass no values as in
+(VALUES) to indicate no values.
+</p>
+
+<p>
+(VALUES-LIST list)
+</p>
+
+<p>
+The results of evaluating this expression are the values in the
+specified list.
+</p>
+
+<p>
+(MULTIPLE-VALUE-BIND (var&#x2026;) vexpr expr&#x2026;)
+</p>
+
+<p>
+The multiple values produced by vexpr are bound to the specified
+variables and the remaining expressions are evaluated in an environment
+that includes those variables.
+</p>
+
+<p>
+(MULTIPLE-VALUE-CALL function expr)
+</p>
+
+<p>
+The multiple values of expr are passed as arguments to the specified
+function.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="section-number-3">1.7</span> Non-Local Exits</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+(CATCH tag expr&#x2026;)
+</p>
+
+<p>
+Evaluate the specified expressions in an environment where the specified
+tag is visible as a target for THROW.  If no throw occurs, return the
+value(s) of the last expression.  If a throw occurs that matches the
+tag, return the value(s) specified in the THROW form.
+</p>
+
+<p>
+(THROW tag expr&#x2026;)
+</p>
+
+<p>
+Throw to a tag established by the CATCH form.  In the process of
+unwinding the stack, evaluate any cleanup forms associated with
+UNWIND-PROTECT forms established between the target CATCH and the THROW
+form.
+</p>
+
+<p>
+(THROW-ERROR arg)
+</p>
+
+<p>
+Throw an error.  This is basically equivilent to (THROW ‘ERROR arg)
+except that care is taken to make sure that recursive errors are not
+produced if there is no corresponding CATCH for the ‘ERROR tag.
+</p>
+
+<p>
+(UNWIND-PROTECT pexpr expr&#x2026;)
+</p>
+
+<p>
+Evaluate pexpr (the protected expression) and then the other expressions
+and return the value(s) of pexpr.  If an error or a THROW occurs during
+the evaluation of the protected form, the other expressions (known as
+cleanup forms) are evaluated during the unwind process.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="section-number-3">1.8</span> Binding Forms</h3>
+<div class="outline-text-3" id="text-1-8">
+<p>
+(LET [name] bindings body)
+</p>
+
+<p>
+Bindings should have the form
+</p>
+
+<p>
+((variable init)&#x2026;)
+</p>
+
+<p>
+where each init is an expression, and body should be a sequence of one
+or more expressions. The inits are evaluated in the current envirnoment,
+the variables are bound to fresh locations holding the results, the body
+is evaluated in the
+</p>
+
+<p>
+If a name is supplied, a procedure that takes the bound variables as its
+arguments and has the body of the LET as its body is bound to that name.
+</p>
+
+<p>
+(LET* bindings body)
+</p>
+
+<p>
+Same as LET except that the bindings are done sequentially from left to
+right and the bindings to the left are visible while evaluating the
+initialization expressions for each variable.
+</p>
+
+<p>
+(LETREC bindings body)
+</p>
+
+<p>
+Bindings should have the form
+</p>
+
+<p>
+((variable init)&#x2026;)
+</p>
+
+<p>
+and body should be a sequence of one or more expressions. The variables
+are bound to fresh locations holding undefined values; the inits are
+evaluated in the resulting environment; each variable is assigned to the
+result of the corresponding init; the body is evaluated in the resulting
+environment; and the value of the last expression in body is
+returned. Each binding of a variable has the entire letrec expression as
+its region, making it possible to define mutually recursive
+procedures. One restriction of letrec is very important: it must be
+possible to evaluate each init without referring to the value of any
+variable. If this restriction is violated, then the effect is undefined,
+and an error may be signalled during evaluation of the inits. The
+restriction is necessary because XLISP passes arguments by value rather
+than by name. In the most common uses of letrec, all the inits are
+lambda expressions and the restriction is satisfied automatically.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9"><span class="section-number-3">1.9</span> Sequencing</h3>
+<div class="outline-text-3" id="text-1-9">
+<p>
+(BEGIN expression&#x2026;)
+(SEQUENCE expression&#x2026;)
+</p>
+
+<p>
+The expressions are evaluated sequentially from left to right, and the
+value of the last expression is returned. This expression type is used
+to sequence side effects such as input and output.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-10" class="outline-3">
+<h3 id="sec-1-10"><span class="section-number-3">1.10</span> Delayed Evaluation</h3>
+<div class="outline-text-3" id="text-1-10">
+<p>
+(CONS-STREAM expr1 expr2)
+</p>
+
+<p>
+Create a cons stream whose head is expr1 (which is evaluated
+immediately) and whose tail is expr2 (whose evaluation is delayed until
+TAIL is called).
+</p>
+
+<p>
+(HEAD expr)
+</p>
+
+<p>
+Returns the head of a stream.
+</p>
+
+<p>
+(TAIL expr)
+</p>
+
+<p>
+Returns the tail of a stream by calling FORCE on the promise created by
+CONS-STREAM.
+</p>
+
+<p>
+(DELAY expression)
+</p>
+
+<p>
+Evaluating this expression creates a "promise" to evaluate expression at
+a later time.
+</p>
+
+<p>
+(FORCE promise)
+</p>
+
+<p>
+Applying FORCE to a promise generated by DELAY requests that the promise
+produce the value of the expression passed to DELAY. The first time a
+promise is FORCEed, the DELAY expression is evaluated and the value
+stored. On subsequent calls to FORCE with the same promise, the saved
+value is returned.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-11" class="outline-3">
+<h3 id="sec-1-11"><span class="section-number-3">1.11</span> Iteration</h3>
+<div class="outline-text-3" id="text-1-11">
+<p>
+(WHILE test expression&#x2026;)
+</p>
+
+<p>
+While is an iteration construct. Each iteration begins by evaluating
+test; if the result is false, then the loop terminates and the value of
+test is returned as the value of the while expression. If test evaluates
+to a true value, then the expressions are evaluated in order for effect
+and the next iteration begins.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-12" class="outline-3">
+<h3 id="sec-1-12"><span class="section-number-3">1.12</span> Definitions</h3>
+<div class="outline-text-3" id="text-1-12">
+<p>
+(DEFINE variable expression)
+</p>
+
+<p>
+Define a variable and give it an initial value.
+</p>
+
+<p>
+(DEFINE (variable . formals) body)
+</p>
+
+<p>
+Define a procedure.  Formals should be specified in the same way as with
+LAMBDA.
+</p>
+
+<p>
+(DEFINE-MACRO (name . formals) body)
+</p>
+
+<p>
+Defines a macro with the specified name.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-13" class="outline-3">
+<h3 id="sec-1-13"><span class="section-number-3">1.13</span> The Object System</h3>
+<div class="outline-text-3" id="text-1-13">
+<p>
+XLISP provides a fairly simple single inheritance object system.  Each
+object is an instance of a class and classes themselves are objects.
+Each object has a set of instance variables where it stores its private
+data and in addition has access to a set of class variables that are
+shared amongst all instances of the same class.
+</p>
+
+<p>
+Each class has a set of methods with which it responds to messages sent
+to its instances.  A message is sent using a syntax similar to a
+function call:
+</p>
+
+<p>
+(object selector expr&#x2026;)
+</p>
+
+<p>
+Where object is the object receiving the message, selector is a symbol
+used to select the appropriate method for handling the message and the
+expressions are arguments to pass to the method.  A method may return
+zero or more values.  Within a method, the object's instance variables
+and class variables are bound as if they were lexical variables.
+</p>
+
+
+<p>
+(DEFINE-CLASS name decl&#x2026;)
+</p>
+
+<p>
+Creates a class with the specified class name and binds the global
+variable with that name to the new class.
+</p>
+
+<p>
+Decl is:
+</p>
+
+<p>
+(SUPER-CLASS super)
+</p>
+
+<p>
+Specifies the single superclass.  If not specified, the superclass
+is Object.
+</p>
+
+<p>
+(INSTANCE-VARIABLES ivar&#x2026;)
+(IVARS ivar&#x2026;)
+</p>
+
+<p>
+Specifies the instance variables of the new class.
+</p>
+
+<p>
+(CLASS-VARIABLES {cvar | (cvar init)}&#x2026;)
+(CVARS {cvar | (cvar init)}&#x2026;)
+</p>
+
+<p>
+Specifies the class variables of the new class.
+</p>
+
+<p>
+(DEFINE-METHOD (class selector formals) expr&#x2026;)
+</p>
+
+<p>
+Defines a method for the specified class with the specified selector.
+Within a method, the symbol self refers to the object receiving the
+message.  Also, all instance variables and class variables are available
+as if they were lexical variables.
+</p>
+
+<p>
+(DEFINE-CLASS-METHOD (class selector formals) expr&#x2026;)
+</p>
+
+<p>
+Defines a class method for the specified class with the specified
+selector.  Within a method, the symbol self refers to the class
+receiving the message.  Also class variables are available as if they
+were lexical variables.
+</p>
+
+<p>
+(SUPER selector expr&#x2026;)
+</p>
+
+<p>
+When used within a method, sends a message to the superclass of the
+class where the current method was found.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-14" class="outline-3">
+<h3 id="sec-1-14"><span class="section-number-3">1.14</span> Methods for the Built-In Classes</h3>
+<div class="outline-text-3" id="text-1-14">
+<p>
+Class:
+</p>
+
+<p>
+(Class 'make-instance)
+</p>
+
+<p>
+Make an uninitialize instance of a class.
+</p>
+
+<p>
+(Class 'new &amp;rest args)
+</p>
+
+<p>
+Make and initialize an instance of a class.  The new instance is
+initialized by sending it the 'initialize message with the arguments
+passed to 'new.  The result of the 'initialize method is returned as
+the result of 'new.  The 'initialize method should return self as
+its value.
+</p>
+
+<p>
+(Class 'initialize ivars &amp;optional cvars super name)
+</p>
+
+<p>
+Default class initialization method.
+</p>
+
+<p>
+(Class 'answer selector formals body)
+</p>
+
+<p>
+Add a method to a class.
+</p>
+
+<p>
+(Class 'show &amp;optional port)
+</p>
+
+<p>
+Display information about a class.
+</p>
+
+
+<p>
+Object:
+</p>
+
+<p>
+(Object 'initialize)
+</p>
+
+<p>
+Default initialization method.
+</p>
+
+<p>
+(Object 'class)
+</p>
+
+<p>
+Return the class of an object.
+</p>
+
+<p>
+(Object 'get-variable var)
+</p>
+
+<p>
+Get the value of an instance variable.
+</p>
+
+<p>
+(Object 'set-variable! var expr)
+</p>
+
+<p>
+Set the value of an instance variable.
+</p>
+
+<p>
+(Object 'show  &amp;optional port)
+</p>
+
+<p>
+Display information about an object.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-15" class="outline-3">
+<h3 id="sec-1-15"><span class="section-number-3">1.15</span> List Functions</h3>
+<div class="outline-text-3" id="text-1-15">
+<p>
+(CONS expr1 expr2)
+</p>
+
+<p>
+Create a new pair whose car is expr1 and whose cdr is expr2.
+</p>
+
+<p>
+(ACONS key data alist)
+</p>
+
+<p>
+Is equivilent to (CONS (CONS key data) alist) and is used to add a pair
+to an association list.
+</p>
+
+<p>
+(CAR pair)
+(FIRST pair)
+</p>
+
+<p>
+Extract the car of a pair.
+</p>
+
+<p>
+(CDR pair)
+(REST pair)
+</p>
+
+<p>
+Extract the cdr of a pair.
+</p>
+
+<p>
+(CxxR pair)
+(CxxxR pair)
+(CxxxxR pair)
+</p>
+
+<p>
+These functions are short for combinations of CAR and CDR. Each 'x' is stands for either 'A' or 'D'. An 'A' stands for the CAR function and a 'D' stands for the CDR function. For instance, (CADR x) is the same as (CAR (CDR x)).
+</p>
+
+<p>
+(SECOND list)
+(THIRD list)
+(FOURTH list)
+</p>
+
+<p>
+Extract the specified elements of a list.
+</p>
+
+<p>
+(LIST expr&#x2026;)
+</p>
+
+<p>
+Create a list whose elements are the arguments to the function. This
+function can take an arbitrary number of arguments. Passing no arguments
+results in the empty list.
+</p>
+
+<p>
+(LIST* expr&#x2026;)
+</p>
+
+<p>
+Create a list whose elements are the arguments to the function except
+that the last argument is used as the tail of the list. This means that
+the call (LIST* 1 2 3) produce the result (1 2 . 3).
+</p>
+
+<p>
+(APPEND list&#x2026;)
+</p>
+
+<p>
+Append lists to form a single list. This function takes an arbitrary
+number of arguments. Passing no arguments results in the empty list.
+</p>
+
+<p>
+(REVERSE list)
+</p>
+
+<p>
+Create a list whose elements are the same as the argument except in
+reverse order.
+</p>
+
+<p>
+(LAST-PAIR list)
+</p>
+
+<p>
+Return the last pair in a list.
+</p>
+
+<p>
+(LENGTH list)
+</p>
+
+<p>
+Compute the length of a list.
+</p>
+
+<p>
+(PAIRLIS keys data &amp;optional alist)
+</p>
+
+<p>
+Creates pairs from corresponding elements of keys and data and pushes
+these onto alist.  For instance:
+</p>
+
+<p>
+(pairlis '(x y) '(1 2) '((z . 3)))  =&gt;  ((x . 1) (y . 2) (z . 3))
+</p>
+
+<p>
+(COPY-LIST list)
+</p>
+
+<p>
+Makes a top level copy of the list.
+</p>
+
+<p>
+(COPY-TREE list)
+</p>
+
+<p>
+Make a deep copy of a list.
+</p>
+
+<p>
+(COPY-ALIST alist)
+</p>
+
+<p>
+Copy an association list by copying each top level pair in the list.
+</p>
+
+<p>
+(END? list)
+</p>
+
+<p>
+Returns #f for a pair, #t for the empty list and signals an error for
+all other types.
+</p>
+
+<p>
+(MEMBER expr list)
+(MEMV expr list)
+(MEMQ expr list)
+</p>
+
+<p>
+Find an element in a list. Each of these functions searches the list
+looking for an element that matches expr. If a matching element is
+found, the remainder of the list starting with that element is
+returned. If no matching element is found, the empty list is
+returned. The functions differ in the test used to determine if an
+element matches expr. The MEMBER function uses EQUAL?, the MEMV function
+uses EQV? and the MEMQ function uses EQ?.
+</p>
+
+<p>
+(ASSOC expr alist)
+(ASSV expr alist)
+(ASSQ expr alist)
+</p>
+
+<p>
+Find an entry in an association list. An association list is a list of
+pairs. The car of each pair is the key and the cdr is the value. These
+functions search an association list for a pair whose key matches
+expr. If a matching pair is found, it is returned. Otherwise, the empty
+list is returned. The functions differ in the test used to determine if
+a key matches expr. The ASSOC function uses EQUAL?, the ASSV function
+uses EQV? and the ASSQ function uses EQ?.
+</p>
+
+<p>
+(LIST-REF list n)
+</p>
+
+<p>
+Return the nth element of a list (zero based).
+</p>
+
+<p>
+(LIST-TAIL list n)
+</p>
+
+<p>
+Return the sublist obtained by removing the first n elements of list.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-16" class="outline-3">
+<h3 id="sec-1-16"><span class="section-number-3">1.16</span> Destructive List Functions</h3>
+<div class="outline-text-3" id="text-1-16">
+<p>
+(SET-CAR! pair expr)
+</p>
+
+<p>
+Set the car of a pair to expr. The value returned by this procedure is
+unspecified.
+</p>
+
+<p>
+(SET-CDR! pair expr)
+</p>
+
+<p>
+Set the cdr of a pair to expr. The value returned by this procedure is
+unspecified.
+</p>
+
+<p>
+(APPEND!  list&#x2026;)
+</p>
+
+<p>
+Append lists destructively.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-17" class="outline-3">
+<h3 id="sec-1-17"><span class="section-number-3">1.17</span> Sequence Functions</h3>
+<div class="outline-text-3" id="text-1-17">
+<p>
+At the moment these sequence functions work only with lists.
+</p>
+
+<p>
+(MAPCAR)
+</p>
+
+<p>
+(MAPC)
+</p>
+
+<p>
+(MAPCAN)
+</p>
+
+<p>
+(MAPLIST)
+</p>
+
+<p>
+(MAPL)
+</p>
+
+<p>
+(MAPCON)
+</p>
+
+<p>
+(SOME)
+</p>
+
+<p>
+(EVERY)
+</p>
+
+<p>
+(NOTANY)
+</p>
+
+<p>
+(NOTEVERY)
+</p>
+
+<p>
+(FIND)
+</p>
+
+<p>
+(FIND-IF)
+</p>
+
+<p>
+(FIND-IF-NOT)
+</p>
+
+<p>
+(MEMBER)
+</p>
+
+<p>
+(MEMBER-IF)
+</p>
+
+<p>
+(MEMBER-IF-NOT)
+</p>
+
+<p>
+(ASSOC)
+</p>
+
+<p>
+(ASSOC-IF)
+</p>
+
+<p>
+(ASSOC-IF-NOT)
+</p>
+
+<p>
+(RASSOC)
+</p>
+
+<p>
+(RASSOC-IF)
+</p>
+
+<p>
+(RASSOC-IF-NOT)
+</p>
+
+<p>
+(REMOVE)
+</p>
+
+<p>
+(REMOVE-IF)
+</p>
+
+<p>
+(REMOVE-IF-NOT)
+</p>
+
+<p>
+(DELETE)
+</p>
+
+<p>
+(DELETE-IF)
+</p>
+
+<p>
+(DELETE-IF-NOT)
+</p>
+
+<p>
+(COUNT)
+</p>
+
+<p>
+(COUNT-IF)
+</p>
+
+<p>
+(COUNT-IF-NOT)
+</p>
+
+<p>
+(POSITION)
+</p>
+
+<p>
+(POSITION-IF)
+</p>
+
+<p>
+(POSITION-IF-NOT)
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-18" class="outline-3">
+<h3 id="sec-1-18"><span class="section-number-3">1.18</span> Symbol Functions</h3>
+<div class="outline-text-3" id="text-1-18">
+<p>
+(BOUND? sym [ env])
+</p>
+
+<p>
+Returns #t if a global value is bound to the symbol and #f otherwise.
+</p>
+
+<p>
+(SYMBOL-NAME sym)
+</p>
+
+<p>
+Get the print name of a symbol.
+</p>
+
+<p>
+(SYMBOL-VALUE sym [env])
+</p>
+
+<p>
+Get the global value of a symbol.
+</p>
+
+<p>
+(SET-SYMBOL-VALUE! sym expr [env])
+</p>
+
+<p>
+Set the global value of a symbol. The value returned by this procedure
+is unspecified.
+</p>
+
+<p>
+(SYMBOL-PLIST sym)
+</p>
+
+<p>
+Get the property list associated with a symbol.
+</p>
+
+<p>
+(SET-SYMBOL-PLIST! sym plist)
+</p>
+
+<p>
+Set the property list associate with a symbol. The value returned by
+this procedure is unspecified.
+</p>
+
+<p>
+(SYMBOL-PACKAGE sym)
+</p>
+
+<p>
+Returns the package containing the symbol.
+</p>
+
+<p>
+(GENSYM &amp;optional sym | str | num)
+</p>
+
+<p>
+Generate a new, uninterned symbol. The print name of the symbol will
+consist of a prefix with a number appended. The initial prefix is "G"
+and the initial number is 1. If a symbol is specified as an argument,
+the prefix is set to the print name of that symbol. If a string is
+specified, the prefix is set to that string. If a number is specified,
+the numeric suffix is set to that number. After the symbol is generated,
+the number is incremented so subsequent calls to GENSYM will generate
+numbers in sequence.
+</p>
+
+<p>
+(GET sym prop)
+</p>
+
+<p>
+Get the value of a property of a symbol. The prop argument is a symbol
+that is the property name. If a property with that name exists on the
+symbols property list, the value of the property is returned. Otherwise,
+the empty list is returned.
+</p>
+
+<p>
+(PUT sym prop expr)
+</p>
+
+<p>
+Set the value of a property of a symbol. The prop argument is a symbol
+that is the property name. The property/value combination is added to
+the property list of the symbol.
+</p>
+
+<p>
+(REMPROP sym prop)
+</p>
+
+<p>
+Remove the specified property from the property list of the symbol.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-19" class="outline-3">
+<h3 id="sec-1-19"><span class="section-number-3">1.19</span> Package Functions</h3>
+<div class="outline-text-3" id="text-1-19">
+<p>
+(MAKE-PACKAGE name &amp;key uses)
+</p>
+
+<p>
+(FIND-PACKAGE name)
+</p>
+
+<p>
+(LIST-ALL-PACKAGES)
+</p>
+
+<p>
+(PACKAGE-NAME pack)
+</p>
+
+<p>
+(PACKAGE-NICKNAMES pack)
+</p>
+
+<p>
+(IN-PACKAGE pack)
+</p>
+
+<p>
+(USE-PACKAGE name [pack])
+</p>
+
+<p>
+(UNUSE-PACKAGE name [pack])
+</p>
+
+<p>
+(PACKAGE-USE-LIST pack)
+</p>
+
+<p>
+(PACKAGE-USED-BY-LIST pack)
+</p>
+
+<p>
+(EXPORT sym [pack])
+</p>
+
+<p>
+(UNEXPORT sym [pack])
+</p>
+
+<p>
+(IMPORT sym [pack])
+</p>
+
+<p>
+(INTERN pname [pack])
+</p>
+
+<p>
+(UNINTERN sym [pack])
+</p>
+
+<p>
+(MAKE-SYMBOL pname)
+</p>
+
+<p>
+(FIND-SYMBOL sym [pack])
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-20" class="outline-3">
+<h3 id="sec-1-20"><span class="section-number-3">1.20</span> Vector Functions</h3>
+<div class="outline-text-3" id="text-1-20">
+<p>
+(VECTOR expr&#x2026;)
+</p>
+
+<p>
+Create a vector whose elements are the arguments to the function. This
+function can take an arbitrary number of arguments. Passing no arguments
+results in a zero length vector.
+</p>
+
+<p>
+(MAKE-VECTOR len)
+</p>
+
+<p>
+Make a vector of the specified length.
+</p>
+
+<p>
+(VECTOR-LENGTH vect)
+</p>
+
+<p>
+Get the length of a vector.
+</p>
+
+<p>
+(VECTOR-REF vect n)
+</p>
+
+<p>
+Return the nth element of a vector (zero based).
+</p>
+
+<p>
+(VECTOR-SET! vect n expr)
+</p>
+
+<p>
+Set the nth element of a vector (zero based).
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-21" class="outline-3">
+<h3 id="sec-1-21"><span class="section-number-3">1.21</span> Array Functions</h3>
+<div class="outline-text-3" id="text-1-21">
+<p>
+(MAKE-ARRAY d1 d2&#x2026;)
+</p>
+
+<p>
+Make an array (vector of vectors) with the specified dimensions. At
+least one dimension must be specified.
+</p>
+
+<p>
+(ARRAY-REF array s1 s2&#x2026;)
+</p>
+
+<p>
+Get an array element. The sn arguments are integer subscripts (zero
+based).
+</p>
+
+<p>
+(ARRAY-SET! array s1 s2&#x2026; expr)
+</p>
+
+<p>
+Set an array element. The sn arguments are integer subscripts (zero
+based).
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-22" class="outline-3">
+<h3 id="sec-1-22"><span class="section-number-3">1.22</span> Table Functions</h3>
+<div class="outline-text-3" id="text-1-22">
+<p>
+(MAKE-TABLE &amp;optional size)
+</p>
+
+<p>
+Make a table with the specified size.  The size defaults to something
+useful hopefully.
+</p>
+
+<p>
+(TABLE-REF table key)
+</p>
+
+<p>
+Find the value in the table associated with the specified key.
+</p>
+
+<p>
+(TABLE-SET! table key value)
+</p>
+
+<p>
+Set the value in the table associated with the specified key.
+</p>
+
+<p>
+(TABLE-REMOVE! table key)
+</p>
+
+<p>
+Remove the entry with the specified key from the table.  Return the old
+value associated with the key or nil if the key is not found.
+</p>
+
+<p>
+(EMPTY-TABLE! table)
+</p>
+
+<p>
+Remove all entries from a table.
+</p>
+
+<p>
+(MAP-OVER-TABLE-ENTRIES table fun)
+</p>
+
+<p>
+Apply the specified function to each entry in the table and return the
+list of values.  The function should take two arguments.  The first is
+the key and the second is the value associated with that key.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-23" class="outline-3">
+<h3 id="sec-1-23"><span class="section-number-3">1.23</span> Conversion Functions</h3>
+<div class="outline-text-3" id="text-1-23">
+<p>
+(SYMBOL-&gt;STRING sym)
+</p>
+
+<p>
+Convert a symbol to a string. Returns the print name of the symbol as a
+string.
+</p>
+
+<p>
+(STRING-&gt;SYMBOL str)
+</p>
+
+<p>
+Convert a string to a symbol. Returns a symbol with the string as its
+print name. This can either be a new symbol or an existing one with the
+same print name.
+</p>
+
+<p>
+(VECTOR-&gt;LIST vect)
+</p>
+
+<p>
+Convert a vector to a list. Returns a list of the elements of the
+vector.
+</p>
+
+<p>
+(LIST-&gt;VECTOR list)
+</p>
+
+<p>
+Convert a list to a vector. Returns a vector of the elements of the
+list.
+</p>
+
+<p>
+(STRING-&gt;LIST str)
+</p>
+
+<p>
+Convert a string to a list. Returns a list of the characters in the
+string.
+</p>
+
+<p>
+(LIST-&gt;STRING list)
+</p>
+
+<p>
+Convert a list of character to a string. Returns a string whose
+characters are the elements of the list.
+</p>
+
+<p>
+(CHAR-&gt;INTEGER char)
+</p>
+
+<p>
+Convert a character to an integer. Returns the ASCII code of the
+character as an integer.
+</p>
+
+<p>
+(INTEGER-&gt;CHAR n)
+</p>
+
+<p>
+Convert an integer ASCII code to a character. Returns the character
+whose ASCII code is the integer.
+</p>
+
+<p>
+(STRING-&gt;NUMBER str &amp;optional base)
+</p>
+
+<p>
+Convert a string to a number.  Returns the value of the numeric
+interpretation of the string.  The base argument must be 2, 8, 10 or 16
+and defaults to 10.
+</p>
+
+<p>
+(NUMBER-&gt;STRING n &amp;optional base)
+</p>
+
+<p>
+Convert a number to a string.  Returns the string corresponding to the
+number.  The base argument must be 2, 8, 10 or 16 and defaults to 10.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-24" class="outline-3">
+<h3 id="sec-1-24"><span class="section-number-3">1.24</span> Logical Functions</h3>
+<div class="outline-text-3" id="text-1-24">
+<p>
+(NOT expr)
+</p>
+
+<p>
+Returns #t if the expression is #f and #t otherwise.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-25" class="outline-3">
+<h3 id="sec-1-25"><span class="section-number-3">1.25</span> Type Predicates</h3>
+<div class="outline-text-3" id="text-1-25">
+<p>
+(NULL? expr)
+</p>
+
+<p>
+Returns #t if the expression is the empty list and #f otherwise.
+</p>
+
+<p>
+(ATOM? expr)
+</p>
+
+<p>
+Returns #f if the expression is a pair and #t otherwise.
+</p>
+
+<p>
+(LIST? expr)
+</p>
+
+<p>
+Returns #t if the expression is either a pair or the empty list and #f
+otherwise.
+</p>
+
+<p>
+(NUMBER? expr)
+</p>
+
+<p>
+Returns #t if the expression is a number and #f otherwise.
+</p>
+
+<p>
+(BOOLEAN? expr)
+</p>
+
+<p>
+Returns #t if the expression is either #t or #f and #f otherwise.
+</p>
+
+<p>
+(PAIR? expr)
+</p>
+
+<p>
+Returns #t if the expression is a pair and #f otherwise.
+</p>
+
+<p>
+(SYMBOL? expr)
+</p>
+
+<p>
+Returns #t if the expression is a symbol and #f otherwise.
+</p>
+
+<p>
+(COMPLEX? expr)
+</p>
+
+<p>
+Returns #t if the expression is a complex number and #f otherwise. Note:
+Complex numbers are not yet supported by XLISP.
+</p>
+
+<p>
+(REAL? expr)
+</p>
+
+<p>
+Returns #t if the expression is a real number and #f otherwise.
+</p>
+
+<p>
+(RATIONAL? expr)
+</p>
+
+<p>
+Returns #t if the expression is a rational number and #f
+otherwise. Note: Rational numbers are not yet supported by XLISP.
+</p>
+
+<p>
+(INTEGER? expr)
+</p>
+
+<p>
+Returns #t if the expression is an integer and #f otherwise.
+</p>
+
+<p>
+(CHAR? expr)
+</p>
+
+<p>
+Returns #t if the expression is a character and #f otherwise.
+</p>
+
+<p>
+(STRING? expr)
+</p>
+
+<p>
+Returns # if the expression is a string and #f otherwise.
+</p>
+
+<p>
+(VECTOR? expr)
+</p>
+
+<p>
+Returns #t if the expression is a vector and #f otherwise.
+</p>
+
+<p>
+(TABLE? expr)
+</p>
+
+<p>
+Returns #t if the expression is a table and #f otherwise.
+</p>
+
+<p>
+(PROCEDURE? expr)
+</p>
+
+<p>
+Returns #t if the expression is a procedure (closure) and #f otherwise.
+</p>
+
+<p>
+(PORT? expr)
+</p>
+
+<p>
+Returns #t if the expression is a port and #f otherwise.
+</p>
+
+<p>
+(INPUT-PORT? expr)
+</p>
+
+<p>
+Returns #t if the expression is an input port and #f otherwise.
+</p>
+
+<p>
+(OUTPUT-PORT? expr)
+</p>
+
+<p>
+Returns #t if the expression is an output port and #f otherwise.
+</p>
+
+<p>
+(OBJECT? expr)
+</p>
+
+<p>
+Returns #t if the expression is an object and #f otherwise.
+</p>
+
+<p>
+(EOF-OBJECT? expr)
+</p>
+
+<p>
+Returns #t if the expression is the object returned by READ upon
+detecting an end of file condition and #f otherwise.
+</p>
+
+<p>
+(DEFAULT-OBJECT? expr)
+</p>
+
+<p>
+Returns #t if the expression is the object passed as the default value
+of an optional parameter to a procedure when that parameter is omitted
+from a call and #f otherwise.
+</p>
+
+<p>
+(ENVIRONMENT? expr)
+</p>
+
+<p>
+Returns #t if the expression is an environment and #f otherwise.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-26" class="outline-3">
+<h3 id="sec-1-26"><span class="section-number-3">1.26</span> Equality Predicates</h3>
+<div class="outline-text-3" id="text-1-26">
+<p>
+(EQUAL? expr1 expr2)
+</p>
+
+<p>
+Recursively compares two objects to determine if their components are
+the same and returns #t if they are the same and #f otherwise.
+</p>
+
+<p>
+(EQV? expr1 expr2)
+</p>
+
+<p>
+Compares two objects to determine if they are the same
+object. Returns #t if they are the same and #f otherwise. This function
+does not compare the elements of lists or vectors but will compare
+strings and all types of numbers.
+</p>
+
+<p>
+(EQ? expr1 expr2)
+</p>
+
+<p>
+Compares two objects to determine if they are the same
+object. Returns #t if they are the same and #f otherwise. This function
+performs a low level address compare on two objects and may return #f
+for objects that appear on the surface to be the same. This is because
+the objects are not stored uniquely in memory. For instance, numbers may
+appear to be equal, but EQ? will return #f when comparing them if they
+are stored at different addresses. The advantage of this function is
+that it is faster than the others. Symbols are guaranteed to compare
+correctly, so EQ? can safely be used to compare them.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-27" class="outline-3">
+<h3 id="sec-1-27"><span class="section-number-3">1.27</span> Arithmetic Functions</h3>
+<div class="outline-text-3" id="text-1-27">
+<p>
+(IDENTITY expr)
+</p>
+
+<p>
+Returns the value of expr.  This is the identity function.
+</p>
+
+<p>
+(ZERO? n)
+</p>
+
+<p>
+Returns #t if the number is zero and #f otherwise.
+</p>
+
+<p>
+(POSITIVE? n)
+</p>
+
+<p>
+Returns #t if the number is positive and #f otherwise.
+</p>
+
+<p>
+(NEGATIVE? n)
+</p>
+
+<p>
+Returns #t if the number is negative and #f otherwise.
+</p>
+
+<p>
+(ODD? n)
+</p>
+
+<p>
+Returns #t if the integer is odd and #f otherwise.
+</p>
+
+<p>
+(EVEN? n)
+</p>
+
+<p>
+Returns #t if the integer is even and #f otherwise.
+</p>
+
+<p>
+(EXACT? n)
+</p>
+
+<p>
+Returns #t if the number is exact and #f otherwise. Note: This function
+always returns #f in XLISP since exact numbers are not yet supported.
+</p>
+
+<p>
+(INEXACT? n)
+</p>
+
+<p>
+Returns #t if the number is inexact and #f otherwise. Note: This
+function always returns #t in XLISP since exact numbers are not yet
+supported.
+</p>
+
+<p>
+(TRUNCATE n)
+</p>
+
+<p>
+Truncates a number to an integer and returns the resulting value.
+</p>
+
+<p>
+(FLOOR n)
+</p>
+
+<p>
+Returns the largest integer not larger than n.
+</p>
+
+<p>
+(CEILING n)
+</p>
+
+<p>
+Returns the smallest integer not smaller than n.
+</p>
+
+<p>
+(ROUND n)
+</p>
+
+<p>
+Returns the closest integer to n, rounding to even when n is halfway
+between two integers.
+</p>
+
+<p>
+(1+ n)
+</p>
+
+<p>
+Returns the result of adding one to the number.
+</p>
+
+<p>
+(-1+ n)
+</p>
+
+<p>
+Returns the result of subtracting one from the number.
+</p>
+
+<p>
+(ABS n)
+</p>
+
+<p>
+Returns the absolute value of the number.
+</p>
+
+<p>
+(GCD n1 n2&#x2026;)
+</p>
+
+<p>
+Returns the greatest common divisor of the specified numbers.
+</p>
+
+<p>
+(LCM n1 n2&#x2026;)
+</p>
+
+<p>
+Returns the least common multiple of the specified numbers.
+</p>
+
+<p>
+(RANDOM n)
+</p>
+
+<p>
+Returns a random number between zero and n-1 (n must be an integer).
+</p>
+
+<p>
+(SET-RANDOM-SEED! n)
+</p>
+
+<p>
+Sets the seed of the random number generator to n.
+</p>
+
+<p>
+(+ n1 n2&#x2026;)
+</p>
+
+<p>
+Returns the sum of the numbers.
+</p>
+
+<p>
+(- n)
+</p>
+
+<p>
+Negates the number and returns the resulting value.
+</p>
+
+<p>
+(- n1 n2&#x2026;)
+</p>
+
+<p>
+Subtracts each remaining number from n1 and returns the resulting value.
+</p>
+
+<p>
+(* n1 n2&#x2026;)
+</p>
+
+<p>
+Multiplies the numbers and returns the resulting value.
+</p>
+
+<p>
+(/ n)
+</p>
+
+<p>
+Returns 1/n.
+</p>
+
+<p>
+(/ n1 n2&#x2026;)
+</p>
+
+<p>
+Divides n1 by each of the remaining numbers and returns the resulting
+value.
+</p>
+
+<p>
+(QUOTIENT n1 n2&#x2026;)
+</p>
+
+<p>
+Divides the integer n1 by each of the remaining numbers and returns the
+resulting integer quotient. This function does integer division.
+</p>
+
+<p>
+(REMAINDER n1 n2)
+</p>
+
+<p>
+Divides the integer n1 by the integer n2 and returns the remainder.
+</p>
+
+<p>
+(MODULO n1 n2)
+</p>
+
+<p>
+Returns the integer n1 modulo the integer n2 .
+</p>
+
+<p>
+(MIN n1 n2&#x2026;)
+</p>
+
+<p>
+Returns the number with the minimum value.
+</p>
+
+<p>
+(MAX n1 n2&#x2026;)
+</p>
+
+<p>
+Returns the number with the maximum value.
+</p>
+
+<p>
+(SIN n)
+</p>
+
+<p>
+Returns the sine of the number.
+</p>
+
+<p>
+(COS n)
+</p>
+
+<p>
+Returns the cosine of the number.
+</p>
+
+<p>
+(TAN n)
+</p>
+
+<p>
+Returns the tangent of the number.
+</p>
+
+<p>
+(ASIN n)
+</p>
+
+<p>
+Returns the arc-sine of the number.
+</p>
+
+<p>
+(ACOS n)
+</p>
+
+<p>
+Returns the arc-cosine of the number.
+</p>
+
+<p>
+(ATAN x)
+</p>
+
+<p>
+Returns the arc-tangent of x.
+</p>
+
+<p>
+(ATAN y x)
+</p>
+
+<p>
+Returns the arc-tangent of y/x.
+</p>
+
+<p>
+(EXP n)
+</p>
+
+<p>
+Returns e raised to the n.
+</p>
+
+<p>
+(SQRT n)
+</p>
+
+<p>
+Returns the square root of n.
+</p>
+
+<p>
+(EXPT n1 n2)
+</p>
+
+<p>
+Returns n1 raised to the n2 power.
+</p>
+
+<p>
+(LOG n)
+</p>
+
+<p>
+Returns the natural logarithm of n.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-28" class="outline-3">
+<h3 id="sec-1-28"><span class="section-number-3">1.28</span> Comparison Functions</h3>
+<div class="outline-text-3" id="text-1-28">
+<p>
+(&lt; n1 n2&#x2026;)
+(= n1 n2&#x2026;)
+(&gt; n1 n2&#x2026;)
+(&lt;= n1 n2&#x2026;)
+(/= n1 n2&#x2026;)
+(&gt;= n1 n2&#x2026;)
+</p>
+
+<p>
+These functions compare numbers and return #t if the numbers match the
+predicate and #f otherwise. For instance, (&lt; x y z) will return #t if x
+is less than y and y is less than z.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-29" class="outline-3">
+<h3 id="sec-1-29"><span class="section-number-3">1.29</span> Bitwise Logical Functions</h3>
+<div class="outline-text-3" id="text-1-29">
+<p>
+(LOGAND n1 n2&#x2026;)
+</p>
+
+<p>
+Returns the bitwise AND of the integer arguments.
+</p>
+
+<p>
+(LOGIOR n1 n2&#x2026;)
+</p>
+
+<p>
+Returns the bitwise inclusive OR of the integer arguments.
+</p>
+
+<p>
+(LOGXOR n1 n2&#x2026;)
+</p>
+
+<p>
+Returns the bitwise exclusive OR of the integer arguments.
+</p>
+
+<p>
+(LOGNOT n)
+</p>
+
+<p>
+Returns the bitwise complement of n.
+</p>
+
+<p>
+(ASH n shift)
+</p>
+
+<p>
+Arithmetically shift n left by the specified number of places (or right
+if shift is negative)
+</p>
+
+<p>
+(LSH n shift)
+</p>
+
+<p>
+Logically shift n left by the specified number of places (or right if
+shift is negative).
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-30" class="outline-3">
+<h3 id="sec-1-30"><span class="section-number-3">1.30</span> String Functions</h3>
+<div class="outline-text-3" id="text-1-30">
+<p>
+(MAKE-STRING size)
+</p>
+
+<p>
+Makes a string of the specified size initialized to nulls.
+</p>
+
+<p>
+(STRING-LENGTH str)
+</p>
+
+<p>
+Returns the length of the string.
+</p>
+
+<p>
+(STRING-NULL? str)
+</p>
+
+<p>
+Returns #t if the string has a length of zero and #f otherwise.
+</p>
+
+<p>
+(STRING-APPEND str1&#x2026;)
+</p>
+
+<p>
+Returns the result of appending the string arguments. If no arguments
+are supplied, it returns the null string.
+</p>
+
+<p>
+(STRING-REF str n)
+</p>
+
+<p>
+Returns the nth character in a string.
+</p>
+
+<p>
+(STRING-SET! str n c)
+</p>
+
+<p>
+Sets the nth character of the string to c.
+</p>
+
+<p>
+(SUBSTRING str &amp;optional start end)
+</p>
+
+<p>
+Returns the substring of str starting at start and ending at end
+(integers). The range is inclusive of start and exclusive of end.
+</p>
+
+<p>
+(STRING-UPCASE str &amp;key start end)
+</p>
+
+<p>
+Return a copy of the specified string with lowercase letters converted
+to uppercase letters in the specified range (which defaults to the whole
+string).
+</p>
+
+<p>
+(STRING-DOWNCASE str &amp;key start end)
+</p>
+
+<p>
+Return a copy of the specified string with uppercase letters converted
+to lowercase letters in the specified range (which defaults to the whole
+string).
+</p>
+
+<p>
+(STRING-UPCASE! str &amp;key start end)
+</p>
+
+<p>
+Like STRING-UPCASE but modifies the input string.
+</p>
+
+<p>
+(STRING-DOWNCASE! str &amp;key start end)
+</p>
+
+<p>
+Like STRING-DOWNCASE but modifies the input string.
+</p>
+
+<p>
+(STRING-TRIM bag str)
+</p>
+
+<p>
+Return a string with characters that are in bag (which is also a string)
+removed from both the left and right ends.
+</p>
+
+<p>
+(STRING-LEFT-TRIM bag str)
+</p>
+
+<p>
+Return a string with characters that are in bag (which is also a string)
+removed from the left end.
+</p>
+
+<p>
+(STRING-RIGHT-TRIM bag str)
+</p>
+
+<p>
+Return a string with characters that are in bag (which is also a string)
+removed from right end.
+</p>
+
+<p>
+(STRING-SEARCH str1 str2 &amp;key start1 end1 start2 end2 from-end?)
+</p>
+
+<p>
+Search for the specified substring of str1 in the specified substring of
+str2 and return the starting offset when a match is found or nil if no
+match is found.
+</p>
+
+<p>
+(STRING-CI-SEARCH str1 str2 &amp;key start1 end1 start2 end2 from-end?)
+</p>
+
+<p>
+Like STRING-SEARCH but case insensitive.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-31" class="outline-3">
+<h3 id="sec-1-31"><span class="section-number-3">1.31</span> String Comparison Functions</h3>
+<div class="outline-text-3" id="text-1-31">
+<p>
+(STRING&lt;? str1 str2 &amp;key start1 end1 start2 end2)
+(STRING=? str1 str2 &amp;key start1 end1 start2 end2)
+(STRING&gt;? str1 str2 &amp;key start1 end1 start2 end2)
+(STRING&lt;=? str1 str2 &amp;key start1 end1 start2 end2)
+(STRING/=? str1 str2 &amp;key start1 end1 start2 end2)
+(STRING&gt;=? str1 str2 &amp;key start1 end1 start2 end2)
+</p>
+
+<p>
+These functions compare strings and return #t if the strings match the
+predicate and #f otherwise. For instance, (STRING&lt; x y) will return #t
+if x is less than y. Case is significant. #A does not match #a.
+</p>
+
+<p>
+(STRING-CI&lt;? str1 str2 &amp;key start1 end1 start2 end2)
+(STRING-CI=? str1 str2 &amp;key start1 end1 start2 end2)
+(STRING-CI&gt;? str1 str2 &amp;key start1 end1 start2 end2)
+(STRING-CI&lt;=? str1 str2 &amp;key start1 end1 start2 end2)
+(STRING-CI/=? str1 str2 &amp;key start1 end1 start2 end2)
+(STRING-CI&gt;=? str1 str2 &amp;key start1 end1 start2 end2)
+</p>
+
+<p>
+These functions compare strings and return #t if the strings match the
+predicate and #f otherwise. For instance, (STRING-CI&lt; x y) will
+return #t if x is less than y. Case is not significant. #A matches #a.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-32" class="outline-3">
+<h3 id="sec-1-32"><span class="section-number-3">1.32</span> Character Functions</h3>
+<div class="outline-text-3" id="text-1-32">
+<p>
+(CHAR-UPPER-CASE? ch)
+</p>
+
+<p>
+Is the specified character an upper case letter?
+</p>
+
+<p>
+(CHAR-LOWER-CASE? ch)
+</p>
+
+<p>
+Is the specifed character a lower case letter?
+</p>
+
+<p>
+(CHAR-ALPHABETIC? ch)
+</p>
+
+<p>
+Is the specified character an upper or lower case letter?
+</p>
+
+<p>
+(CHAR-NUMERIC? ch)
+</p>
+
+<p>
+Is the specified character a digit?
+</p>
+
+<p>
+(CHAR-ALPHANUMERIC? ch)
+</p>
+
+<p>
+Is the specified character a letter or a digit?
+</p>
+
+<p>
+(CHAR-WHITESPACE? ch)
+</p>
+
+<p>
+Is the specified character whitespace?
+</p>
+
+<p>
+(STRING ch)
+</p>
+
+<p>
+Return a string containing just the specified character.
+</p>
+
+<p>
+(CHAR str [n])
+</p>
+
+<p>
+Return the nth character of the string (n defaults to zero).
+</p>
+
+<p>
+(CHAR-UPCASE ch)
+</p>
+
+<p>
+Return the uppercase equivilent to the specified character if it is a
+letter.  Otherwise, just return the character.
+</p>
+
+<p>
+(CHAR-DOWNCASE ch)
+</p>
+
+<p>
+Return the lowercase equivilent to the specified character if it is a
+letter.  Otherwise, just return the character.
+</p>
+
+<p>
+(DIGIT-&gt;CHAR n)
+</p>
+
+<p>
+Return the character associated with the specified digit.  The argument
+must be in the range of zero to nine.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-33" class="outline-3">
+<h3 id="sec-1-33"><span class="section-number-3">1.33</span> Character Comparison Functions</h3>
+<div class="outline-text-3" id="text-1-33">
+<p>
+(CHAR&lt;? ch1 ch2)
+(CHAR=? ch1 ch2)
+(CHAR&gt;? ch1 ch2)
+(CHAR&lt;=? ch1 ch2)
+(CHAR/=? ch1 ch2)
+(CHAR&gt;=? ch1 ch2)
+</p>
+
+<p>
+These functions compare characters and return #t if the characters match
+the predicate and #f otherwise. For instance, (CHAR&lt; x y) will return #t
+if x is less than y. Case is significant. #A does not match #a.
+</p>
+
+<p>
+(CHAR-CI&lt;? ch1 ch2)
+(CHAR-CI=? ch1 ch2)
+(CHAR-CI&gt;? ch1 ch2)
+(CHAR-CI&lt;=? ch1 ch2)
+(CHAR-CI&gt;=? ch1 ch2)
+</p>
+
+<p>
+These functions compare characters and return #t if the characters match
+the predicate and #f otherwise. For instance, (CHAR-CI&lt; x y) will
+return #t if x is less than y. Case is not significant. #A matchs #a.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-34" class="outline-3">
+<h3 id="sec-1-34"><span class="section-number-3">1.34</span> The Reader</h3>
+<div class="outline-text-3" id="text-1-34">
+<p>
+(READ &amp;optional port)
+</p>
+
+<p>
+Reads an expression from the specified port. If no port is specified,
+the current input port is used. Returns the expression read or an object
+that satisfies the eof-object? predicate if it reaches the end of file
+on the port.
+</p>
+
+<p>
+(READ-DELIMITED-LIST ch &amp;optional port)
+</p>
+
+<p>
+Read expressions building a list until the first occurance of the
+specified character.  Return the resulting list.
+</p>
+
+<p>
+(SET-MACRO-CHARACTER! ch fun &amp;optional non-terminating? table)
+</p>
+
+<p>
+(GET-MACRO-CHARACTER ch &amp;optional table)
+</p>
+
+<p>
+(MAKE-DISPATCH-MACRO-CHARACTER ch &amp;optional non-terminating? table)
+</p>
+
+<p>
+(SET-DISPATCH-MACRO-CHARACTER dch ch fun &amp;optional table)
+</p>
+
+<p>
+(GET-DISPATCH-MACRO-CHARACTER dch ch &amp;optional table)
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-35" class="outline-3">
+<h3 id="sec-1-35"><span class="section-number-3">1.35</span> The Printer</h3>
+<div class="outline-text-3" id="text-1-35">
+<p>
+(WRITE expr &amp;optional port)
+</p>
+
+<p>
+Writes an expression to the specified port. If no port is specified, the
+current output port is used. The expression is written such that the
+READ function can read it back. This means that strings will be enclosed
+in quotes and characters will be printed with # notation.
+</p>
+
+<p>
+(WRITE-SIZE expr)
+</p>
+
+<p>
+Returns the number of characters in the printed representation of the
+specified object when printed by the function WRITE.
+</p>
+
+<p>
+(DISPLAY-SIZE expr)
+</p>
+
+<p>
+Returns the number of characters in the printed representation of the
+specified object when printed by the function DISPLAY.
+</p>
+
+<p>
+(DISPLAY expr &amp;optional port)
+</p>
+
+<p>
+Writes an expression to the specified port. If no port is specified, the
+current output port is used. The expression is written without any
+quoting characters. No quotes will appear around strings and characters
+are written without the # notation.
+</p>
+
+<p>
+(PRINT expr &amp;optional port)
+</p>
+
+<p>
+The same as (NEWLINE port) followed by (WRITE expr port).
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-36" class="outline-3">
+<h3 id="sec-1-36"><span class="section-number-3">1.36</span> Input/Output Functions</h3>
+<div class="outline-text-3" id="text-1-36">
+<p>
+(READ-LINE &amp;optional port)
+</p>
+
+<p>
+Read a line from the specified port (which defaults to the current input
+port).  Returns the line read as a string or nil if it reaches end of
+file on the port.
+</p>
+
+<p>
+(READ-CHAR &amp;optional port)
+</p>
+
+<p>
+Reads a character from the specified port. If no port is specified, the
+current input port is used. Returns the character read or an object that
+satisfies the default-object? predicate if it reaches the end of file on
+the port.
+</p>
+
+<p>
+(UNREAD-CHAR ch &amp;optional port)
+</p>
+
+<p>
+Unread the specified character.  This causes it to be the next character
+read from the port.  Only one character can be "unread" at a time.  This
+allows for a one character look ahead for parsers.
+</p>
+
+<p>
+(PEEK-CHAR &amp;optional port)
+</p>
+
+<p>
+Peek at the next character without actually reading it.
+</p>
+
+<p>
+(CHAR-READY? &amp;optional port)
+</p>
+
+<p>
+Returns #t if a character is ready on the specified port, #f if not.
+</p>
+
+<p>
+(CLEAR-INPUT &amp;optional port)
+</p>
+
+<p>
+Clears any buffered input on the specified port.
+</p>
+
+<p>
+(READ-BYTE &amp;optional port)
+</p>
+
+<p>
+Reads a byte from the specified port. If no port is specified, the
+current input port is used. Returns the byte read or an object that
+satisfies the default- object? predicate if it reaches the end of file
+on the port.
+</p>
+
+<p>
+(READ-SHORT &amp;optional port)
+(READ-SHORT-HIGH-FIRST &amp;optional port)
+(READ-SHORT-LOW-FIRST &amp;optional port)
+</p>
+
+<p>
+Read signed 16 bit value from the specified port in whatever byte order
+is native to the host machine.  Returns the 16 bit value or an object
+that satisfies the eof-object? predicate if it reaches the end of file
+on the port.  The -HIGH-FIRST and -LOW-FIRST forms read the high and low
+byte first respectively.
+</p>
+
+<p>
+(READ-LONG &amp;optional port)
+(READ-LONG-HIGH-FIRST &amp;optional port)
+(READ-LONG-LOW-FIRST &amp;optional port)
+</p>
+
+<p>
+Read signed 32 bit value from the specified port in whatever byte order
+is native to the host machine.  Returns the 32 bit value or an object
+that satisfies the eof-object? predicate if it reaches the end of file
+on the port. .  The -HIGH-FIRST and -LOW-FIRST forms read the high and
+low byte first respectively.
+</p>
+
+<p>
+(WRITE-CHAR ch &amp;optional port)
+</p>
+
+<p>
+Writes a character to the specified port. If no port is specified, the
+current output port is used.
+</p>
+
+<p>
+(WRITE-BYTE ch &amp;optional port)
+</p>
+
+<p>
+Writes a byte to the specified port. If no port is specified, the
+current output port is used.
+</p>
+
+<p>
+(WRITE-SHORT n &amp;optional port)
+(WRITE-SHORT-HIGH-FIRST n &amp;optional port)
+(WRITE-SHORT-LOW-FIRST n &amp;optional port)
+</p>
+
+<p>
+Write a signed 16 bit integer to the specified port.  If no port is
+specified, the current output port is used.  The -HIGH-FIRST and
+-LOW-FIRST forms write the high and low byte first respectively.
+</p>
+
+<p>
+(WRITE-LONG n &amp;optional port)
+(WRITE-LONG-HIGH-FIRST n &amp;optional port)
+(WRITE-LONG-LOW-FIRST n &amp;optional port)
+</p>
+
+<p>
+Write a signed 32 bit integer to the specified port.  If no port is
+specified, the current output port is used. .  The -HIGH-FIRST and
+-LOW-FIRST forms write the high and low byte first respectively.
+</p>
+
+
+<p>
+(NEWLINE &amp;optional port)
+</p>
+
+<p>
+Starts a new line on the specified port. If no port is specified, the
+current output port is used.
+</p>
+
+<p>
+(FRESH-LINE &amp;optional port)
+</p>
+
+<p>
+Starts a fresh line on the specified port.  If the output position is
+already at the start of the line, FRESH-LINE does nothing.  If no port
+is specified, the current output port is used.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-37" class="outline-3">
+<h3 id="sec-1-37"><span class="section-number-3">1.37</span> Format</h3>
+<div class="outline-text-3" id="text-1-37">
+<p>
+(FORMAT port str &amp;rest args)
+</p>
+
+<p>
+If port is #f, FORMAT collects its output into a string and returns the
+string.  If port is #t, FORMAT sends its output to the current output
+port.  Otherwise, port should be an output port.
+</p>
+
+<p>
+~S print argument as if with WRITE
+</p>
+
+<p>
+~A print argument as if with DISPLAY
+</p>
+
+<p>
+~X print argument as a hexadecimal number
+</p>
+
+<p>
+~% print as if with NEWLINE
+</p>
+
+<p>
+~&amp; print as if with FRESH-LINE
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-38" class="outline-3">
+<h3 id="sec-1-38"><span class="section-number-3">1.38</span> Output Control Functions</h3>
+<div class="outline-text-3" id="text-1-38">
+<p>
+(PRINT-BREADTH [n])
+</p>
+
+<p>
+Controls the maximum number of elements of a list that will be
+printed. If n is an integer, the maximum number is set to n. If it
+is #f, the limit is set to infinity. This is the default. If n is
+omitted from the call, the current value is returned.
+</p>
+
+<p>
+(PRINT-DEPTH [n])
+</p>
+
+<p>
+Controls the maximum number of levels of a nested list that will be
+printed. If n is an integer, the maximum number is set to n. If it
+is #f, the limit is set to infinity. This is the default. If n is
+omitted from the call, the current value is returned.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-39" class="outline-3">
+<h3 id="sec-1-39"><span class="section-number-3">1.39</span> File I/O Functions</h3>
+<div class="outline-text-3" id="text-1-39">
+<p>
+All four of the following OPEN functions take an optional argument to
+indicate that file I/O is to be done in binary mode. For binary files,
+this argument should be the symbol BINARY. For text files, the argument
+can be left out or the symbol TEXT can be supplied.
+</p>
+
+<p>
+(OPEN-INPUT-FILE str ['binary])
+</p>
+
+<p>
+Opens the file named by the string and returns an input port.
+</p>
+
+<p>
+(OPEN-OUTPUT-FILE str ['binary])
+</p>
+
+<p>
+Creates the file named by the string and returns an output port.
+</p>
+
+<p>
+(OPEN-APPEND-FILE str ['binary])
+</p>
+
+<p>
+Opens the file named by the string for appending returns an output port.
+</p>
+
+<p>
+(OPEN-UPDATE-FILE str ['binary])
+</p>
+
+<p>
+Opens the file named by the string for input and output and returns an
+input/output port.
+</p>
+
+<p>
+(FILE-MODIFICATION-TIME str)
+</p>
+
+<p>
+Returns the time the file named by the string was last modified.
+</p>
+
+<p>
+(PARSE-PATH-STRING str)
+</p>
+
+<p>
+Parses a path string and returns a list containing each path entry
+terminated by a path separator.
+</p>
+
+<p>
+(GET-FILE-POSITION port)
+</p>
+
+<p>
+Returns the current file position as an offset in bytes from the
+beginning of the file.
+</p>
+
+<p>
+(SET-FILE-POSITION! port offset whence)
+</p>
+
+<p>
+Sets the current file position as an offset in bytes from the beginning
+of the file (when whence equals 0), the current file position (when
+whence equals 1) or the end of the file (when whence equals 2). Returns
+the new file position as an offset from the start of the file.
+</p>
+
+<p>
+(CLOSE-PORT port)
+</p>
+
+<p>
+Closes any port.
+</p>
+
+<p>
+(CLOSE-INPUT-PORT port)
+</p>
+
+<p>
+Closes an input port.
+</p>
+
+<p>
+(CLOSE-OUTPUT-PORT port)
+</p>
+
+<p>
+Closes an output port.
+</p>
+
+<p>
+(CALL-WITH-INPUT-FILE str proc)
+</p>
+
+<p>
+Open the file whose name is specifed by str and call proc passing the
+resulting input port as an argument. When proc returns, close the file
+and return the value returned by proc as the result.
+</p>
+
+<p>
+(CALL-WITH-OUTPUT-FILE str proc)
+</p>
+
+<p>
+Create the file whose name is specifed by str and call proc passing the
+resulting output port as an argument. When proc returns, close the file
+and return the value returned by proc as the result.
+</p>
+
+<p>
+(CURRENT-INPUT-PORT)
+</p>
+
+<p>
+Returns the current input port.
+</p>
+
+<p>
+(CURRENT-OUTPUT-PORT)
+</p>
+
+<p>
+Returns the current output port.
+</p>
+
+<p>
+(CURRENT-ERROR-PORT)
+</p>
+
+<p>
+Returns the current error port.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-40" class="outline-3">
+<h3 id="sec-1-40"><span class="section-number-3">1.40</span> String Stream Functions</h3>
+<div class="outline-text-3" id="text-1-40">
+<p>
+(MAKE-STRING-INPUT-STREAM str)
+</p>
+
+<p>
+Make a stream that can be used to retrieve the characters in the
+specified string.  The returned stream can be used as an input port in
+any function that takes an input port as an argument.
+</p>
+
+<p>
+(MAKE-STRING-OUTPUT-STREAM)
+</p>
+
+<p>
+Make a stream that can be used as an output port in any function that
+takes an output port as an argument.  The stream accumulates characters
+until the GET-OUTPUT-STREAM-STRING function is called to retrieve them.
+</p>
+
+<p>
+(GET-OUTPUT-STREAM-STRING stream)
+</p>
+
+<p>
+Returns the contents of a string output stream as a string and clears
+the output stream.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-41" class="outline-3">
+<h3 id="sec-1-41"><span class="section-number-3">1.41</span> Control Features</h3>
+<div class="outline-text-3" id="text-1-41">
+<p>
+(EVAL expr [env])
+</p>
+
+<p>
+Evaluate the expression in the global environment and return its value.
+</p>
+
+<p>
+(APPLY proc args)
+</p>
+
+<p>
+Apply the procedure to the list of arguments and return the result.
+</p>
+
+<p>
+(MAP proc list&#x2026;)
+</p>
+
+<p>
+Apply the procedure to argument lists formed by taking corresponding
+elements from each list. Form a list from the resulting values and
+return that list as the result of the MAP call.
+</p>
+
+<p>
+(FOR-EACH fun list&#x2026;)
+</p>
+
+<p>
+Apply the procedure to argument lists formed by taking corresponding
+elements from each list. The values returned by the procedure
+applications are discarded. The value returned by FOR-EACH is
+unspecified.
+</p>
+
+<p>
+(CALL-WITH-CURRENT-CONTINUATION proc)
+(CALL/CC proc)
+</p>
+
+<p>
+Form an "escape procedure" from the current continuation and pass it as
+an argument to proc. Calling the escape procedure with a single argument
+will cause that argument to be passed to the continuation that was in
+effect when the CALL-WITH-CURRENT-CONTINUATION procedure was called.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-42" class="outline-3">
+<h3 id="sec-1-42"><span class="section-number-3">1.42</span> Environment Functions</h3>
+<div class="outline-text-3" id="text-1-42">
+<p>
+(THE-ENVIRONMENT)
+</p>
+
+<p>
+Returns the current environment.
+</p>
+
+<p>
+(PROCEDURE-ENVIRONMENT proc)
+</p>
+
+<p>
+Returns the environment from a procedure closure.
+</p>
+
+<p>
+(ENVIRONMENT-BINDINGS env)
+</p>
+
+<p>
+Returns an association list corresponding to the top most frame of the
+specified environment.
+</p>
+
+<p>
+(ENVIRONMENT-PARENT env)
+</p>
+
+<p>
+Returns the parent environment of the specified environment.
+</p>
+
+<p>
+(BOUND? symbol [env])
+</p>
+
+<p>
+Returns #t if the symbol is bound in the environment.
+</p>
+
+<p>
+(SYMBOL-VALUE symbol [env])
+</p>
+
+<p>
+Returns the value of a variable in an environment.
+</p>
+
+<p>
+(SET-SYMBOL-VALUE! symbol value [env])
+</p>
+
+<p>
+Sets the value of a symbol in an environment.  The result of the
+set-symbol-value! expression is unspecified.
+</p>
+
+<p>
+(EVAL expr [env])
+</p>
+
+<p>
+Evaluate the expression in the specified environment and return its value.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-43" class="outline-3">
+<h3 id="sec-1-43"><span class="section-number-3">1.43</span> Utility Functions</h3>
+<div class="outline-text-3" id="text-1-43">
+<p>
+(LOAD str)
+</p>
+
+<p>
+Read and evaluate each expression from the specified file.
+</p>
+
+<p>
+(LOAD-NOISILY str)
+</p>
+
+<p>
+Read and evaluate each expression from the specified file and print the
+results to the current output port.
+</p>
+
+<p>
+(LOAD-FASL-FILE str)
+</p>
+
+<p>
+Load a fasl file produced by COMPILE-FILE.
+</p>
+
+<p>
+(TRANSCRIPT-ON str)
+</p>
+
+<p>
+Opens a transcript file with the specified name and begins logging the
+interactive session to that file.
+</p>
+
+<p>
+(TRANSCRIPT-OFF)
+</p>
+
+<p>
+Closes the current transcript file.
+</p>
+
+<p>
+(COMPILE expr &amp;optional env)
+</p>
+
+<p>
+Compiles an expression in the specified environment and returns a thunk
+that when called causes the expression to be evaluated.  The environment
+defaults to the top level environment if not specified.
+</p>
+
+<p>
+(SAVE name)
+</p>
+
+<p>
+Saves the current workspace to a file with the specified name.  The
+workspace can later be reloaded using RESTORE.
+</p>
+
+<p>
+(RESTORE name)
+</p>
+
+<p>
+Restores a previously saved workspace from the file with the specified
+name.
+</p>
+
+<p>
+(GETARG n)
+</p>
+
+<p>
+Get the nth argument from the command line.  If there were fewer than n
+arguments, return nil.
+</p>
+
+<p>
+(GET-TIME)
+</p>
+
+<p>
+Get the current time in seconds.
+</p>
+
+<p>
+(GET-ENVIRONMENT-VARIABLE name)
+</p>
+
+<p>
+Get the value of the environment variable with the specified name.  The
+name should be a string.  Returns the value of the environment variable
+if it exists.  Otherwise, returns nil.
+</p>
+
+<p>
+(EXIT)
+(QUIT)
+</p>
+
+<p>
+Exits from XLISP back to the operating system.
+</p>
+
+<p>
+(GC [ni vi])
+</p>
+
+<p>
+Invokes the garbage collector and returns information on memory
+usage. If ni and vi are specified, they must be integers. Node and
+vector space are expanded by those amounts respectively and no garbage
+collection is triggered. GC returns an array of six values: the number
+of calls to the garbage collector, the total number of nodes, the
+current number of free nodes, the number of node segments, the number of
+vector segments and the total number of bytes allocated to the heap.
+</p>
+
+<p>
+(ROOM)
+</p>
+
+<p>
+Returns the same information as GC without actually invoking the garbage
+collector.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-44" class="outline-3">
+<h3 id="sec-1-44"><span class="section-number-3">1.44</span> Fast Loading</h3>
+<div class="outline-text-3" id="text-1-44">
+<p>
+(LOAD-FASL-FILE name)
+</p>
+
+<p>
+(FASL-WRITE-PROCEDURE proc &amp;optional port)
+</p>
+
+<p>
+(FASL-READ-PROCEDURE &amp;optional port)
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-45" class="outline-3">
+<h3 id="sec-1-45"><span class="section-number-3">1.45</span> C Records</h3>
+<div class="outline-text-3" id="text-1-45">
+<p>
+(DEFINE-CRECORD name (field-definition&#x2026;))
+</p>
+
+<p>
+Field definition:
+</p>
+
+<p>
+(field-name type &amp;optional size)
+</p>
+
+<p>
+Where type is:
+</p>
+
+<p>
+char, uchar, short, ushort, int, uint, long, ulong, str
+**
+(ALLOCATE-CMEMORY type size)
+</p>
+
+<p>
+(FREE-CMEMORY ptr)
+</p>
+
+<p>
+(FOREIGN-POINTER? ptr)
+</p>
+
+<p>
+(FOREIGN-POINTER-TYPE ptr)
+</p>
+
+<p>
+(SET-FOREIGN-POINTER-TYPE! ptr type)
+</p>
+
+<p>
+(FOREIGN-POINTER-TYPE? ptr type)
+</p>
+
+<p>
+(FOREIGN-POINTER-EQ? ptr1 ptr2)
+</p>
+
+<p>
+(GET-CRECORD-FIELD ptr offset type)
+</p>
+
+<p>
+(GET-CRECORD-FIELD-ADDRESS ptr offset type)
+</p>
+
+<p>
+(SET-CRECORD-FIELD! ptr offset type val)
+</p>
+
+<p>
+(GET-CRECORD-STRING ptr offset length)
+</p>
+
+<p>
+(SET-CRECORD-STRING! ptr offset length str)
+</p>
+
+<p>
+(GET-CRECORD-TYPE-SIZE type)
+<b>*
+*</b>
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-46" class="outline-3">
+<h3 id="sec-1-46"><span class="section-number-3">1.46</span> Debugging Functions</h3>
+<div class="outline-text-3" id="text-1-46">
+<p>
+(DECOMPILE proc &amp;optional port)
+</p>
+
+<p>
+Decompiles the specified bytecode procedure and displays the bytecode
+instructions to the specified port.  If not specified, the port defaults
+to the current output port.
+</p>
+
+<p>
+(INSTRUCTION-TRACE &amp;rest body)
+</p>
+
+<p>
+Enables bytecode level instruction tracing during the evaluation of the
+expressions in the body.
+</p>
+
+<p>
+(TRACE-ON)
+</p>
+
+<p>
+Starts bytecode instruction level tracing.
+</p>
+
+<p>
+(TRACE-OFF)
+</p>
+
+<p>
+Stops bytecode instruction level tracing.
+</p>
+
+<p>
+(SHOW-STACK &amp;optional n)
+</p>
+
+<p>
+Shows the call stack leading up to an error when invoked from a debug
+prompt.  Each line represents a procedure waiting for a value.  The line
+is displayed in the form of a function call with the procedure first
+followed by the actual values of the arguments that were passed to the
+procedure.  For method invocations, the method is first followed by the
+object receiving the message followed by the arguments.  N is the number
+of stack levels to display.  If unspecified, it defaults to 20.
+</p>
+
+<p>
+(SHOW-CONTROL-STACK &amp;optional n)
+</p>
+
+<p>
+Shows frames on the continuation stack.  N is the number of stack levels
+to display.  If unspecified, it defaults to 20.
+</p>
+
+<p>
+(SHOW-VALUE-STACK &amp;optional n)
+</p>
+
+<p>
+Shows frames on the value stack.  N is the number of stack levels to
+display.  If unspecified, it defaults to 20.
+</p>
+
+<p>
+(RESET)
+</p>
+
+<p>
+Returns to the top level read/eval/print loop.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-47" class="outline-3">
+<h3 id="sec-1-47"><span class="section-number-3">1.47</span> System Functions</h3>
+<div class="outline-text-3" id="text-1-47">
+<p>
+(%CAR pair)
+(%CDR pair)
+(%SET-CAR! pair expr)
+(%SET-CDR! pair expr)
+(%VECTOR-LENGTH vect)
+(%VECTOR-REF vect n)
+(%VECTOR-SET! vect n expr)
+</p>
+
+<p>
+These functions do the same as their counterparts without the leading
+'%' character. The difference is that they don't check the type of their
+first argument. This makes it possible to examine data structures that
+have the same internal representation as pairs and vectors. It is <b>very</b>
+dangerous to modify objects using these functions and there is no
+guarantee that future releases of XLISP will represent objects in the
+same way that the current version does.
+</p>
+
+<p>
+(%VECTOR-BASE vect)
+</p>
+
+<p>
+Returns the address of the base of the vector storage.
+</p>
+
+<p>
+(%ADDRESS-OF expr)
+</p>
+
+<p>
+Returns the address of the specified object in the heap.
+</p>
+
+<p>
+(%FORMAT-ADDRESS addr)
+</p>
+
+<p>
+Returns the address of an object as a string formated for output as a
+hex number.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-48" class="outline-3">
+<h3 id="sec-1-48"><span class="section-number-3">1.48</span> Object Representations</h3>
+<div class="outline-text-3" id="text-1-48">
+<p>
+This version of XLISP uses the following object representations:
+</p>
+
+<p>
+Closures are represented as pairs. The car of the pair is the compiled
+function and the cdr of the pair is the saved environment.
+</p>
+
+<p>
+Compiled functions are represented as vectors. The element at offset 0
+is the bytecode string. The element at offset 1 is the function
+name. The element at offset 2 is a list of names of the function
+arguments. The elements at offsets above 2 are the literals refered to
+by the compiled bytecodes.
+</p>
+
+<p>
+Environments are represented as lists of vectors. Each vector is an
+environment frame. The element at offset 0 is a list of the symbols that
+are bound in that frame. The symbol values start at offset 1.
+</p>
+
+<p>
+Objects are represented as vectors. The element at offset 0 is the class
+of the object. The remaining elements are the object's instance variable
+values.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: David Michael Betz</p>
+<p class="date">Created: 2013-10-25 Fri 07:14</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.0)</p>
+<p class="xhtml-validation"><a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a></p>
+</div>
+</body>
+</html>
