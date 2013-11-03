@@ -140,11 +140,11 @@ int xlDecodeInstruction(xlValue fptr,xlValue code,xlFIXTYPE lc,xlValue env)
 
     /* show the address and opcode */
     if ((tmp = xlGetCName(code)) == xlNil) {
-        sprintf(buf,xlAFMT,code); xlPutStr(fptr,buf);
-        sprintf(buf,":%04x %02x ",lc,*cp);
+        sprintf(buf,xlAFMT,(unsigned long)code); xlPutStr(fptr,buf);
+        sprintf(buf,":%04lx %02x ",lc,*cp);
     }
     else
-        sprintf(buf,"%s:%04x %02x ",xlGetString(xlGetPName(tmp)),lc,*cp);
+        sprintf(buf,"%s:%04lx %02x ",xlGetString(xlGetPName(tmp)),lc,*cp);
     xlPutStr(fptr,buf);
 
     /* display the operands */
@@ -261,7 +261,7 @@ int xlDecodeInstruction(xlValue fptr,xlValue code,xlFIXTYPE lc,xlValue env)
             }
             return n;
         }
-    
+
     /* unknown opcode */
     sprintf(buf,"      <UNKNOWN>");
     xlPutStr(fptr,buf);
@@ -272,13 +272,13 @@ int xlDecodeInstruction(xlValue fptr,xlValue code,xlFIXTYPE lc,xlValue env)
 static xlValue findenvname(xlValue env,int lev,int off)
 {
     xlValue names;
-    
+
     /* find the frame */
     while (env != xlNil && --lev >= 0)
         env = xlGetNextFrame(env);
     if (env == xlNil)
         return xlNil;
-    
+
     /* get the variable names for this frame */
     names = xlGetEnvNames(env);
 
@@ -299,7 +299,7 @@ static xlValue findivarname(xlValue env,int lev,int off)
         env = xlGetNextFrame(env);
     if (env == xlNil)
         return xlNil;
-    
+
     /* get the method's class */
     cls = xlGetEnvElement(xlGetNextFrame(env),xlFIRSTENV);
 
@@ -317,7 +317,7 @@ static xlValue findivarname(xlValue env,int lev,int off)
 
             /* get the instance variable names */
             names = xlGetIVar(cls,xlivIVARS);
-    
+
             /* compute the local offset */
             off -= ivstart;
 
@@ -330,7 +330,7 @@ static xlValue findivarname(xlValue env,int lev,int off)
         /* try the superclass */
         cls = xlGetIVar(cls,xlivSUPERCLASS);
     }
-    
+
     /* not found */
     return xlNil;
 }

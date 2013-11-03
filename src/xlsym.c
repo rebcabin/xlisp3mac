@@ -30,7 +30,7 @@ static xlUFIXTYPE hashstr(char *str,xlFIXTYPE len);
 void xlInitPackages(void)
 {
     xlValue key;
-    
+
     /* create the LISP package */
     xlLispPackage = xlNewPackage("LISP");
     s_package = xlInternCString("*PACKAGE*",xlLispPackage,&key);
@@ -39,7 +39,7 @@ void xlInitPackages(void)
 
     /* create the XLISP package */
     xlXLispPackage = xlNewPackage("XLISP");
-    
+
     /* create keyword packages */
     xlKeywordPackage = xlNewPackage("KEYWORD");
 }
@@ -363,11 +363,12 @@ xlEXPORT void xlRemProp(xlValue sym,xlValue prp)
     xlValue last,p;
     last = xlNil;
     for (p = xlGetPList(sym); xlConsP(p) && xlConsP(xlCdr(p)); p = xlCdr(last)) {
-        if (xlCar(p) == prp)
+        if (xlCar(p) == prp) {
             if (last != xlNil)
                 xlSetCdr(last,xlCdr(xlCdr(p)));
             else
                 xlSetPList(sym,xlCdr(xlCdr(p)));
+        }
         last = xlCdr(p);
     }
 }

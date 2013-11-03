@@ -1,0 +1,2351 @@
+
+ext/ext.c,82
+#define EXPORT 17,286
+EXPORT int initialize(24,435
+static xlValue myadd(31,550
+
+include/xledit.h,603
+#define __XLEDIT__8,221
+#define xlEditMax 13,287
+#define xlEBKC_LEFT_ARROW 16,397
+#define xlEBKC_RIGHT_ARROW 17,436
+#define xlEBKC_UP_ARROW 18,475
+#define xlEBKC_DOWN_ARROW 19,514
+typedef struct xlEditWindow xlEditWindow;22,568
+typedef struct xlEditBuffer xlEditBuffer;23,611
+typedef struct xlBufferPointer xlBufferPointer;24,654
+struct xlEditWindow 27,729
+struct xlEditBuffer 52,1705
+struct xlBufferPointer 63,1887
+#define xlBufferGetOffset(71,2020
+#define xlBufferSetOffset(72,2071
+#define xlBufferGetLineNumber(73,2128
+#define xlBufferSetLineNumber(74,2183
+} xlEditCallbacks;85,2683
+
+include/xlisp.h,9153
+#define __XLISP_H__8,214
+#define xlNil 32,1147
+#define xlAFMT 36,1244
+#define xlOFFTYPE 37,1275
+#define xlADDR3238,1305
+#define MACINTOSH39,1323
+#define xlAFMT 48,1475
+#define xlOFFTYPE 49,1506
+#define xlAFMT 54,1609
+#define xlOFFTYPE 55,1640
+#define MSDOS61,1747
+#define xlSEGADDR63,1770
+#define MSDOS69,1871
+#define xlSEGADDR71,1894
+#define xlADDR3276,1993
+#define xlADDR3281,2073
+#define MSDOS 87,2163
+#define xlSEGADDR89,2190
+#define xlSTACKSIZE 91,2229
+#define xlADDR3296,2320
+#define MSDOS98,2353
+#define xlADDR32104,2440
+#define MSDOS106,2473
+#define xlAFMT 112,2552
+#define xlOFFTYPE 113,2583
+#define xlINSEGMENT(118,2692
+#define xlVCOMPARE(119,2776
+#define xlVSFREE(120,2851
+#define xlNSSIZE 126,3026
+#define xlNSSIZE 128,3064
+#define xlVSSIZE 133,3197
+#define xlVSSIZE 135,3236
+#define xlAFMT 141,3338
+#define xlOFFTYPE 144,3395
+#define xlFIXTYPE 147,3451
+typedef unsigned long   xlUFIXTYPE;148,3481
+#define xlICNV(151,3542
+#define xlIFMT 154,3599
+#define xlXFMT 157,3654
+#define xlFLOTYPE 160,3712
+#define xlFFMT 163,3768
+#define xlSFIXMIN 166,3828
+#define xlSFIXMAX 167,3866
+#define xlCHRTYPE 170,3930
+#define xlINSEGMENT(173,3988
+#define xlVCOMPARE(177,4142
+#define xlVSFREE(180,4229
+#define xlSTACKSIZE 183,4312
+#define xlEXPORT187,4397
+#define xlEXPORT 192,4526
+#define xlEXPORT 194,4576
+#define xlEXPORT197,4634
+#define xlEXPORT200,4667
+#define TRUE 207,4751
+#define FALSE 208,4770
+#define xlSTRMAX 212,4821
+#define xlHSIZE 213,4902
+#define xlSRATE 214,4972
+#define xlCheck(217,5090
+#define xlCPush(221,5263
+#define xlPush(225,5418
+#define xlPop(226,5459
+#define xlTop(227,5494
+#define xlSetTop(228,5527
+#define xlDrop(229,5566
+#define xlCtlCheck(232,5648
+#define xlCtlPush(236,5822
+#define xlCtlPop(237,5864
+#define xlCtlDrop(238,5900
+#define xlGetArg(241,5978
+#define xlLastArg(242,6026
+#define xlPopArgs(246,6193
+#define xlTestArg(247,6233
+#define xlTypeArg(248,6293
+#define xlNextArg(249,6363
+#define xlMoreArgsP(250,6408
+#define xlGetArgCons(253,6500
+#define xlGetArgList(254,6563
+#define xlGetArgSymbol(255,6626
+#define xlGetArgString(256,6691
+#define xlGetArgFixnum(257,6756
+#define xlGetArgFlonum(258,6821
+#define xlGetArgNumber(259,6886
+#define xlGetArgChar(260,6951
+#define xlGetArgVector(261,7019
+#define xlGetArgPort(262,7084
+#define xlGetArgInputPort(263,7147
+#define xlGetArgOutputPort(264,7215
+#define xlGetArgFStream(265,7284
+#define xlGetArgUnnamedStream(266,7353
+#define xlGetArgClosure(267,7425
+#define xlGetArgEnv(268,7491
+#define xlGetArgObject(269,7561
+#define xlGetArgForeignPtr(270,7626
+#define xlGetArgTable(271,7695
+#define xlFREE 274,7779
+#define xlCONS 275,7806
+#define xlSYMBOL 276,7833
+#define xlFIXNUM 277,7860
+#define xlFLONUM 278,7887
+#define xlSTRING 279,7914
+#define xlFSTREAM 280,7941
+#define xlUSTREAM 281,7992
+#define xlOSTREAM 282,8046
+#define xlVECTOR 283,8099
+#define xlCLOSURE 284,8126
+#define xlCODE 285,8154
+#define xlSUBR 286,8182
+#define xlXSUBR 287,8210
+#define xlCONTINUATION 288,8238
+#define xlCHARACTER 289,8266
+#define xlPROMISE 290,8294
+#define xlENV 291,8322
+#define xlSENV 292,8378
+#define xlMSENV 293,8456
+#define xlMENV 294,8543
+#define xlSMENV 295,8601
+#define xlOBJECT 296,8686
+#define xlPACKAGE 297,8714
+#define xlFOREIGNPTR 298,8742
+#define xlTABLE 299,8797
+#define xlMAXTYPEID 300,8825
+#define xlMARK 305,8963
+#define xlLEFT 306,8990
+#define xlpfINPUT 309,9037
+#define xlpfOUTPUT 310,9069
+#define xlpfBINARY 311,9101
+#define xlpfTERMINAL 312,9133
+#define xlpfBOL 313,9165
+#define xlNodeType(316,9229
+#define xlTypeIs(317,9306
+#define xlPointerTypeIs(318,9378
+#define xlPointerP(321,9490
+#define xlAtomP(324,9618
+#define xlNullP(325,9689
+#define xlListP(326,9733
+#define xlNumberP(327,9804
+#define xlBoundP(328,9908
+#define xlPortP(329,9972
+#define xlInputPortP(333,10204
+#define xlOutputPortP(334,10283
+#define xlConsP(337,10422
+#define xlStringP(338,10478
+#define xlSymbolP(339,10536
+#define xlFileStreamP(340,10594
+#define xlUnnamedStreamP(341,10653
+#define xlObjectStreamP(342,10712
+#define xlFixnumP(343,10771
+#define xlFlonumP(344,10829
+#define xlVectorP(345,10887
+#define xlClosureP(346,10945
+#define xlContinuationP(347,11004
+#define xlCodeP(348,11068
+#define xlSubrP(349,11124
+#define xlXSubrP(350,11180
+#define xlCharacterP(351,11237
+#define xlPromiseP(352,11298
+#define xlEnvironmentP(353,11357
+#define xlStackEnvironmentP(358,11665
+#define xlMovedStackEnvironmentP(361,11849
+#define xlMethodEnvironmentP(362,11906
+#define xlObjectP(365,12090
+#define xlBooleanP(366,12148
+#define xlPackageP(367,12228
+#define xlForeignPtrP(368,12287
+#define xlTableP(369,12349
+#define xlCar(372,12434
+#define xlCdr(373,12489
+#define xlSetCar(374,12544
+#define xlSetCdr(375,12605
+#define xlGetNames(378,12697
+#define xlSetNames(379,12748
+#define xlGetExtern(380,12801
+#define xlSetExtern(381,12852
+#define xlGetIntern(382,12905
+#define xlSetIntern(383,12956
+#define xlGetUses(384,13009
+#define xlSetUses(385,13060
+#define xlGetUsedBy(386,13113
+#define xlSetUsedBy(387,13164
+#define xlGetNextPackage(388,13217
+#define xlSetNextPackage(389,13268
+#define xlPACKAGESIZE 390,13321
+#define xlGetValue(393,13386
+#define xlSetValue(394,13437
+#define xlGetPName(395,13490
+#define xlSetPName(396,13541
+#define xlGetPList(397,13594
+#define xlSetPList(398,13645
+#define xlGetPackage(399,13698
+#define xSetPackage(400,13749
+#define xlSYMBOLSIZE 401,13802
+#define xlGetSize(404,13867
+#define xlSetSize(405,13925
+#define xlGetElement(406,13989
+#define xlSetElement(407,14050
+#define xlGetVector(411,14269
+#define xlSetVector(412,14327
+#define xlGetFrameType(415,14426
+#define xlSetFrameType(416,14471
+#define xlGetEnvSize(417,14522
+#define xlSetEnvSize(418,14568
+#define xlGetNextFrame(419,14632
+#define xlSetNextFrame(420,14683
+#define xlGetEnvNames(421,14736
+#define xlSetEnvNames(422,14787
+#define xlGetEnvElement(423,14840
+#define xlSetEnvElement(424,14891
+#define xlFIRSTENV 425,14944
+#define xlGetForwardingAddr(428,15026
+#define xlSetForwardingAddr(429,15077
+#define xlGetClass(432,15161
+#define xlSetClass(433,15215
+#define xlGetIVar(434,15271
+#define xlSetIVar(435,15325
+#define xlFIRSTIVAR 436,15381
+#define xlivNAME 439,15473
+#define xlivMESSAGES 440,15539
+#define xlivIVARS 441,15611
+#define xlivCVARS 442,15698
+#define xlivSUPERCLASS 443,15784
+#define xlivIVARCNT 444,15865
+#define xlivIVARTOTAL 445,15955
+#define xlCLASSSIZE 448,16105
+#define xlGetPProc(451,16163
+#define xlSetPProc(452,16205
+#define xlGetPValue(453,16252
+#define xlSetPValue(454,16294
+#define xlGetCode(457,16372
+#define xlGetEnvironment(458,16414
+#define xlGetBCode(461,16484
+#define xlSetBCode(462,16535
+#define xlGetCName(463,16588
+#define xlSetCName(464,16639
+#define xlGetVNames(465,16692
+#define xlSetVNames(466,16743
+#define xlGetCodeStr(467,16796
+#define xlFIRSTLIT 468,16875
+#define xlGetFixnum(471,16957
+#define xlGetFlonum(473,17108
+#define xlGetChCode(474,17161
+#define xlFastMakeFixnum(477,17250
+#define xlMakeSmallFixnum(479,17401
+#define xlGetSmallFixnum(480,17473
+#define xlSmallFixnumP(481,17541
+#define xlGetString(484,17651
+#define xlGetSLength(485,17717
+#define xlSetSLength(486,17763
+#define xlGetFile(489,17858
+#define xlGetUStream(490,17915
+#define xlGetSObject(491,17973
+#define xlGetSData(492,18031
+#define xlSetSData(493,18089
+#define xlGetSaveCh(494,18161
+#define xlSetSaveCh(495,18221
+#define xlGetPFlags(496,18287
+#define xlSetPFlags(497,18347
+#define xlGetStrHead(500,18451
+#define xlSetStrHead(501,18516
+#define xlGetStrTail(502,18583
+#define xlSetStrTail(503,18648
+#define xlGetStrIPtr(504,18715
+#define xlSetStrIPtr(505,18780
+#define xlGetStrOPtr(506,18847
+#define xlSetStrOPtr(507,18912
+#define xlUSTRSIZE 508,18979
+#define xlUSTRBUFSIZE 509,19014
+#define xlGetSubr(512,19080
+#define xlGetSubrName(513,19136
+#define xlGetFPType(516,19231
+#define xlSetFPType(517,19293
+#define xlGetFPtr(518,19361
+#define xlSetFPtr(519,19422
+typedef struct xlNode xlNode,522,19513
+typedef struct xlNode xlNode,*xlValue;xlValue522,19513
+struct xlNode 523,19553
+    union xlNodeValue 526,19663
+#define xlPPBSIZE 557,20980
+typedef struct xlProtectedPtrBlk 559,21011
+} xlProtectedPtrBlk;564,21156
+#define xlNSegSize(567,21227
+#define xlVSegSize(568,21303
+#define xlByteToWordSize(571,21435
+#define xlNODEWORDS 574,21568
+typedef struct xlNodeSegment xlNodeSegment;577,21658
+struct xlNodeSegment 578,21703
+typedef struct xlVectorSegment xlVectorSegment;585,21945
+struct xlVectorSegment 586,21994
+} xlSubrDef;619,23425
+} xlXSubrDef;625,23535
+} xlCDispatch;635,23824
+#define xlCDRestore(638,23900
+#define xlCDMark(639,23972
+#define xlCDUnmark(640,24043
+#define xlCDUnwind(641,24116
+#define xlCDUnstack(642,24187
+#define xlCDPrint(643,24261
+#define xlSVReturn(646,24364
+#define xlMVReturn(651,24561
+} xlCContinuation;666,25270
+typedef struct xlErrorTarget 669,25322
+} xlErrorTarget;672,25408
+} xlCallbacks;689,25947
+#define xlsSuccess 724,27261
+#define xlsEndOfFile 725,27288
+#define xlsError 726,27316
+
+src/msstuff.c,971
+#define LBSIZE 16,359
+static xlValue s_usestdio 23,482
+static char progpath[progpath24,517
+static char lbuf[lbuf25,555
+static int lpos[lpos26,584
+static int lindex;27,610
+static int lcount 28,630
+static int lposition;29,654
+xlSubrDef xlosSubrTab[xlosSubrTab35,774
+xlXSubrDef xlosXSubrTab[xlosXSubrTab40,902
+static char *osloadpath(osloadpath44,985
+static char *osparsepath(osparsepath53,1170
+static int osdirectoryseparator(76,1754
+static void osexit(82,1851
+static xlValue (*osfindsubr(osfindsubr88,1949
+static void oserror(94,2063
+static int osfmodtime(100,2194
+static int ostgetc(109,2444
+static void ostputc(174,3972
+static int ostatbol(203,4575
+static void ostflush(209,4688
+static int ostcheck(215,4826
+static void osflushoutput(224,5027
+static int xgetc(229,5130
+static void xputc(237,5275
+static xlValue xsystem(243,5368
+static xlValue xloadlibrary(253,5615
+xlEXPORT xlCallbacks *xlDefaultCallbacks(xlDefaultCallbacks275,6206
+
+src/unstuff.c,776
+#define LBSIZE 18,436
+static char *progpath progpath20,500
+static int lposition;21,528
+xlSubrDef xlosSubrTab[xlosSubrTab41,1054
+xlXSubrDef xlosXSubrTab[xlosXSubrTab48,1195
+static char *osloadpath(osloadpath52,1278
+static char *osparsepath(osparsepath61,1463
+static int osdirectoryseparator(84,2041
+static void osexit(90,2137
+static xlValue (*osfindsubr(osfindsubr96,2235
+static void oserror(102,2349
+static int osfmodtime(108,2480
+static int ostgetc(117,2730
+static void ostputc(123,2836
+static int ostatbol(133,3018
+static void ostflush(139,3131
+static int ostcheck(144,3231
+static void osflushoutput(150,3328
+static xlValue xsystem(155,3411
+static xlValue xloadlibrary(166,3690
+xlEXPORT xlCallbacks *xlDefaultCallbacks(xlDefaultCallbacks189,4280
+
+src/xlansi.c,592
+static long rseed 10,240
+xlEXPORT void xlosSetRand(13,311
+xlEXPORT long xlosRand(19,435
+xlEXPORT FILE *xlosOpenText(xlosOpenText36,895
+xlEXPORT FILE *xlosOpenBinary(xlosOpenBinary42,1028
+xlEXPORT int xlosClose(50,1219
+xlEXPORT long xlosTell(56,1333
+xlEXPORT int xlosSeek(62,1446
+xlEXPORT size_t xlosReadFile(68,1586
+xlEXPORT size_t xlosWriteFile(74,1746
+xlEXPORT void xlosCheck(80,1934
+xlEXPORT void xlosInfo(105,2552
+xlEXPORT time_t xlosTime(114,2805
+xlEXPORT void *xlosAlloc(xlosAlloc120,2901
+xlEXPORT void xlosFree(126,3017
+xlEXPORT char *xlosGetEnv(xlosGetEnv132,3137
+
+src/xlapi.c,838
+static void *idleData;idleData11,287
+xlEXPORT void xlSetSoftwareType(20,568
+xlEXPORT int xlCallFunction(26,720
+xlEXPORT int xlCallFunctionByName(61,1642
+xlEXPORT int xlSendMessage(101,2723
+xlEXPORT int xlSendMessageByName(139,3728
+xlEXPORT int xlEvaluateCString(178,4805
+xlEXPORT int xlEvaluateString(184,5014
+xlEXPORT int xlReadFromCString(194,5326
+xlEXPORT int xlReadFromString(200,5513
+xlEXPORT int xlLoadFile(225,6109
+xlEXPORT FILE *xlLoadOpen(xlLoadOpen250,6690
+xlEXPORT int xlEvaluate(297,8101
+xlEXPORT char *xlWriteToString(xlWriteToString304,8355
+xlEXPORT char *xlDisplayToString(xlDisplayToString310,8538
+static char *PrintToString(PrintToString316,8720
+xlEXPORT void xlFreeString(365,9851
+xlEXPORT xlValue xlGetArgInstance(371,9974
+xlEXPORT void xlSetIdleHandler(380,10228
+xlEXPORT int xlIdle(387,10392
+
+src/xlbcode.h,1420
+#define __XLBCODE_H__8,237
+#define xlopNOP 10,262
+#define xlopBRT 11,305
+#define xlopBRF 12,359
+#define xlopBR 13,414
+#define xlopLIT 14,476
+#define xlopGREF 15,528
+#define xlopGSET 16,587
+#define xlopEREF 17,650
+#define xlopIREF 18,716
+#define xlopESET 19,802
+#define xlopISET 20,872
+#define xlopCALL 21,962
+#define xlopTCALL 22,1017
+#define xlopRETURN 23,1076
+#define xlopT 24,1138
+#define xlopNIL 25,1195
+#define xlopPUSH 26,1254
+#define xlopCLOSE 27,1317
+#define xlopARGSEQ 29,1375
+#define xlopARGSGE 30,1449
+#define xlopARGSBT 31,1525
+#define xlopOPTARG 32,1609
+#define xlopREST 33,1680
+#define xlopKEYARG 34,1758
+#define xlopATOM 36,1825
+#define xlopEQ 37,1879
+#define xlopNULL 38,1932
+#define xlopCONS 39,1996
+#define xlopCAR 40,2040
+#define xlopCDR 41,2083
+#define xlopSETCAR 42,2126
+#define xlopSETCDR 43,2174
+#define xlopDELAY 44,2222
+#define xlopADD 46,2280
+#define xlopSUB 47,2347
+#define xlopMUL 48,2419
+#define xlopQUO 49,2491
+#define xlopLSS 50,2561
+#define xlopEQL 51,2610
+#define xlopGTR 52,2658
+#define xlopFRAME 54,2712
+#define xlopUNFRAME 55,2782
+#define xlopMETHOD 56,2849
+#define xlopMVFRAME 58,2931
+#define xlopMVPUSH 59,3012
+#define xlopMVCALL 60,3072
+#define xlopMVTCALL 61,3148
+#define xlopMVPOP 62,3209
+#define xlopCATCH 64,3270
+#define xlopUNCATCH 65,3335
+#define xlopPROTECT 66,3399
+#define xlopUNPROTECT 67,3459
+#define xlopENV 69,3520
+
+src/xlbuffer.c,842
+xlEXPORT xlEditBuffer *xlMakeBuffer(xlMakeBuffer14,398
+xlEXPORT void xlFreeBuffer(34,922
+xlEXPORT xlBufferPointer *xlMakeBufferPointer(xlMakeBufferPointer46,1208
+xlEXPORT void xlCopyBufferPointer(60,1595
+xlEXPORT void xlFreeBufferPointer(67,1804
+xlEXPORT void xlDeleteRange(79,2147
+static void UpdateBufferPointers(96,2667
+xlEXPORT int xlBufferGetC(108,3092
+xlEXPORT int xlBufferPutC(122,3402
+xlEXPORT int xlBufferNextC(144,4020
+xlEXPORT int xlBufferPrevC(159,4379
+xlEXPORT int xlBufferNextL(174,4735
+xlEXPORT int xlBufferPrevL(190,5202
+xlEXPORT int xlBufferDeleteC(210,5835
+xlEXPORT void xlBufferSetPosition(229,6389
+xlEXPORT void xlBufferGetPosition(256,7098
+xlEXPORT int xlBufferFindLine(275,7544
+xlEXPORT void xlBufferGetLine(303,8203
+xlEXPORT long xlBufferGetLineOffset(325,8765
+xlEXPORT int xlBufferAtEOF(340,9146
+
+src/xlbuffer.h,71
+#define __XLBUFFER_H__4,73
+#define TRUE	10,151
+#define FALSE	11,167
+
+src/xlcom.c,3156
+#define CMAX 11,274
+#define C_RETURN 14,325
+#define C_NEXT 15,353
+#define lambdakey(18,431
+#define slambdakey(26,758
+xlEXPORT int xlDebugModeP 30,875
+static xlValue info;37,1074
+static unsigned char *cbuff cbuff40,1148
+static int cbase;41,1215
+static int cptr;42,1288
+typedef struct { char *nt_name; int nt_code,nt_args; } NTDEF;116,4905
+static NTDEF ntab[ntab117,4968
+static NTDEF ntab2[ntab2138,6037
+typedef struct { char *ft_name; void (*ft_fcn)(xlValue,int); } FTDEF;144,6164
+static FTDEF ftab[ftab145,6235
+xlValue xlCompile(171,7574
+xlValue xlCompileMethod(202,8448
+static void do_expr(224,9142
+static int in_ntab(241,9574
+static int in_ftab(261,10205
+static void do_define(274,10585
+static void define1(282,10817
+static void do_setq(310,11643
+static void do_setvar(328,12200
+static void do_quote(351,12809
+static void do_lambda(359,13031
+static void do_namedlambda(368,13308
+static void do_method(379,13712
+static void cd_fundefinition(404,14462
+static void parse_lambda_expr(426,15045
+static int count_arguments(521,17965
+static void add_extra_arguments(625,21198
+static void parse_optional_arguments(718,24303
+static void parse_optional_argument(785,26284
+static void parse_key_arguments(812,27263
+static void parse_key_argument(870,28941
+static void parse_aux_arguments(916,30635
+static void parse_aux_argument(947,31486
+static void add_argument_name(965,32032
+static void patch_argument_name(989,32748
+static int get_argument_offset(1009,33360
+static void do_delay(1017,33549
+static void do_let(1050,34372
+static void do_named_let(1062,34684
+static xlValue extract_let_variables(1121,36397
+static void do_unnamed_let(1148,37171
+static void do_letrec(1175,37904
+static void do_letstar(1205,38734
+static void letstar1(1221,39211
+static int push_dummy_values(1255,40132
+static int push_init_expressions(1267,40444
+static void generate_let_setup_code(1283,40920
+static void parse_let_variables(1294,41231
+static void set_bound_variables(1327,42177
+static void do_mvbind(1342,42760
+static xlValue make_code_object(1406,44657
+static void do_cond(1431,45540
+static void do_and(1459,46356
+static void do_or(1480,46887
+static void do_if(1501,47419
+static void do_begin(1547,48572
+static void do_while(1562,48980
+static void do_catch(1594,49768
+static void do_unwindprotect(1621,50453
+static void do_call(1644,51112
+static void do_mvcall(1660,51498
+static int push_args(1680,52143
+static void do_nary(1693,52434
+static void push_nargs(1705,52756
+static void do_literal(1719,53127
+static void do_identifier(1726,53276
+static void do_continuation(1739,53637
+static void add_frame(1751,53860
+static void remove_frame(1757,54005
+static int add_level(1763,54133
+static void remove_level(1782,54548
+static int findvariable(1796,54891
+static int findcvariable(1807,55278
+static int findliteral(1822,55818
+static void cd_variable(1847,56498
+static void cd_evariable(1854,56667
+static void cd_literal(1862,56832
+static int nextcaddr(1875,57112
+static int putcbyte(1881,57224
+static int putcword(1892,57463
+static void fixup(1901,57616
+xlEXPORT xlFIXTYPE xlLength(1915,57991
+
+src/xldbg.c,607
+#define FMT_NONE 11,272
+#define FMT_BYTE 12,299
+#define FMT_2BYTE 13,326
+#define FMT_LOFF 14,353
+#define FMT_WORD 15,380
+#define FMT_EOFF 16,407
+#define FMT_IOFF 17,434
+#define FMT_OPTARG 18,461
+#define FMT_KEYARG 19,488
+#define FMT_FRAME 20,515
+#define FMT_MVFRAME 21,542
+#define FMT_FOFF 22,570
+#define FMT_ARGS 23,598
+#define FMT_ARGS2 24,626
+typedef struct { int ot_code; char *ot_name; int ot_fmt; } OTDEF;26,656
+static OTDEF otab[otab27,723
+void xlDecodeProcedure(95,4196
+int xlDecodeInstruction(127,5302
+static xlValue findenvname(272,10485
+static xlValue findivarname(292,11053
+
+src/xldmem.c,3028
+#undef DEBUG_GC9,239
+xlEXPORT xlValue xlFun;12,291
+xlEXPORT xlValue xlEnv;13,347
+xlEXPORT xlValue xlVal;14,406
+xlEXPORT xlValue *xlSP;xlSP15,478
+xlEXPORT xlValue *xlCSP;xlCSP16,537
+xlEXPORT xlValue xlTrue;19,624
+xlEXPORT xlValue xlFalse;20,650
+xlEXPORT xlValue xlNil;22,692
+xlEXPORT xlValue *xlStkBase;xlStkBase26,747
+xlEXPORT xlValue *xlStkTop;xlStkTop27,814
+xlFIXTYPE xlTotal;30,915
+xlFIXTYPE xlGCCalls;31,993
+xlProtectedPtrBlk *xlPPointers;xlPPointers34,1093
+xlFIXTYPE xlNSSize 35,1151
+xlNodeSegment *xlNSegments;xlNSegments36,1218
+xlNodeSegment *xlNSLast;xlNSLast37,1279
+int xlNSCount;38,1336
+xlFIXTYPE xlNNodes;39,1399
+xlFIXTYPE xlNFree;40,1460
+xlValue xlFNodes;41,1528
+xlFIXTYPE xlVSSize 44,1621
+xlVectorSegment *xlVSegments;xlVSegments45,1695
+xlVectorSegment *xlVSCurrent;xlVSCurrent46,1758
+int xlVSCount;47,1820
+xlValue *xlVFree;xlVFree48,1885
+xlValue *xlVTop;xlVTop49,1959
+xlEXPORT xlValue xlCons(71,2758
+xlEXPORT xlValue xlNewFrame(100,3415
+xlEXPORT xlValue xlMakeString(110,3669
+xlEXPORT xlValue xlMakeCString(118,3893
+xlEXPORT xlValue xlCopyString(127,4115
+xlEXPORT xlValue xlMakeFileStream(133,4291
+xlEXPORT xlValue xlMakeUnnamedStream(141,4515
+xlEXPORT xlValue xlMakeObjectStream(155,4878
+xlEXPORT xlValue xlMakeSymbol(163,5091
+xlEXPORT xlValue xlMakeFixnum(175,5402
+xlEXPORT xlValue xlMakeFlonum(186,5686
+xlEXPORT xlValue xlMakeChar(195,5892
+xlEXPORT xlValue xlMakeClosure(204,6104
+xlEXPORT xlValue xlMakePromise(213,6318
+xlEXPORT xlValue xlMakeSubr(222,6546
+xlEXPORT xlValue xlMakeXSubr(232,6817
+xlEXPORT xlValue xlNewVector(242,7112
+xlEXPORT xlValue xlNewTable(249,7335
+xlEXPORT xlValue xlNewString(256,7558
+xlEXPORT xlValue xlNewPackage(267,7942
+xlEXPORT xlValue xlNewCode(285,8519
+xlEXPORT xlValue xlNewContinuation(291,8671
+xlEXPORT xlValue xlNewStream(297,8835
+xlEXPORT xlValue xlNewUStream(306,9055
+xlEXPORT xlValue xlMakeForeignPtr(320,9498
+static xlValue allocnode(331,9747
+static void findmemory(355,10315
+int xlNExpand(370,10717
+static xlValue allocvector(390,11234
+int xlCheckVMemory(438,12479
+static int findvmemory(454,13001
+int xlMakeVMemory(468,13366
+int xlVExpand(474,13506
+xlNodeSegment *xlNewNSegment(xlNewNSegment490,13916
+xlVectorSegment *xlNewVSegment(xlNewVSegment518,14584
+xlEXPORT void xlGC(541,15157
+    for (p = xlCSP; p > xlStkBase;555,15436
+        p 556,15474
+    for (p = xlSP; p < xlStkTop;569,15775
+    for (p = xlCSP; p > xlStkBase;573,15870
+        p 574,15908
+    for (ppb = xlPPointers; ppb != NULL; ppb 577,15971
+    ++xlGCCalls;xlGCCalls597,16471
+void xlMark(601,16534
+static void markvector(709,19977
+static void markcontinuation(719,20249
+static void compact(742,20872
+static void compact_vector(762,21430
+static void sweep(790,22215
+static void sweep_segment(804,22525
+static void freeforeignptr(837,23505
+xlEXPORT int xlProtect(852,23911
+xlEXPORT int xlUnprotect(889,24923
+char *xlCopyCString(xlCopyCString909,25460
+void xlInitMemory(917,25656
+void xlResetStack(959,26745
+
+src/xledit.c,1578
+static xlEditCallbacks *callbacks;callbacks13,305
+xlEXPORT void xlSetEditCallbacks(31,1230
+xlEXPORT xlEditCallbacks *xlDefaultEditCallbacks(xlDefaultEditCallbacks37,1379
+xlEXPORT xlEditWindow *xlMakeEditWindow(xlMakeEditWindow61,2255
+xlEXPORT void xlEditWindowSetup(97,3418
+xlEXPORT void xlFreeEditWindow(128,4309
+xlEXPORT void xlEditWindowBufferC(136,4538
+xlEXPORT void xlEditWindowStuffBuffer(146,4835
+xlEXPORT int xlEditWindowGetC(159,5236
+xlEXPORT int xlEditWindowPutC(173,5619
+static void xlEditWindowScroll(192,6146
+xlEXPORT int xlEditWindowNextC(221,6971
+xlEXPORT int xlEditWindowPrevC(238,7483
+xlEXPORT int xlEditWindowNextL(255,7971
+xlEXPORT int xlEditWindowPrevL(274,8552
+xlEXPORT int xlEditWindowDeleteC(293,9149
+static void xlEditWindowClearInputBuffer(309,9634
+static void xlEditWindowScrollToCursor(316,9859
+xlEXPORT void xlEditWindowScrollToLine(325,10172
+static void xlEditWindowRedrawCurrentLine(350,10887
+xlEXPORT void xlEditWindowRedraw(364,11380
+xlEXPORT int xlEditWindowFindLine(388,12120
+xlEXPORT void xlEditWindowSetCursorPosition(397,12436
+xlEXPORT int xlEditWindowGetCursorPosition(413,12905
+xlEXPORT int xlEditWindowGetOtherPosition(429,13322
+static void xlEditWindowCheckForDelimiter(447,13801
+static void xlEditWindowFindMatchingDelimiter(469,14335
+static void osWaitForInput(489,14864
+static void osScrollWindow(490,14914
+static void osAdjustScrollBar(491,14983
+static void osStartOutput(492,15036
+static void osFinishOutput(493,15096
+static void osOutputLine(494,15157
+static void osSetCursorPosition(495,15244
+
+src/xlfasl.c,406
+xlValue xloadfaslfile(24,725
+xlValue xfaslwriteprocedure(53,1478
+static int faslwritecode(67,1872
+xlValue xfaslreadprocedure(115,3168
+static xlValue faslreadprocedure(128,3479
+static xlValue faslreadexpr(146,3976
+xlValue faslread(165,4436
+static xlValue faslreadcode(174,4618
+static int gethexbyte(211,5636
+static int faslskip(233,6163
+static int faslgetc(242,6360
+static void fasleof(251,6534
+
+src/xlftab.c,163
+static xlSubrDef subrtab[subrtab10,246
+static xlXSubrDef xsubrtab[xsubrtab401,26871
+void xlInitFunctions(484,32047
+xlValue (*xlFindSubr(xlFindSubr495,32366
+
+src/xlfun1.c,4595
+static char gsprefix[gsprefix10,256
+static xlFIXTYPE gsnumber 11,332
+xlValue xcons(35,1297
+xlValue xacons(45,1501
+xlValue xcar(56,1733
+xlValue xicar(65,1906
+xlValue xcdr(74,2056
+xlValue xicdr(83,2225
+xlValue xcaar(92,2359
+xlValue xcadr(93,2402
+xlValue xcdar(94,2445
+xlValue xcddr(95,2488
+xlValue xcaaar(98,2556
+xlValue xcaadr(99,2601
+xlValue xcadar(100,2646
+xlValue xcaddr(101,2691
+xlValue xcdaar(102,2736
+xlValue xcdadr(103,2781
+xlValue xcddar(104,2826
+xlValue xcdddr(105,2871
+xlValue xcaaaar(108,2942
+xlValue xcaaadr(109,2989
+xlValue xcaadar(110,3036
+xlValue xcaaddr(111,3083
+xlValue xcadaar(112,3130
+xlValue xcadadr(113,3177
+xlValue xcaddar(114,3224
+xlValue xcadddr(115,3271
+xlValue xcdaaar(116,3318
+xlValue xcdaadr(117,3365
+xlValue xcdadar(118,3412
+xlValue xcdaddr(119,3459
+xlValue xcddaar(120,3506
+xlValue xcddadr(121,3553
+xlValue xcdddar(122,3600
+xlValue xcddddr(123,3647
+static xlValue cxr(126,3732
+xlValue xsetcar(147,4201
+xlValue xisetcar(162,4491
+xlValue xsetcdr(177,4776
+xlValue xisetcdr(192,5066
+xlValue xnappend(207,5350
+xlValue xlist(242,6232
+xlValue xliststar(264,6709
+xlValue xpairlis(294,7405
+xlValue xcopylist(313,7884
+static xlValue copytree(330,8329
+xlValue xcopytree(341,8594
+xlValue xcopyalist(349,8754
+xlValue xappend(370,9407
+xlValue xreverse(397,10127
+xlValue xlength(414,10522
+xlValue xxmember(432,10861
+xlValue xxmemv(438,10963
+xlValue xxmemq(444,11061
+static xlValue member(450,11169
+xlValue xxassoc(471,11658
+xlValue xxassv(477,11758
+xlValue xxassq(483,11855
+static xlValue assoc(489,11960
+xlValue xlast(511,12551
+xlValue xlistref(529,12900
+xlValue xlisttail(552,13460
+xlValue xmkpackage(575,13977
+xlValue xinpackage(596,14546
+xlValue xfindpackage(605,14726
+xlValue xlistallpackages(613,14917
+xlValue xpackagename(623,15191
+xlValue xpkgnicknames(631,15367
+xlValue xusepackage(639,15525
+xlValue xunusepackage(654,15948
+xlValue xpkguselist(669,16382
+xlValue xpkgusedbylist(677,16546
+xlValue xexport(685,16711
+xlValue xunexport(705,17326
+xlValue ximport(725,17943
+xlValue xmksymbol(745,18552
+void xintern(753,18727
+void xfindsymbol(767,19055
+xlValue xunintern(781,19408
+static xlValue getpackagenamearg(792,19681
+static xlValue nametostring(798,19822
+static xlValue getpackagearg(809,20112
+static xlValue nametopackage(815,20246
+xlValue xboundp(830,20675
+xlValue xsymname(850,21180
+xlValue xsymvalue(859,21351
+xlValue xsetsymvalue(881,21899
+xlValue xsympackage(909,22541
+xlValue xsymplist(918,22725
+xlValue xsetsymplist(931,22974
+xlValue xget(946,23250
+xlValue xput(960,23532
+xlValue xremprop(978,23901
+xlValue xprocenvironment(995,24241
+xlValue xenvp(1004,24430
+xlValue xenvbindings(1013,24633
+xlValue xenvparent(1048,25537
+xlValue xobjectp(1056,25722
+xlValue xvector(1065,25904
+xlValue xmakevector(1075,26139
+xlValue xvlength(1104,26999
+xlValue xivlength(1113,27203
+xlValue xvref(1122,27394
+xlValue xivref(1128,27507
+static xlValue vref(1134,27614
+xlValue xvset(1152,28041
+xlValue xivset(1158,28155
+static xlValue vset(1164,28262
+xlValue xivbase(1184,28768
+xlValue xvectlist(1193,28974
+xlValue xlistvect(1212,29400
+xlValue xmakearray(1230,29817
+static xlValue makearray1(1239,29991
+xlValue xaref(1264,30586
+xlValue xaset(1286,31138
+xlValue xmaketable(1308,31695
+xlValue xtablep(1324,32018
+xlValue xtableref(1332,32189
+xlValue xtableset(1347,32517
+xlValue xtableremove(1363,32840
+xlValue xemptytable(1378,33181
+xlValue xmapovertableentries(1394,33541
+xlValue xiaddrof(1438,34654
+xlValue xifmtaddr(1447,34842
+xlValue xnull(1458,35056
+xlValue xatom(1467,35230
+xlValue xlistp(1476,35405
+xlValue xendp(1485,35579
+xlValue xnumberp(1494,35762
+xlValue xbooleanp(1503,35948
+xlValue xpairp(1512,36146
+xlValue xsymbolp(1521,36326
+xlValue xintegerp(1530,36512
+xlValue xrealp(1539,36693
+xlValue xcharp(1548,36889
+xlValue xstringp(1557,37074
+xlValue xvectorp(1566,37258
+#define isprocedure(1574,37396
+xlValue xprocedurep(1578,37544
+xlValue xdefaultobjectp(1587,37748
+xlValue xeq(1596,37938
+int xlEq(1606,38139
+xlValue xeqv(1612,38249
+int xlEqv(1622,38454
+xlValue xequal(1659,39639
+int xlEqual(1669,39852
+static int stringequal(1711,41311
+static int vectorequal(1729,41750
+xlValue xidentity(1745,42166
+xlValue xgensym(1753,42296
+xlEXPORT int xlGetKeyArg(1787,43272
+xlEXPORT int xlGetKeyFixnum(1801,43611
+xlEXPORT int xlGetKeyString(1815,43963
+void xlGetTest(1829,44307
+xlEXPORT xlValue xlGetPort(1840,44630
+xlEXPORT xlValue xlGetInputPort(1857,45125
+xlEXPORT xlValue xlGetOutputPort(1866,45373
+xlValue xlGetEnv(1875,45617
+
+src/xlfun2.c,5334
+#define fix(10,238
+#define TLEFT	11,283
+#define TRIGHT	12,300
+xlValue xsymstr(37,1298
+xlValue xstrsym(45,1461
+xlValue xreadline(55,1689
+xlValue xrdchar(95,2634
+xlValue xunreadchar(105,2900
+xlValue xpkchar(116,3175
+xlValue xcharready(130,3503
+xlValue xclearinput(143,3842
+xlValue xrdbyte(157,4145
+xlValue xrdshort(167,4420
+xlValue xrdshorthf(184,4882
+xlValue xrdshortlf(201,5320
+xlValue xrdlong(218,5744
+xlValue xrdlonghf(235,6201
+xlValue xrdlonglf(258,6815
+xlValue xeofobjectp(281,7423
+xlValue xwrchar(290,7616
+xlValue xwrbyte(301,7884
+xlValue xwrshort(312,8156
+xlValue xwrshorthf(327,8588
+xlValue xwrshortlf(340,8953
+xlValue xwrlong(353,9304
+xlValue xwrlonghf(368,9730
+xlValue xwrlonglf(383,10168
+xlValue xwrite(398,10588
+xlValue xdisplay(413,10918
+xlValue xprint(428,11248
+xlValue xnewline(445,11643
+xlValue xfreshline(459,11945
+xlValue xflushoutput(473,12252
+xlValue xwritesize(481,12401
+xlValue xdisplaysize(494,12674
+xlValue xprbreadth(507,12965
+xlValue xprdepth(513,13102
+static xlValue setit(519,13217
+xlValue xparsepathstring(535,13615
+void xsplitpathfromfilename(563,14249
+xlValue xcombinepathwithfilename(600,15105
+xlValue xfilemodtime(649,16311
+xlValue xopeni(662,16633
+xlValue xopeno(668,16753
+xlValue xopena(674,16884
+xlValue xopenu(680,17015
+static xlValue openfile(686,17153
+xlValue xclose(715,17951
+xlValue xclosei(728,18247
+xlValue xcloseo(741,18550
+xlValue xgetfposition(754,18860
+xlValue xsetfposition(763,19080
+xlValue xcurinput(776,19482
+xlEXPORT xlValue xlCurInput(783,19606
+xlValue xcuroutput(789,19742
+xlEXPORT xlValue xlCurOutput(796,19870
+xlValue xcurerror(802,20006
+xlEXPORT xlValue xlCurError(809,20130
+xlValue xportp(815,20249
+xlValue xinputportp(824,20436
+xlValue xoutputportp(833,20635
+xlValue xmkstrinput(842,20829
+xlValue xmkstroutput(886,21892
+xlValue xgetstroutput(893,22022
+xlValue xmkobjstream(902,22234
+xlValue xformat(913,22507
+static void format(937,23029
+static void formatA(1020,25158
+static void formatX(1026,25293
+xlValue xtranson(1037,25627
+xlValue xtransoff(1053,26085
+xlValue xmakestring(1068,26467
+xlValue xstrlen(1092,27043
+xlValue xstrnullp(1101,27249
+xlValue xstrappend(1110,27456
+xlValue xstrref(1148,28261
+xlValue xstrset(1167,28732
+xlValue xsubstring(1188,29229
+xlValue xstrlist(1225,30221
+xlValue xliststring(1244,30670
+xlValue xupcase(1266,31160
+xlValue xdowncase(1267,31219
+xlValue xnupcase(1270,31325
+xlValue xndowncase(1271,31384
+static xlValue changecase(1274,31477
+xlValue xtrim(1310,32339
+xlValue xlefttrim(1311,32396
+xlValue xrighttrim(1312,32446
+static xlValue trim(1315,32542
+static void getbounds(1352,33466
+static int inbag(1375,34270
+xlValue xstrlss(1385,34469
+xlValue xstrleq(1386,34540
+xlValue xstreql(1387,34612
+xlValue xstrneq(1388,34683
+xlValue xstrgeq(1389,34755
+xlValue xstrgtr(1390,34827
+xlValue xstrilss(1393,34956
+xlValue xstrileq(1394,35032
+xlValue xstrieql(1395,35115
+xlValue xstrineq(1396,35191
+xlValue xstrigeq(1397,35271
+xlValue xstrigtr(1398,35351
+static xlValue strcompare(1401,35468
+xlValue xstrsearch(1453,37274
+xlValue xstrisearch(1459,37396
+static xlValue strsearch(1465,37493
+xlValue xchupcase(1529,39245
+xlValue xchdowncase(1539,39489
+xlValue xdigitchar(1549,39732
+xlValue xstring(1563,40095
+xlValue xnumstr(1601,40981
+static char *radixnumtostr(radixnumtostr1626,41610
+xlValue xstrnum(1660,42335
+xlValue xchar(1681,42868
+xlValue xcharint(1700,43321
+xlValue xintchar(1709,43523
+xlValue xchrlss(1718,43706
+xlValue xchrleq(1719,43775
+xlValue xchreql(1720,43845
+xlValue xchrneq(1721,43914
+xlValue xchrgeq(1722,43984
+xlValue xchrgtr(1723,44054
+xlValue xchrilss(1726,44183
+xlValue xchrileq(1727,44257
+xlValue xchrieql(1728,44338
+xlValue xchrineq(1729,44413
+xlValue xchrigeq(1730,44492
+xlValue xchrigtr(1731,44570
+static xlValue chrcompare(1734,44688
+xlValue xuppercasep(1772,45688
+xlValue xlowercasep(1781,45891
+xlValue xbothcasep(1790,46092
+xlValue xdigitp(1799,46305
+xlValue xalphanumericp(1808,46537
+xlValue xwhitespacep(1817,46778
+xlValue xcompile(1826,46974
+xlValue xdecompile(1844,47401
+xlValue xsetdebugmode(1867,48019
+xlValue xsave(1877,48247
+xlValue xrestore(1890,48546
+xlValue xgc(1909,49018
+xlValue xroom(1928,49500
+static xlValue room(1935,49635
+xlValue xerror(1947,50060
+xlValue xgetarg(1962,50403
+void xshowstack(1972,50672
+void xshowcontrolstack(1985,50963
+void xshowvaluestack(1998,51260
+xlValue xgettime(2011,51530
+xlValue xgetenv(2018,51689
+xlValue xidle(2029,51934
+xlValue xexit(2037,52059
+#define CRTYPE_CHAR	2045,52189
+#define CRTYPE_UCHAR	2046,52212
+#define CRTYPE_SHORT	2047,52236
+#define CRTYPE_USHORT	2048,52260
+#define CRTYPE_INT	2049,52285
+#define CRTYPE_UINT	2050,52307
+#define CRTYPE_LONG	2051,52330
+#define CRTYPE_ULONG	2052,52353
+#define CRTYPE_PTR	2053,52377
+xlValue xalloccmemory(2056,52464
+xlValue xfreecmemory(2073,52909
+xlValue xforeignptrp(2088,53245
+xlValue xforeignptrtype(2107,53704
+xlValue xforeignptreqp(2120,53972
+xlValue xsetforeignptrtype(2134,54330
+xlValue xforeignptrtypep(2149,54682
+xlValue xgetcrecfield(2163,55012
+xlValue xgetcrecfieldaddr(2236,56991
+xlValue xsetcrecfield(2258,57584
+xlValue xgetcrecstring(2321,59292
+xlValue xsetcrecstring(2350,60040
+xlValue xgetcrectypesize(2385,61018
+xlValue xnullpointerp(2423,61839
+
+src/xlfun3.c,951
+void xapply(25,786
+void xvalues(47,1334
+void xvalueslist(55,1500
+void xcallcc(69,1869
+static void ccode_restore(86,2211
+static xlValue *ccode_mark(ccode_mark94,2384
+static xlValue *ccode_skipit(ccode_skipit105,2631
+static void ccode_unwind(113,2841
+static xlValue *ccode_print(ccode_print124,3087
+static char *showstring(showstring142,3545
+static xlCDispatch cd_ccode 154,3804
+static void pushccontinuation(164,4024
+void xcallwi(172,4227
+void xcallwo(178,4347
+static void withfile_continuation(184,4472
+static void withfile_unwind(194,4693
+xlCContinuation withfile_cc 201,4834
+static void do_withfile(204,4991
+void xload(235,5720
+void xloadnoisily(241,5824
+static void do_load(247,5934
+static void load_continuation(271,6514
+static void load_unwind(287,6892
+xlCContinuation load_cc 297,7102
+static void do_loadloop(300,7269
+static void force_continuation(341,8286
+xlCContinuation force_cc 355,8597
+void xforce(358,8716
+
+src/xlimage.c,604
+static xlOFFTYPE off,14,422
+static xlOFFTYPE off,foff;14,422
+static FILE *fp;fp15,450
+int xlSaveImage(30,929
+int xlRestoreImage(142,4400
+static xlValue requirepackage(289,9036
+static void freeimage(298,9265
+static void setoffset(336,10360
+static void writenode(346,10541
+static void writeptr(356,10779
+static void readnode(365,10961
+static xlOFFTYPE readptr(375,11195
+static xlValue cviptr(386,11424
+static xlOFFTYPE cvoptr(420,12525
+static xlValue *getvspace(getvspace442,13207
+static int fpdummy_type(457,13616
+static void fpdummy_free(463,13731
+static void fpdummy_print(468,13834
+
+src/xlinit.c,3076
+#define pb(11,302
+#define FE 14,370
+xlEXPORT xlValue xlSymConst,17,424
+xlEXPORT xlValue xlSymConst,xlSymMEscape,17,424
+xlEXPORT xlValue xlSymConst,xlSymMEscape,xlSymSEscape,17,424
+xlEXPORT xlValue xlSymConst,xlSymMEscape,xlSymSEscape,xlSymWSpace;17,424
+xlEXPORT xlValue xlSymTMacro,18,492
+xlEXPORT xlValue xlSymTMacro,xlSymNMacro,18,492
+xlEXPORT xlValue xlSymTMacro,xlSymNMacro,xlSymReadTable;18,492
+xlValue lk_optional,19,550
+xlValue lk_optional,lk_rest,19,550
+xlValue lk_optional,lk_rest,lk_key,19,550
+xlValue lk_optional,lk_rest,lk_key,lk_aux,19,550
+xlValue lk_optional,lk_rest,lk_key,lk_aux,lk_allow_other_keys,19,550
+xlValue lk_optional,lk_rest,lk_key,lk_aux,lk_allow_other_keys,slk_optional,19,550
+xlValue lk_optional,lk_rest,lk_key,lk_aux,lk_allow_other_keys,slk_optional,slk_rest;19,550
+xlValue xlEofObject,20,636
+xlValue xlEofObject,xlDefaultObject,20,636
+xlValue xlEofObject,xlDefaultObject,s_unassigned,20,636
+xlValue xlEofObject,xlDefaultObject,s_unassigned,s_error;20,636
+xlValue s_quote,21,695
+xlValue s_quote,s_function,21,695
+xlValue s_quote,s_function,s_quasiquote,21,695
+xlValue s_quote,s_function,s_quasiquote,s_unquote,21,695
+xlValue s_quote,s_function,s_quasiquote,s_unquote,s_unquotesplicing,21,695
+xlValue s_quote,s_function,s_quasiquote,s_unquote,s_unquotesplicing,s_dot;21,695
+xlValue s_package,22,771
+xlValue s_package,s_eval,22,771
+xlValue s_package,s_eval,s_load,22,771
+xlValue s_package,s_eval,s_load,xlUnboundObject,22,771
+xlValue s_package,s_eval,s_load,xlUnboundObject,s_stdin,22,771
+xlValue s_package,s_eval,s_load,xlUnboundObject,s_stdin,s_stdout,22,771
+xlValue s_package,s_eval,s_load,xlUnboundObject,s_stdin,s_stdout,s_stderr;22,771
+xlValue s_print,23,847
+xlValue s_print,s_printcase,23,847
+xlValue s_print,s_printcase,k_upcase,23,847
+xlValue s_print,s_printcase,k_upcase,k_downcase,23,847
+xlValue s_print,s_printcase,k_upcase,k_downcase,s_eql;23,847
+xlValue s_stackpointer;24,903
+xlValue k_internal,25,928
+xlValue k_internal,k_external,25,928
+xlValue k_internal,k_external,k_inherited,25,928
+xlValue k_internal,k_external,k_inherited,k_key,25,928
+xlValue k_internal,k_external,k_inherited,k_key,k_uses,25,928
+xlValue k_internal,k_external,k_inherited,k_key,k_uses,k_test,25,928
+xlValue k_internal,k_external,k_inherited,k_key,k_uses,k_test,k_testnot;25,928
+xlValue k_start,26,1002
+xlValue k_start,k_end,26,1002
+xlValue k_start,k_end,k_1start,26,1002
+xlValue k_start,k_end,k_1start,k_1end,26,1002
+xlValue k_start,k_end,k_1start,k_1end,k_2start,26,1002
+xlValue k_start,k_end,k_1start,k_1end,k_2start,k_2end,26,1002
+xlValue k_start,k_end,k_1start,k_1end,k_2start,k_2end,k_count,26,1002
+xlValue k_start,k_end,k_1start,k_1end,k_2start,k_2end,k_count,k_fromend;26,1002
+xlValue s_fixfmt,27,1076
+xlValue s_fixfmt,s_hexfmt,27,1076
+xlValue s_fixfmt,s_hexfmt,s_flofmt,27,1076
+xlValue s_fixfmt,s_hexfmt,s_flofmt,s_freeptr,27,1076
+xlValue s_fixfmt,s_hexfmt,s_flofmt,s_freeptr,s_backtrace;27,1076
+void xlInitWorkspace(36,1309
+static xlValue getloadpath(147,5630
+void xlEnterSymbols(169,6212
+
+src/xlint.c,5413
+#define callsubr(11,276
+xlErrorTarget *xlerrtarget xlerrtarget14,340
+xlValue *xlcatch xlcatch15,396
+int xlTraceBytecodes 16,459
+xlEXPORT int xlArgC;17,515
+#define BCD_START 26,898
+#define BCD_RETURN 27,950
+#define BCD_NEXT 28,977
+#define BCD_ABORT 29,1004
+static unsigned char *base,base32,1056
+static unsigned char *base,*pc;pc32,1056
+static xlValue *xltarget;xltarget33,1089
+static int sample=34,1157
+xlValue xtraceon(50,1711
+xlValue xtraceoff(58,1859
+static void code_restore(66,2010
+static xlValue *code_mark(code_mark77,2304
+static xlValue *code_unmark(code_unmark86,2510
+static void code_unwind(92,2626
+static xlValue *code_unstack(code_unstack98,2734
+static xlValue *code_print(code_print106,2894
+static xlCDispatch cd_code 120,3218
+static void frame_restore(130,3415
+static xlValue *frame_mark(frame_mark138,3641
+static xlValue *frame_unmark(frame_unmark145,3808
+static void frame_unwind(153,3981
+static xlValue *frame_unstack(frame_unstack159,4107
+static xlValue *frame_print(frame_print166,4249
+static xlCDispatch cd_frame 187,4823
+xlValue xlFindTopProcedure(197,5043
+static void show_call(207,5306
+void xlShowCallStack(234,5966
+xlValue xGetStackPointer(257,6749
+void xGetStackFrame(264,6920
+static xlValue *GetArgStackPointer(GetArgStackPointer308,8067
+static void unwind_restore(317,8376
+static xlValue *unwind_mark(unwind_mark338,8903
+static xlValue *unwind_unmark(unwind_unmark350,9223
+static void unwind_unwind(359,9474
+static xlValue *unwind_unstack(unwind_unstack369,9731
+static xlValue *unwind_print(unwind_print378,9980
+static xlCDispatch cd_unwind 398,10484
+static void protect_restore(408,10716
+static xlValue *protect_mark(protect_mark414,10821
+static xlValue *protect_unmark(protect_unmark423,11053
+static void protect_unwind(429,11171
+static xlValue *protect_unstack(protect_unstack454,11834
+static xlValue *protect_print(protect_print461,11987
+static xlCDispatch cd_protect 476,12354
+static void return_restore(486,12562
+static xlValue *return_mark(return_mark492,12691
+static xlValue *return_unmark(return_unmark498,12800
+static void return_unwind(504,12911
+static xlValue *return_unstack(return_unstack509,12999
+static xlValue *return_print(return_print515,13109
+static xlCDispatch cd_return 522,13240
+static void catch_restore(532,13468
+static xlValue *catch_mark(catch_mark546,13850
+static xlValue *catch_unmark(catch_unmark557,14124
+static void catch_unwind(563,14236
+static xlValue *catch_unstack(catch_unstack571,14397
+static xlValue *catch_print(catch_print578,14544
+static xlCDispatch cd_catch 601,15139
+static void opNOP(611,15328
+static void opBRT(616,15399
+static void opBRF(628,15621
+static void opBR(640,15841
+static void opLIT(648,15990
+static void opGREF(655,16120
+static void opGSET(688,17108
+static void opEREF(695,17249
+static void opESET(707,17512
+static void opIREF(719,17773
+static void opISET(731,18058
+static void opCALL(743,18341
+static void opMVCALL(750,18482
+static void call(758,18649
+static void opTCALL(770,18917
+static void opMVTCALL(777,19062
+static void tcall(785,19243
+static void opRETURN(800,19625
+static void opARGSEQ(823,20177
+static void opARGSGE(839,20522
+static void opARGSBT(853,20825
+static void opMETHOD(870,21200
+static void opOPTARG(876,21316
+static void opKEYARG(891,21679
+static void opREST(912,22291
+static void opFRAME(924,22679
+static void opMVFRAME(936,22951
+static void opMVPUSH(954,23395
+static void opMVPOP(965,23632
+static void opUNFRAME(978,23894
+static void opT(993,24196
+static void opNIL(1000,24303
+static void opPUSH(1007,24413
+static void opCLOSE(1013,24510
+static void opDELAY(1022,24732
+static void opATOM(1031,24952
+static void opEQ(1038,25089
+static void opNULL(1045,25230
+static void opCONS(1052,25364
+static void opCAR(1058,25472
+static void opCDR(1066,25650
+static void opSETCAR(1074,25834
+static void opSETCDR(1084,26049
+static void opADD(1094,26258
+static void opSUB(1111,26662
+static void opMUL(1128,27066
+static void opQUO(1145,27470
+static void opLSS(1164,27963
+static void opEQL(1178,28312
+static void opGTR(1192,28662
+static void opCATCH(1206,29015
+static void opUNCATCH(1227,29495
+static void opPROTECT(1235,29654
+static void opUNPROTECT(1245,29876
+static void opENV(1253,30016
+static void opBAD(1261,30171
+void xlInitInterpreter(1270,30387
+int xlInternalCall(1335,32331
+int xlInvokeInterpreter(1350,32709
+void xthrow(1460,35453
+void xthrowerror(1466,35562
+void xlThrowError(1474,35700
+static void throwtotag(1491,36055
+static xlValue *findmatchingcatch(findmatchingcatch1504,36382
+static void throwtoreturn(1514,36626
+static void throwtotarget(1534,37148
+void xlJumpToTarget(1560,37788
+void xlPushTarget(1567,37930
+void xlPopTarget(1574,38074
+xlValue xlFindVar(1580,38197
+void xlApply(1602,39071
+xlValue xlMakeContinuation(1642,39991
+static void restore_continuation(1677,40918
+xlValue xlUnstackEnvironment(1699,41490
+static void stkframe(1746,42757
+void xlCallErrorHandler(1778,43559
+void xlGCProtect(1787,43883
+void xlShowControlStack(1799,44164
+void xlShowValueStack(1808,44404
+static void badfuntype(1819,44658
+static void badargtype(1825,44786
+xlEXPORT void xlStkOver(1831,44892
+xlEXPORT void xlCStkOver(1837,45015
+xlEXPORT xlValue xlTooFew(1843,45151
+xlEXPORT void xlTooMany(1850,45324
+xlEXPORT xlValue xlBadType(1856,45445
+
+src/xlio.c,721
+xlFIXTYPE xlfsize;10,237
+xlEXPORT int xlGetC(24,694
+xlEXPORT int xlAtBOLP(65,1753
+static int fstream_getc(82,2135
+static int ustream_getc(97,2498
+static int ostream_getc(129,3392
+xlEXPORT void xlUngetC(139,3665
+xlEXPORT int xlPeek(159,4129
+xlEXPORT int xlInputReadyP(185,4684
+xlEXPORT void xlFlushInput(215,5401
+xlEXPORT void xlPutC(248,6296
+static void fstream_putc(285,7100
+static void ustream_putc(295,7341
+static void ostream_putc(330,8342
+xlEXPORT void xlFlush(337,8536
+xlEXPORT xlFIXTYPE xlGetStrLength(346,8748
+xlEXPORT xlValue xlGetStrOutput(364,9338
+xlEXPORT void xlStdPrint(388,9884
+xlEXPORT void xlStdPutStr(394,10023
+xlEXPORT void xlErrPrint(400,10147
+xlEXPORT void xlErrPutStr(406,10282
+
+src/xlitersq.c,4357
+#define IS_X 9,236
+#define IS_LIST 10,263
+#define IS_KEYFCN 11,290
+#define IS_TESTFCN 12,317
+#define IS_TRESULT 13,344
+#define IS_COUNT 14,371
+#define IS_INDEX 15,398
+#define IS_END 16,425
+#define IS_VALUE 17,452
+#define IS_WORK 18,479
+#define IS_ACTION 19,506
+#define IS_CDISPATCH 20,534
+#define _ISSIZE 21,562
+#define MS_FCN 23,592
+#define MS_ARGC 24,619
+#define MS_VALUE 25,646
+#define MS_WORK 26,673
+#define MS_ACTION 27,700
+#define MS_CDISPATCH 28,727
+#define _MSSIZE 29,754
+typedef xlValue (*ACTION)ACTION32,817
+typedef xlValue (*MACTION)MACTION33,876
+#define IS_FETCH 34,929
+#define IS_UPDATE 35,956
+static xlValue is_find(88,2935
+void xfind(102,3250
+void xfindif(108,3351
+void xfindifnot(114,3468
+static xlValue is_member(119,3535
+void xmember(133,3849
+void xmemberif(139,3959
+void xmemberifnot(145,4085
+static xlValue is_assoc(150,4157
+void xassoc(166,4566
+void xassocif(172,4672
+void xassocifnot(178,4794
+static xlValue is_rassoc(183,4864
+void xrassoc(199,5276
+void xrassocif(205,5386
+void xrassocifnot(211,5512
+static xlValue is_remove(216,5584
+void xremove(240,6302
+void xremoveif(246,6411
+void xremoveifnot(252,6536
+static xlValue is_delete(257,6607
+void xdelete(285,7382
+void xdeleteif(291,7491
+void xdeleteifnot(297,7616
+static xlValue is_count(302,7687
+void xcount(316,8032
+void xcountif(322,8158
+void xcountifnot(328,8300
+static xlValue is_position(333,8390
+void xposition(347,8711
+void xpositionif(353,8828
+void xpositionifnot(359,8961
+static xlValue ms_mapcar(364,9036
+void xmapcar(382,9511
+static xlValue ms_mapc(387,9570
+void xmapc(399,9830
+static xlValue ms_mapcan(404,9886
+void xmapcan(425,10440
+static xlValue ms_maplist(430,10499
+void xmaplist(448,10970
+static xlValue ms_mapl(453,11031
+void xmapl(465,11284
+static xlValue ms_mapcon(470,11340
+void xmapcon(491,11887
+static xlValue ms_some(496,11946
+void xsome(502,12097
+static xlValue ms_every(507,12151
+void xevery(513,12308
+static xlValue ms_notany(518,12365
+void xnotany(524,12524
+static xlValue ms_notevery(529,12583
+void xnotevery(535,12750
+static xlCDispatch cd_seqdummy 541,12862
+static void do_iterseq1(551,13087
+static void seq1key_restore(564,13377
+static xlCDispatch cd_seq1key 573,13577
+static void do_seq1key(583,13803
+static void seq1test_restore(598,14205
+static xlCDispatch cd_seq1test 617,14768
+static void do_seq1test(627,14999
+static void iterseq1(637,15238
+static void iterlist1(670,16123
+static void do_iterseq2(700,16889
+static void seq2key_restore(713,17179
+static xlCDispatch cd_seq2key 722,17379
+static void do_seq2key(732,17605
+static void seq2test_restore(747,18007
+static void seq2test_check(756,18203
+static xlCDispatch cd_seq2test 773,18702
+static void do_seq2test(783,18933
+static void iterseq2(802,19393
+static void iterlist2(836,20309
+static void seqdummy_restore(859,20927
+static xlValue *seqkeytest_mark(seqkeytest_mark865,21091
+static xlValue *seqkeytest_skipit(seqkeytest_skipit882,21651
+static void seqkeytest_unwind(888,21827
+static xlValue *seqdummy_print(seqdummy_print894,21961
+static xlValue *seqkey_print(seqkey_print902,22148
+static xlValue *seqtest_print(seqtest_print910,22332
+static void show_seqcontinuation(918,22532
+static xlCDispatch cd_mapseqdummy 945,23313
+static void mapseq_restore(955,23545
+static void mapseqdummy_restore(971,23955
+static xlValue *mapseq_mark(mapseq_mark977,24118
+static xlValue *mapseq_skipit(mapseq_skipit988,24447
+static void mapseq_unwind(994,24615
+static xlValue *mapseq_print(mapseq_print1000,24732
+static xlValue *mapseqdummy_print(mapseqdummy_print1008,24920
+static void show_mapseqcontinuation(1016,25118
+static xlCDispatch cd_mapseq 1031,25525
+static void do_mapseq(1041,25726
+static void mapseq(1077,26593
+static xlCDispatch cd_maplistdummy 1092,26985
+static void maplist_restore(1102,27221
+static void maplistdummy_restore(1118,27638
+static xlValue *maplist_mark(maplist_mark1124,27798
+static xlValue *maplist_skipit(maplist_skipit1135,28120
+static void maplist_unwind(1141,28281
+static xlValue *maplist_print(maplist_print1147,28405
+static xlValue *maplistdummy_print(maplistdummy_print1155,28602
+static void show_maplistcontinuation(1163,28809
+static xlCDispatch cd_maplist 1178,29213
+static void do_maplist(1188,29422
+static void maplist(1223,30281
+
+src/xlmain.c,702
+#define BANNER 11,264
+int xlCmdLineArgC 15,380
+char **xlCmdLineArgV xlCmdLineArgV16,455
+xlEXPORT int xlInitializedP 17,534
+xlEXPORT FILE *xlTranscriptFP xlTranscriptFP18,612
+xlEXPORT int xlInit(30,997
+xlEXPORT char *xlBanner(xlBanner107,3340
+static void usage(113,3447
+xlEXPORT void xlCleanup(120,3619
+xlEXPORT void xlTopLevel(126,3741
+xlEXPORT void xlContinue(132,3865
+xlEXPORT void xlBreak(138,3966
+xlEXPORT void xlWrapUp(144,4088
+xlEXPORT void xlError(152,4253
+xlEXPORT void xlFmtError(160,4422
+xlEXPORT void xlAbort(170,4640
+xlEXPORT void xlFmtAbort(178,4809
+static void fmterror(188,5009
+void xlShowErr(237,6348
+xlEXPORT void xlFatal(255,6803
+xlEXPORT void xlInfo(267,7039
+
+src/xlmath.c,1639
+xlValue xexactp(27,857
+xlValue xinexactp(36,1082
+xlValue xatan(44,1253
+xlValue xfloor(68,1807
+xlValue xceiling(86,2202
+xlValue xround(104,2594
+xlValue xtruncate(135,3328
+#define FIXBITS 152,3675
+xlValue xash(155,3763
+xlValue xlsh(169,4193
+xlValue xadd(181,4567
+xlValue xmul(187,4724
+xlValue xsub(193,4881
+xlValue xdiv(194,4936
+xlValue xquo(195,4991
+xlValue xrem(196,5053
+xlValue xmod(197,5116
+xlValue xmin(198,5176
+xlValue xmax(199,5233
+xlValue xexpt(200,5290
+xlValue xlogand(201,5348
+xlValue xlogior(202,5408
+xlValue xlogxor(203,5468
+static xlValue binary(206,5571
+static xlFIXTYPE remain(339,9568
+static xlFIXTYPE modulo(348,9776
+xlValue xlognot(357,10007
+xlValue xabs(358,10068
+xlValue xadd1(359,10126
+xlValue xsub1(360,10183
+xlValue xsin(361,10241
+xlValue xcos(362,10299
+xlValue xtan(363,10357
+xlValue xasin(364,10415
+xlValue xacos(365,10474
+xlValue xxexp(366,10533
+xlValue xsqrt(367,10591
+xlValue xxlog(368,10650
+xlValue xrandom(369,10708
+xlValue xsetrandomseed(372,10828
+static xlValue unary(381,11011
+xlValue xnegativep(439,13320
+xlValue xzerop(440,13389
+xlValue xpositivep(441,13454
+xlValue xevenp(442,13523
+xlValue xoddp(443,13588
+static xlValue predicate(446,13701
+xlValue xlss(485,14754
+xlValue xleq(486,14807
+xlValue xeql(487,14861
+xlValue xneq(488,14914
+xlValue xgeq(489,14967
+xlValue xgtr(490,15021
+static xlValue compare(493,15117
+xlEXPORT xlFLOTYPE xlCnvToFlotype(580,17561
+static void checkizero(588,17840
+static void checkineg(595,18011
+static void checkfzero(602,18196
+static void checkfneg(609,18369
+static void badiop(616,18532
+static void badfop(622,18653
+
+src/xlobj.c,1168
+static xlValue k_initialize;13,316
+static xlValue c_class,14,346
+static xlValue c_class,c_object;14,346
+xlEXPORT xlValue xlClass(40,1363
+xlEXPORT void xlMethod(100,3275
+xlEXPORT void xlXMethod(112,3639
+xlEXPORT int xlInstanceP(124,4006
+xlEXPORT xlValue xlNewInstance(136,4309
+int xlFindIVarOffset(142,4499
+static int FindIVarOffset(149,4702
+static xlValue newobject(168,5294
+void xlSend(179,5558
+void xsendsuper(198,6276
+static xlValue obinitialize(220,7053
+static xlValue obclass(229,7227
+static xlValue obgetvariable(238,7425
+static xlValue obsetvariable(257,7920
+static xlValue obinstancebindings(278,8476
+static int instancebindings(297,8917
+static xlValue obprint(321,9700
+static xlValue obshow(347,10365
+static void showobject(362,10696
+static int ShowIVars(380,11138
+static xlValue clmakeinstance(405,11936
+static void clnew(414,12165
+static xlValue clinitialize(427,12460
+static void parse_cvars(469,13799
+static xlValue clanswer(499,14714
+static xlValue clshow(530,15479
+static xlValue entermsg(563,16508
+static int getivcnt(581,17068
+static xlValue copylist(590,17343
+void xlObSymbols(610,17797
+void xlInitObjects(621,18123
+
+src/xlosint.c,728
+static xlCallbacks *callbacks callbacks10,259
+static char *softwareType softwareType13,323
+void xlSetCallbacks(16,406
+xlEXPORT char *xlosLoadPath(xlosLoadPath23,561
+xlEXPORT char *xlosParsePath(xlosParsePath29,715
+xlEXPORT int xlosDirectorySeparator(35,908
+void xlosEnter(41,1094
+xlEXPORT xlValue (*xlosFindSubr(xlosFindSubr52,1412
+xlEXPORT void xlosError(70,1985
+xlEXPORT int xlosFileModTime(77,2155
+xlEXPORT int xlosConsoleGetC(83,2397
+xlEXPORT void xlosConsolePutC(99,2800
+xlEXPORT void xlosConsolePutS(114,3185
+xlEXPORT int xlosConsoleAtBOLP(121,3349
+xlEXPORT void xlosConsoleFlush(127,3531
+xlEXPORT int xlosConsoleCheck(134,3732
+xlEXPORT void xlosFlushOutput(140,3898
+xlEXPORT void xlosExit(147,4062
+
+src/xlprint.c,946
+int xlPRBreadth 10,243
+int xlPRDepth 11,266
+static char buf[buf14,312
+xlEXPORT void xlDisplay(40,1464
+xlEXPORT xlFIXTYPE xlDisplaySize(50,1686
+xlEXPORT void xlWrite(59,1888
+xlEXPORT xlFIXTYPE xlWriteSize(69,2103
+xlEXPORT void xlNewline(78,2303
+xlEXPORT void xlFreshLine(84,2441
+xlEXPORT void xlPutStr(91,2576
+static void print(98,2718
+static void putatm(232,6644
+static void putfstream(240,6875
+static void putstring(250,7165
+static void putqstring(263,7475
+static void putsymbol(312,8736
+static void putsympname(330,9386
+static void putpackage(351,9971
+static void putsubr(359,10170
+static void putclosure(366,10350
+static void putcode(372,10495
+static void putnumber(387,10872
+static void putoct(395,11102
+static void putflonum(402,11238
+static void putcharacter(410,11472
+static void putobject(430,11893
+static void putforeignptr(437,12081
+static char *typenames[typenames451,12442
+static void putfree(480,12790
+
+src/xlread.c,1230
+#define WSPACE 11,270
+#define CONST1 12,298
+#define CONST2 13,349
+#define RO_EXPR 16,457
+#define RO_COMMENT 17,484
+#define RO_EOF 18,511
+int xlRead(45,1530
+static int readone(74,2263
+xlValue xread(120,3683
+xlValue xreaddelimitedlist(137,4046
+void xrmhash(176,5047
+void xrmquote(193,5432
+void xrmdquote(208,5737
+void xrmbquote(223,6033
+void xrmcomma(238,6336
+void xrmlparen(253,6631
+void xrmrparen(268,6927
+void xrmsemi(282,7217
+static xlValue read_list(297,7496
+static void read_cdr(329,8379
+static void read_comment(347,8829
+static xlValue read_vector(356,9029
+static xlValue read_comma(385,9844
+static xlValue read_quote(397,10144
+static xlValue read_symbol(408,10431
+static xlValue read_string(462,12253
+static int read_special(525,14217
+static xlValue read_radix(627,17435
+int xlRadixNumberStringP(652,18114
+static int isradixdigit(671,18618
+static int getdigit(683,19010
+static int getsymbol(689,19134
+int xlNumberStringP(706,19615
+static int scan(756,20829
+static int checkeof(769,21115
+static int isconstituent(778,21316
+xlEXPORT xlValue xlCharType(784,21465
+static xlValue tentry(791,21646
+static void defmacro(801,21934
+static void defdmacro(807,22136
+void xlInitReader(813,22301
+
+src/xlsym.c,1441
+xlValue xlPackages,10,246
+xlValue xlPackages,xlLispPackage,10,246
+xlValue xlPackages,xlLispPackage,xlXLispPackage,10,246
+xlValue xlPackages,xlLispPackage,xlXLispPackage,xlKeywordPackage;10,246
+void xlInitPackages(30,1139
+xlEXPORT void xlSubr(48,1640
+xlEXPORT void xlXSubr(69,2304
+xlEXPORT xlValue xlEnter(90,2949
+xlEXPORT xlValue xlEnterKeyword(97,3115
+xlEXPORT xlValue xlInternString(103,3275
+xlEXPORT xlValue xlInternCString(118,3781
+xlEXPORT xlValue xlFindPackage(133,4266
+int xlUsePackage(144,4639
+int xlUnusePackage(152,4888
+int xlImport(160,5122
+int xlExport(171,5409
+int xlUnexport(183,5728
+int xlVisibleP(195,6064
+int xlPresentP(207,6440
+xlValue xlFindSymbol(214,6661
+xlValue xlIntern(235,7325
+xlValue xlInternAndExport(250,7839
+void xlUnintern(259,8065
+static xlValue addtolist(268,8354
+static xlValue removefromlist(278,8632
+static xlValue findinlist(291,9031
+static void addtotable(301,9295
+static void removefromtable(309,9603
+static xlValue findintable(317,9913
+static xlValue findnameintable(325,10215
+static void entersymbol(336,10595
+xlEXPORT xlValue xlGetProp(344,10889
+xlEXPORT void xlPutProp(351,11094
+xlEXPORT void xlRemProp(361,11392
+static xlValue findprop(376,11824
+static int comparestr(386,12120
+xlValue xlFindEntryInTable(397,12469
+void xlAddEntryToTable(410,12856
+xlValue xlRemoveEntryFromTable(425,13364
+static xlFIXTYPE hash(444,13931
+static xlUFIXTYPE hashstr(463,14461
+
+src/xlterm.c,536
+#define LINEMAX 13,308
+xlEXPORT xlEditWindow *xlListener xlListener16,384
+static char linebuf[linebuf19,452
+static char *lineptr lineptr20,485
+static int linelen 21,518
+static int atbol 22,543
+xlEXPORT xlEditWindow *xlMakeListenerWindow(xlMakeListenerWindow28,707
+xlEXPORT void xlTermPutC(45,1173
+int xlListenerGetC(54,1422
+void xlListenerPutC(117,3363
+int xlListenerAtBOLP(126,3596
+void xlListenerFlushInput(132,3704
+void xlListenerFlushOutput(139,3839
+int xlListenerCheck(144,3945
+static void ScrollOffTop(150,4056
+
+src/xlterm.h,26
+#define __XLTERM_H__4,67
+
+xlisp/xlisp.c,17
+int main(10,256
+
+xlisptk/mcomint.c,429
+#define connectionHANDLE 13,313
+static xlValue s_connection;16,379
+static xlValue c_connection;17,409
+void MComInitialize(24,633
+static xlValue xMComInitialize(39,1208
+static xlValue xMComClose(71,2072
+static xlValue xMComDataAvailableP(92,2619
+static void xMComReadPacket(109,3070
+static xlValue xMComWritePacket(143,3972
+static CommConnection *GetConnection(GetConnection161,4533
+static void SetConnection(183,5245
+
+xlisptk/tkconsole.c,461
+typedef struct ConsoleInfo 28,699
+} ConsoleInfo;31,866
+static Tcl_Interp *gStdoutInterp gStdoutInterp33,884
+static Tcl_ChannelType consoleChannelType 69,2256
+TkConsoleCreate(102,3224
+TkConsoleInit(148,4788
+ConsoleOutput(225,6951
+ConsoleInput(259,7765
+ConsoleClose(287,8506
+ConsoleWatch(314,9118
+ConsoleHandle(343,9931
+ConsoleCmd(371,10615
+InterpreterCmd(444,12767
+ConsoleDeleteProc(501,14455
+ConsoleEventProc(530,15223
+TkConsolePrint(575,16467
+
+xlisptk/tkstuff.c,1677
+#define LOG_XLISP7,110
+#define LOG_TCL8,129
+Tcl_Interp *tcl_interp;tcl_interp40,676
+int tcl_init_ok;43,757
+xlValue s_tkobj;46,805
+xlSubrDef tksubrtab[tksubrtab52,925
+xlXSubrDef tkxsubrtab[tkxsubrtab57,1075
+static void LogCommand(81,1833
+xleval_cmd(99,2159
+XlispCmd(133,2972
+xlscroll_cmd(241,5446
+DeleteXlispCmd(317,7090
+int xl_argc;327,7233
+char **xl_argv;xl_argv328,7247
+char *tcl_argv[tcl_argv334,7320
+static int InvokeXLISP(340,7429
+#define PathSetCmdHead 388,8630
+#define PathSetCmdTail 389,8676
+static int SetupTclPath(392,8756
+void TclPathCopy(439,10073
+WinMain(459,10517
+#define CLASS_NAME 516,11914
+#define WINDOW_NAME 517,11948
+Tcl_AppInit(520,11993
+WishPanic TCL_VARARGS_DEF(571,13357
+setargv(592,13813
+xlispTkInit(687,15607
+main(710,16269
+static xlValue (*FindSubr(FindSubr727,16562
+static char *LoadPath(LoadPath736,16812
+static char *ParsePath(ParsePath745,17006
+static int DirectorySeparator(775,17722
+void tkenter(781,17841
+xlValue (*tkfindsubr(tkfindsubr797,18271
+static void Error(813,18723
+#define OUTBUFSIZE 824,18898
+static char outbuf[outbuf825,18923
+static char *outptr outptr826,18960
+static void Exit(829,19023
+static int ConsoleGetC(835,19147
+static void ConsolePutC(841,19255
+static void ConsolePutS(849,19438
+static int ConsoleAtBOLP(856,19593
+static void FlushInput(862,19704
+static int ConsoleCheck(868,19834
+static void FlushOutput(874,19942
+static xlValue xsystem(896,20498
+static int tcl_verbose_flag 909,20752
+static FILE *tclFile tclFile910,20786
+static void LogTclCommand(913,20859
+xtcl(930,21181
+xtclverbose(1000,22719
+void SetupCallbacks(1018,23037
+setparent_cmd(1039,23676
+
+xlisptk/tkstuff.h,28
+#define __TKSTUFF_H__6,133
+
+xlisptk/xlisptk.c,516
+char *ApplicationBanner(ApplicationBanner7,172
+char *ApplicationInitializationFile(ApplicationInitializationFile13,323
+void ApplicationEnter(19,462
+xlValue (*ApplicationFindSubr(ApplicationFindSubr24,557
+#define DIRSEP 32,690
+#define ENVSEP 33,711
+#define DIRSEP 36,759
+#define ENVSEP 37,779
+#define MAX_LOADPATH_LEN 40,809
+char *ApplicationLoadPath(ApplicationLoadPath46,1028
+static char *GetProgramDirectory(GetProgramDirectory90,2351
+static char *GetWorkingDirectory(GetWorkingDirectory115,2935
+
+xlispw/accel.c,703
+typedef struct AccelEntry AccelEntry;12,294
+struct AccelEntry 13,333
+typedef struct CharName CharName;20,451
+struct CharName 21,486
+static CharName charNames[charNames28,582
+static int nextID 49,1313
+static int tableChanged 50,1337
+static AccelEntry *entries entries51,1371
+static int entryCount 52,1407
+static HWND hAccelWnd 53,1435
+static HACCEL hAccelTable 54,1466
+void InitAccelerators(65,1874
+int GetAcceleratorTable(71,2034
+static void MakeAcceleratorTable(83,2327
+int CheckAccelerators(116,3206
+static xlValue xAddAccelerator(131,3595
+static int ParseKeyString(178,4801
+static int ComparePrefix(214,5745
+static int CompareKeyNames(227,6067
+static int FindCharacter(240,6390
+
+xlispw/canvas.c,620
+static xlValue c_canvas;15,336
+static xlValue k_borderp;18,392
+static xlValue s_draw;19,419
+void InitCanvas(41,1123
+static xlValue xCanvasInitialize(79,2504
+static xlValue xSetFont(136,4383
+static xlValue xGetPixel(176,5418
+static xlValue xSetPixel(197,6003
+static xlValue xSetPixelRow(219,6656
+static xlValue xTextOut(253,7531
+#define DRAWBUFSIZE 275,8111
+#define LMARGIN 276,8140
+#define TMARGIN 277,8167
+static xlValue xStreamOut(280,8253
+static xlValue xDraw(325,9517
+LRESULT CALLBACK CanvasWndProc(333,9678
+static void DrawCanvas(351,10176
+static Widget *GetWidgetWithDC(GetWidgetWithDC371,10851
+
+xlispw/edit.c,1528
+xlValue c_basicEditText;15,334
+static xlValue c_editText;21,422
+static xlValue c_richEditText;22,450
+static xlValue k_label;25,512
+static xlValue k_hscrollp;26,537
+static xlValue k_vscrollp;27,565
+static xlValue k_autohscrollp;28,593
+static xlValue k_autovscrollp;29,625
+static xlValue k_multilinep;30,657
+static xlValue k_justify;31,687
+static xlValue k_borderp;32,714
+static xlValue s_left;33,741
+static xlValue s_right;34,765
+static xlValue s_center;35,790
+void InitEdit(69,2108
+static void xGetSelection(113,4183
+static xlValue xSetSelection(131,4652
+static xlValue xReplaceSelection(153,5283
+static xlValue xLineIndex(172,5776
+static xlValue xLineFromChar(189,6252
+static xlValue xGetLineCount(206,6740
+static xlValue xClearSelection(221,7140
+static xlValue xGetModify(236,7478
+static xlValue xSetModify(251,7839
+static xlValue xOnChar(267,8214
+static xlValue xMakeEditText(306,9275
+static xlValue xMakeRichEditText(313,9477
+static xlValue MakeEditText(320,9690
+static int LoadFile(406,12625
+static DWORD CALLBACK RichLoader(450,13579
+static int RichLoadFile(458,13871
+static xlValue xLoadFile(482,14449
+static xlValue xRichLoadFile(496,14787
+static int SaveFile(510,15139
+static DWORD CALLBACK RichSaver(545,15922
+static int RichSaveFile(553,16228
+static xlValue xSaveFile(577,16805
+static xlValue xRichSaveFile(591,17169
+static xlValue xGetSelectedText(605,17556
+static xlValue xRichGetSelectedText(649,18662
+LRESULT CALLBACK TextFilter(680,19475
+void DisplayLastError(703,20271
+
+xlispw/gifdef.h,1841
+#define MAX_LINES 7,49
+#define GIF_PACKED_MASK_CT_SIZE	9,117
+#define GIF_PACKED_BIT_CT_SORT	10,156
+#define GIF_PACKED_MASK_COLR_RES	11,194
+#define GIF_PACKED_SHIFT_COLR_RES	12,233
+#define GIF_PACKED_BIT_GLOBAL_CT	13,273
+typedef struct _gifcolortable18,349
+} GIFCOLORTABLE;23,425
+#define _GifDefs_h_31,581
+typedef struct _gifheader39,713
+} GIFHEADER;51,1121
+#define GIF_SIGNATURE	53,1137
+#define GIF_V87a	54,1166
+#define GIF_V89a	55,1191
+#define GIF_TRAILER	57,1218
+#define GIF_SEPERATOR	58,1245
+#define GIF_ZEROBLOCK	59,1273
+typedef struct _gifimgdesc63,1338
+} GIFIMGDESC;71,1673
+#define GIFIMG_PACKED_BIT_LCL_CT	73,1690
+#define GIFIMG_PACKED_BIT_INTERLACE	74,1731
+#define GIFIMG_PACKED_BIT_SORT	75,1775
+#define GIFIMG_PACKED_MASK_LCL_CT_SIZE	76,1815
+#define GIFIMG_PACKED_SHIFT_LCL_CT_SIZE	77,1861
+#define GIF_EXTENSION	89,2007
+#define GIF_EXT_GRAPHICS	90,2036
+#define GIF_EXT_TEXT	91,2067
+#define GIF_EXT_APP	92,2095
+#define GIF_EXT_COMMENT	93,2123
+typedef struct _gifGraphicControlExtention 99,2218
+} GIFGRAPHCTRL;105,2383
+typedef CArray<GIFGRAPHCTRL,GIFGRAPHCTRL107,2402
+typedef CArray<GIFGRAPHCTRL, GIFGRAPHCTRL&> GIFGRAPHCTRLArray;107,2402
+typedef struct _gifTextExtension 112,2505
+} GIFTXTEXT;124,2827
+typedef  CArray<GIFTXTEXT,GIFTXTEXT126,2843
+typedef  CArray<GIFTXTEXT, GIFTXTEXT&> GIFTXTEXTArray;126,2843
+typedef struct _gifAppExtension 131,2939
+} GIFAPPEXT;137,3081
+typedef  CArray<GIFAPPEXT,GIFAPPEXT139,3097
+typedef  CArray<GIFAPPEXT, GIFAPPEXT&> GIFAPPEXTArray;139,3097
+typedef struct _gifCommentExtension 145,3191
+} GIFCOMEXT;147,3259
+typedef  CArray<GIFCOMEXT,GIFCOMEXT149,3275
+typedef  CArray<GIFCOMEXT, GIFCOMEXT&> GIFCOMEXTArray;149,3275
+typedef struct _gifImgInfo GIFIMGINFO;156,3405
+struct _gifImgInfo 158,3447
+typedef struct _gifconfig190,4421
+} GIFCONFIG;195,4512
+
+xlispw/ix_gifdecoder.h,244
+#define CODEBUFFER_SIZE	9,164
+#define SYMBOLTABLE_SIZE	10,196
+#define	MAX_LZW_BITS	13,248
+#define LZW_TABLE_SIZE	14,307
+#define READLINE_CACHESIZE 16,384
+class CIX_GifDecoder34,1231
+	CIX_GifDecoder(CIX_GifDecoder::CIX_GifDecoder39,1284
+
+xlispw/listener.c,609
+static Widget *listener listener10,253
+static FILE *logFP logFP13,304
+#define OUTBUFSIZE 16,364
+static char outBuf[outBuf17,389
+static char *outPtr outPtr18,426
+static int atBOLP 21,484
+static xlSubrDef subrtab[subrtab27,620
+static xlXSubrDef xsubrtab[xsubrtab31,719
+void InitListener(41,939
+static xlValue xSetupListener(57,1410
+static void GuaranteeListenerSpace(79,1894
+int ConsoleGetC(101,2716
+void ConsoleFlushInput(108,2849
+void ConsolePutC(113,2939
+void ConsoleFlushOutput(130,3319
+int ConsoleAtBOLP(163,4191
+int ConsoleCheck(170,4323
+static xlValue xCollectExpression(176,4437
+
+xlispw/menu.c,695
+xlValue c_menu;13,300
+#define menuHANDLE 16,352
+static xlValue s_menu;19,401
+static xlValue s_prepare;20,425
+static MessageBinding *bindings bindings21,452
+static int nextID 22,493
+void InitMenus(39,1006
+static xlValue xMenuInitialize(57,1634
+static xlValue xAppendString(89,2357
+static xlValue xAppendPopup(116,3026
+static xlValue xAppendSeparator(150,3902
+static xlValue xCheckItem(163,4233
+static xlValue xItemCheckedP(183,4858
+static xlValue xPrepare(205,5445
+static UINT MakeMenuBinding(218,5686
+static void RemoveMenuBinding(246,6356
+int CheckMenuBindings(260,6770
+int PrepareMenu(275,7152
+Menu *GetMenuHandle(GetMenuHandle299,7789
+static void SetMenuHandle(308,8102
+
+xlispw/misc.c,720
+static xlValue k_buttons;13,298
+static xlValue k_icon;14,325
+static xlValue k_default;15,349
+static xlValue s_abortretryignore;16,376
+static xlValue s_ok;17,412
+static xlValue s_okcancel;18,434
+static xlValue s_retrycancel;19,462
+static xlValue s_yesno;20,493
+static xlValue s_yesnocancel;21,518
+static xlValue s_abort;22,549
+static xlValue s_cancel;23,574
+static xlValue s_ignore;24,600
+static xlValue s_no;25,626
+static xlValue s_retry;26,648
+static xlValue s_yes;27,673
+static xlValue s_warning;28,696
+static xlValue s_information;29,723
+static xlValue s_question;30,754
+static xlValue s_error;31,782
+void InitMisc(38,964
+static void xMessageBox(67,2144
+static xlValue xGetFullPathName(260,7123
+
+xlispw/place.c,211
+void PlaceWidgets(20,643
+static void ComputeWidgetSize(51,1576
+static void ComputeFrameSize(65,2022
+static void PositionWidget(143,4689
+static void PositionFrame(220,6735
+static int WidgetFrameP(374,12151
+
+xlispw/tclicontobitmap.h,0
+
+xlispw/toolbar.c,442
+static xlValue c_toolbar;16,391
+static xlValue k_tip;19,436
+void InitToolbars(35,896
+static xlValue xToolbarInitialize(68,2600
+static xlValue xAddButton(146,5281
+static xlValue xAddStandardButton(234,7699
+static xlValue xAddSeparator(275,8821
+static xlValue xGetState(308,9610
+static xlValue xSetState(331,10181
+static void RecomputeSize(364,11002
+static int ToolbarHandler(403,12226
+char *GetToolTipText(GetToolTipText414,12494
+
+xlispw/widget.c,3319
+xlValue c_widget;15,350
+xlValue c_frame;16,369
+static xlValue c_scrollBar;19,404
+static xlValue c_slider;20,433
+static xlValue c_pushButton;21,459
+static xlValue c_radioButton;22,489
+static xlValue c_checkBox;23,520
+static xlValue c_groupBox;24,548
+static xlValue c_dropDownMenu;25,576
+static xlValue c_listBox;26,608
+static xlValue c_staticText;27,635
+#define widgetHANDLE 30,700
+static xlValue s_widget;33,767
+static xlValue k_handler;34,793
+static xlValue k_from;35,820
+static xlValue k_to;36,844
+static xlValue k_initialvalue;37,866
+static xlValue k_label;38,898
+static xlValue k_labellist;39,923
+static xlValue k_defaultp;40,952
+static xlValue k_tabstopp;41,980
+static xlValue k_groupid;42,1008
+static xlValue k_x;43,1035
+static xlValue k_y;44,1056
+static xlValue k_width;45,1077
+static xlValue k_height;46,1102
+static xlValue k_side;47,1128
+static xlValue k_anchor;48,1152
+static xlValue k_fill;49,1178
+static xlValue k_sortp;50,1202
+static xlValue k_vscrollp;51,1227
+static xlValue k_borderp;52,1255
+static xlValue s_left;53,1282
+static xlValue s_right;54,1306
+static xlValue s_top;55,1331
+static xlValue s_bottom;56,1354
+static xlValue s_center;57,1380
+static xlValue s_topleft;58,1406
+static xlValue s_topright;59,1433
+static xlValue s_bottomleft;60,1461
+static xlValue s_bottomright;61,1491
+static xlValue s_none;62,1522
+static xlValue s_x;63,1546
+static xlValue s_y;64,1567
+static xlValue s_both;65,1588
+static xlValue s_draw;66,1612
+void InitWidgets(109,3340
+Widget *MakeWidget(MakeWidget209,7503
+FrameWidget *MakeFrameWidget(MakeFrameWidget225,7889
+void InitWidget(252,8601
+void FreeWidget(287,9611
+UINT MakeBinding(306,10181
+void RemoveBinding(334,10883
+int CheckBindings(348,11305
+static xlValue xGetWidgetText(363,11718
+static xlValue xSetWidgetText(378,12075
+static xlValue xMoveWindow(393,12422
+static xlValue xShowWindow(420,13176
+static xlValue xHideWindow(444,13732
+static void xGetWindowRect(458,14034
+static void xGetClientRect(494,14921
+static xlValue xMakeFrame(516,15445
+static xlValue xMakeScrollBar(541,16100
+static xlValue xMakeSlider(599,17905
+static xlValue xMakePushButton(658,19800
+static xlValue xMakeRadioButton(675,20264
+static xlValue xMakeCheckBox(691,20682
+static xlValue MakeButton(705,21001
+static xlValue xMakeGroupBox(784,23402
+static xlValue xMakeDropDownMenu(843,25381
+static int DropDownMenuHandler(968,29351
+static xlValue xListBoxInitialize(987,29899
+static xlValue xListBoxAddString(1052,31890
+static xlValue xListBoxSetRedraw(1084,32753
+static xlValue xListBoxSelectionChanged(1101,33181
+static xlValue xListBoxDoubleClick(1114,33467
+static xlValue xListBoxGetSelection(1127,33750
+static xlValue xListBoxSetSelection(1144,34202
+static xlValue xListBoxGetItemData(1162,34699
+static xlValue xListBoxReset(1181,35195
+static xlValue xMakeStaticText(1197,35569
+void GetWidgetPosition(1247,37189
+LRESULT CALLBACK GroupBoxFilter(1313,39228
+LRESULT ControlScroll(1328,39734
+static LRESULT ControlScrollBar(1341,40132
+static LRESULT ControlSlider(1385,41265
+HWND GetParentWnd(1409,42096
+Widget *GetWidget(GetWidget1417,42332
+void SetWidget(1426,42651
+FrameWidget *GetArgFrameWidget(GetArgFrameWidget1432,42827
+static int TopLevelWindowP(1438,42990
+void EnsureStringOrNil(1449,43220
+
+xlispw/widget.h,1625
+#define __WIDGET_H__8,243
+typedef struct WidgetPosition WidgetPosition;14,329
+typedef struct Widget Widget;15,376
+typedef struct FrameWidget FrameWidget;16,407
+typedef struct CharBinding CharBinding;17,448
+typedef struct MessageBinding MessageBinding;18,489
+typedef struct Menu Menu;19,536
+typedef struct ToolTipText ToolTipText;20,563
+#define wtWindow 23,626
+#define wtFrame 24,653
+#define wtScrollBar 25,680
+#define wtSlider 26,707
+#define wtPushButton 27,734
+#define wtDefPushButton 28,761
+#define wtRadioButton 29,788
+#define wtCheckBox 30,815
+#define wtGroupBox 31,842
+#define wtDropDownMenu 32,869
+#define wtStaticText 33,896
+#define wtEditText 34,924
+#define wtRichEditText 35,952
+#define wtCanvas 36,980
+#define wtToolbar 37,1008
+#define wtListBox 38,1036
+struct CharBinding 41,1091
+struct MessageBinding 48,1199
+#define wsLeft 55,1316
+#define wsRight 56,1339
+#define wsTop 57,1362
+#define wsBottom 58,1385
+#define waCenter 61,1438
+#define waLeft 62,1465
+#define waRight 63,1492
+#define waTop 64,1519
+#define waBottom 65,1546
+#define waTopLeft 66,1573
+#define waTopRight 67,1600
+#define waBottomLeft 68,1627
+#define waBottomRight 69,1654
+#define wfNone 72,1709
+#define wfX 73,1736
+#define wfY 74,1763
+#define wfBoth 75,1790
+struct WidgetPosition 78,1862
+#define whfSize 89,2053
+#define whfDisplaySize 90,2110
+#define whfPlace 91,2175
+typedef int (*WidgetHandler)WidgetHandler94,2271
+#define wfRecalc 97,2348
+#define wfResize 98,2375
+#define wfAutoPlace 99,2402
+struct Widget 102,2460
+struct FrameWidget 131,3097
+struct Menu 146,3380
+struct ToolTipText 155,3521
+
+xlispw/window.c,1083
+#define windowMENU 15,354
+#define devCtxtHANDLE 16,397
+xlValue c_window;19,451
+static xlValue c_basicWindow;22,487
+static xlValue c_dialog;23,518
+static xlValue k_title;26,574
+static xlValue k_filter;27,599
+static xlValue k_defaultname;28,625
+static xlValue k_defaultextension;29,656
+static xlValue k_initialdirectory;30,692
+static xlValue s_close;31,728
+static xlValue s_selectionchanged;32,753
+static xlValue s_doubleclick;33,789
+void InitWindows(61,1773
+static xlValue xWindowInitialize(130,4471
+static xlValue xDialogInitialize(138,4745
+static xlValue MakeWindow(146,4989
+static int WindowHandler(197,6786
+static xlValue xBringToTop(216,7397
+static xlValue xUpdate(230,7704
+static xlValue xClose(249,8107
+static xlValue xGetMenu(262,8370
+static xlValue xSetMenu(275,8647
+static xlValue xDrawMenuBar(295,9172
+static void xOpenFileDialog(308,9487
+static void xSaveFileDialog(331,10092
+static void InitOpenFileNameStructure(355,10742
+LRESULT CALLBACK ControlWndProc(446,13584
+static LRESULT ControlCommand(527,16350
+static int WidgetControlP(572,18051
+
+xlispw/winstuff.c,238
+static xlSubrDef subrtab[subrtab16,393
+static xlXSubrDef xsubrtab[xsubrtab19,436
+int InvokeXLISP(28,657
+static xlValue (*FindSubr(FindSubr96,2329
+static void Error(112,2796
+static void Exit(119,2926
+void SetupCallbacks(125,3044
+
+xlispw/winstuff.h,29
+#define __WINSTUFF_H__8,229
+
+xlispw/xlispw.c,404
+char appName[appName16,372
+HINSTANCE hInstance;17,400
+static int argc 20,438
+static char **argv argv21,460
+static jmp_buf exitTarget;22,488
+static int exitStatus;23,516
+int WINAPI WinMain(32,764
+static xlValue xMessageLoop(79,2083
+static int CheckForMessages(100,2547
+static int ParseCommandLine(128,3256
+static char *GetNextArgument(GetNextArgument165,4269
+void ShowErrorMessage(207,5329
+
+xlispw/xlispw.h,27
+#define __XLISPW_H__8,223

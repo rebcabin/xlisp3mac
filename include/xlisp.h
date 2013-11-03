@@ -16,7 +16,7 @@
 #include <time.h>
 
 /* xlAFMT       printf format for addresses ("%x") */
-/* xlOFFTYPE    number the size of an address (int) */
+/* xlOFFTYPE    number the size of an address (long on x86-64 [bbeckman]) */
 /* xlFIXTYPE    data type for fixed point numbers (long) */
 /* xlUFIXTYPE   data type for fixed point numbers (unsigned long) */
 /* xlICNV       fixed point input conversion routine (atol) */
@@ -138,10 +138,10 @@ void free(void *);
 
 /* default important definitions */
 #ifndef xlAFMT
-#define xlAFMT          "%x"
+#define xlAFMT          "%lx"
 #endif
 #ifndef xlOFFTYPE
-#define xlOFFTYPE       int
+#define xlOFFTYPE       long
 #endif
 #ifndef xlFIXTYPE
 #define xlFIXTYPE       long
@@ -221,7 +221,7 @@ typedef unsigned long   xlUFIXTYPE;
 #define xlCPush(v)      do { \
                             xlCheck(1); \
                             xlPush(v); \
-                        } while (0) 
+                        } while (0)
 #define xlPush(v)       (*--xlSP = (v))
 #define xlPop()         (*xlSP++)
 #define xlTop()         (*xlSP)
@@ -320,7 +320,7 @@ typedef unsigned long   xlUFIXTYPE;
 /* macro to determine if a non-nil value is a pointer */
 #define xlPointerP(x)           ((x) != xlNil && ((xlOFFTYPE)(x) & 1) == 0)
 
-/* type predicates */                          
+/* type predicates */
 #define xlAtomP(x)          ((x) == xlNil || xlNodeType(x) != xlCONS)
 #define xlNullP(x)          ((x) == xlNil)
 #define xlListP(x)          ((x) == xlNil || xlNodeType(x) == xlCONS)
@@ -333,7 +333,7 @@ typedef unsigned long   xlUFIXTYPE;
 #define xlInputPortP(x)     (xlPortP(x) && (xlGetPFlags(x) & xlpfINPUT) != 0)
 #define xlOutputPortP(x)    (xlPortP(x) && (xlGetPFlags(x) & xlpfOUTPUT) != 0)
 
-/* basic type predicates */                            
+/* basic type predicates */
 #define xlConsP(x)                  xlTypeIs(x,xlCONS)
 #define xlStringP(x)                xlTypeIs(x,xlSTRING)
 #define xlSymbolP(x)                xlTypeIs(x,xlSYMBOL)
@@ -475,11 +475,11 @@ typedef unsigned long   xlUFIXTYPE;
 
 /* small fixnum access macros */
 #define xlFastMakeFixnum(x)     (xlSmallFixnumP(x) ? xlMakeSmallFixnum(x) \
-                                                   : xlMakeFixnum(x))   
+                                                   : xlMakeFixnum(x))
 #define xlMakeSmallFixnum(x)    ((xlValue)(((xlOFFTYPE)(x) << 1) | 1))
 #define xlGetSmallFixnum(x)     ((xlFIXTYPE)((xlOFFTYPE)(x) >> 1))
 #define xlSmallFixnumP(x)       ((x) >= xlSFIXMIN && (x) <= xlSFIXMAX)
-        
+
 /* string access macros */
 #define xlGetString(x)          ((char *)(x)->value.vector.data)
 #define xlGetSLength(x)         xlGetSize(x)
@@ -695,7 +695,7 @@ xlEXPORT extern xlValue *xlStkBase;     /* base of value stack */
 xlEXPORT extern xlValue *xlStkTop;      /* top of value stack */
 xlEXPORT extern xlValue *xlSP;          /* value stack pointer */
 xlEXPORT extern xlValue *xlCSP;         /* control stack pointer */
-xlEXPORT extern int xlArgC;             /* number of arguments remaining */
+xlEXPORT extern long xlArgC;            /* number of arguments remaining */
 xlEXPORT extern void (*xlNext)(void);   /* pointer to the next function to call (xlApply) */
 xlEXPORT extern int xlDebugModeP;       /* true to turn off tail recursion */
 
@@ -1377,4 +1377,3 @@ extern xlXSubrDef xlosXSubrTab[];
 xlEXPORT xlCallbacks *xlDefaultCallbacks(char *programPath);
 
 #endif
-

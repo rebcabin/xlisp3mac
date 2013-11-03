@@ -1,4 +1,4 @@
-% Created 2013-10-25 Fri 07:13
+% Created 2013-11-02 Sat 05:17
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -16,9 +16,9 @@
 \usepackage{amstext}
 \usepackage{hyperref}
 \tolerance=1000
-\author{David Michael Betz}
-\date{\today}
-\title{XLISP: An Object-Oriented Lisp}
+\author{David Michael Betz\\ Mods by Brian Beckman 2013-2014}
+\date{January 28, 1997}
+\title{XLISP: An Object-Oriented Lisp\\ Version 3.0}
 \hypersetup{
   pdfkeywords={},
   pdfsubject={},
@@ -28,246 +28,307 @@
 \maketitle
 \tableofcontents
 
-\section{xlisp}
+
+\section{License}
 \label{sec-1}
 
-XLISP: An Object-Oriented Lisp
+Copyright (c) 1984-2002, by David Michael Betz \\
+  All rights reserved.\\
+  \\
+David Michael Betz \\
+18 Garrison Drive \\
+Bedford, NH 03110 \\
+(603) 472-2389 (home)\\
 
-Version 3.0
-January 28, 1997
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
 
-David Michael Betz
-18 Garrison Drive
-Bedford, NH 03110
+Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer.
 
-(603) 472-2389 (home)
+Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
 
-Copyright (c) 1984-2002, by David Michael Betz
-All Rights Reserved
-See the included file 'license.txt' for the full license.
-\subsection{Introduction}
-\label{sec-1-1}
+Neither the name of David Michael Betz nor the names of any
+contributors may be used to endorse or promote products derived from
+this software without specific prior written permission.
 
-XLISP is a dialect of the Lisp programming language with extensions
-to support object-oriented programming. Over the years I have
-released many versions of XLISP with differing goals. The original
-XLISP was written to run on tiny machines like the Z80 under CP/M
-and hence was a small language. When Common Lisp came around, I made
-an attempt to bring XLISP into conformance with that standard. Later
-I learned about Scheme, an elegant dialect of Lisp designed by
-Gerald Sussman and Guy Steele Jr. and realized that it more closely
-matched my desire for a small but powerful language. This version of
-XLISP is mostly based on Scheme with my own object system and some
-Common Lispish extensions. It is derived from XScheme, my earlier
-implementation of Scheme.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDER AND CONTRIBUTORS "AS
+IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-Unlike the original XLISP, this version compiles to bytecodes
-instead of directly interpreting the source s-expressions. This
-makes it somewhat faster than the old XLISP for normal functions and
-much faster for macros since they are expanded at compile time not
-run time.
+What follows is not a part of the license:
 
-There are currently implementations of XLISP running on the IBM-PC
-and clones under MS-DOS, on the Macintosh and under OS/2. It is
-completely written in ANSI C and is easily extended with user
-written built-in functions and classes. It is available in source
-form to non-commercial users.
+Please send bug fixes and improvements to me at the address below.
 
-This document is a brief description of XLISP. XLISP follows the
-"Revised$^{\text{3}}$ Report on the Algorithmic Language Scheme" with
-extensions. It assumes some knowledge of Scheme or LISP and some
+In addition, as a courtesy, I ask that you send me a copy of any
+product that makes substantial use of XLISP.  Please contact me at the
+address below for my current mailing address.  I am asking this
+because I enjoy learning about applications of my software.
+
+David Betz
+
+dbetz@xlisper.mv.com
+\section{Introduction}
+\label{sec-2}
+
+XLISP is a dialect of the Lisp programming language with extensions to
+support object-oriented programming.  Over the years I have released
+many versions of XLISP with differing goals.  The original XLISP was
+written to run on tiny machines like the Z80 under CP/M and hence was
+a small language.  When Common Lisp came around, I made an attempt to
+bring XLISP into conformance with that standard.  Later I learned
+about Scheme, an elegant dialect of Lisp designed by Gerald Sussman
+and Guy Steele Jr. and realized that it more closely matched my desire
+for a small but powerful language.  This version of XLISP is mostly
+based on Scheme with my own object system and some Common Lispish
+extensions.  It is derived from XScheme, my earlier implementation of
+Scheme.
+
+Unlike the original XLISP, this version compiles to bytecodes instead
+of directly interpreting the source s-expressions.  This makes it
+somewhat faster than the old XLISP for normal functions and much
+faster for macros since they are expanded at compile time not run
+time.
+
+There are currently implementations of XLISP running on the IBM-PC and
+clones under MS-DOS, on the Macintosh and under OS/2.  It is
+completely written in ANSI C and is easily extended with user written
+built-in functions and classes.  It is available in source form to
+non-commercial users.
+
+This document is a brief description of XLISP.  XLISP follows the
+``Revised$^{\text{3}}$ Report on the Algorithmic Language Scheme'' with
+extensions.  It assumes some knowledge of Scheme or LISP and some
 understanding of the concepts of object-oriented programming.
 
-I recommend the book "Structure and Interpretation of Computer
-Programs" by Harold Abelson and Gerald Jay Sussman and published by
+I recommend the book ``Structure and Interpretation of Computer
+Programs'' by Harold Abelson and Gerald Jay Sussman and published by
 MIT Press and the McGraw-Hill Book Company for learning Scheme (and
-programming in general). You might also find "The Scheme Programming
-Language" by R. Kent Dybvig and "The Little Lisper" by Daniel
+programming in general).  You might also find ``The Scheme Programming
+Language'' by R. Kent Dybvig and ``The Little Lisper'' by Daniel
 P. Friedman and Matthias Felleisen to be helpful.
+\section{A Note from the Authors}
+\label{sec-3}
 
-\subsection{A Note from the Author}
-\label{sec-1-2}
+[bbeckman 2013] I am resurrecting the venerable, old xlisp to put it
+to work as a scripting language over native-code libraries.  XLisp was
+a de-facto open-source, attribution-license project before open-source
+and attribution-licensing were a clear idea in the software community.
+I used it for several projects at Jet Propulsion Laboratory before I
+went to Microsoft, where it was not considered useful.  Therefore, I
+have not used this in production since 1990 or so, when it was
+unabashedly xscheme.  The current version, 3.0, circa 1997, shows the
+signs of vacillation between scheme and common lisp, and I will put in
+some development work to move it away from common lisp.  The class of
+lisp languages has come a long way since 1990, probably being best
+represented by Clojure as of 2013.  Whereas implementing a native
+Clojure is beyond the scope of my current work, my improvements to
+xlisp 3.0 will move it either back toward scheme or forward toward
+Clojure, as taste and time allow.  Meanwhile, here are the original
+author's original remarks, circa 1997:
 
-If you have any problems with XLISP, feel free to contact me for
-help or advice. Please remember that since XLISP is available in
-source form in a high level language many users have been making
-versions available on a variety of machines. If you call to report a
-problem with a specific version, I may not be able to help you if
-that version runs on a machine I don't have access to. Please have
-the version number of XLISP that you are running readily accessible
-before calling me.
+If you have any problems with XLISP, feel free to contact me for help
+or advice.  Please remember that since XLISP is available in source
+form in a high level language many users have been making versions
+available on a variety of machines.  If you call to report a problem
+with a specific version, I may not be able to help you if that version
+runs on a machine I don't have access to.  Please have the version
+number of XLISP that you are running readily accessible before calling
+me.
 
 If you find a bug in XLISP, first try to fix the bug yourself using
-the source code provided. If you are successful in fixing the bug,
-send the bug report along with the fix to me. If you don't have
-access to a C compiler or are unable to fix a bug, please send the
-bug report to me and I'll try to fix it.
+the source code provided.  If you are successful in fixing the bug,
+send the bug report along with the fix to me.  If you don't have
+access to a C compiler or are unable to fix a bug, please send the bug
+report to me and I'll try to fix it.
 
-Any suggestions for improvements will be welcomed. Feel free to
-extend the language in whatever way suits your needs. However,
-PLEASE DO NOT RELEASE ENHANCED VERSIONS WITHOUT CHECKING WITH ME
-FIRST!! I would like to be the clearing house for new features added
-to XLISP. If you want to add features for your own personal use, go
-ahead. But, if you want to distribute your enhanced version, contact
-me first.
+Any suggestions for improvements will be welcomed.  Feel free to
+extend the language in whatever way suits your needs.  However, PLEASE
+DO NOT RELEASE ENHANCED VERSIONS WITHOUT CHECKING WITH ME FIRST!! I
+would like to be the clearing house for new features added to XLISP.
+If you want to add features for your own personal use, go ahead.  But,
+if you want to distribute your enhanced version, contact me first.
+\section{Core Language Reference}
+\label{sec-4}
 
 \subsection{Constants}
-\label{sec-1-3}
+\label{sec-4-1}
 
-\#T
-\#!TRUE
+\subsubsection{\#T}
+\label{sec-4-1-1}
+\subsubsection{\#!TRUE}
+\label{sec-4-1-2}
 
-The true value.  Where boolean expressions are required, any value other
-than \#F is interpreted as a true value.
+The true value.  Where boolean expressions are required, any value
+other than \#F is interpreted as a true value.
+\subsubsection{\#F}
+\label{sec-4-1-3}
+\subsubsection{\#!FALSE}
+\label{sec-4-1-4}
 
-\#F
-\#!FALSE
-
-The false value.  In XLISP, false and the empty list are the same value.
-
+The false value.  In XLISP, false and the empty list are the same
+value.
 \subsection{Built-In Variables}
-\label{sec-1-4}
+\label{sec-4-2}
 
-\textbf{PACKAGE}
+\subsubsection{\textrm{*PACKAGE*}}
+\label{sec-4-2-1}
 
 Bound to the default package.
-
-\textbf{READTABLE}
+\subsubsection{\textrm{*READTABLE*}}
+\label{sec-4-2-2}
 
 Bound to the current read table.
-
-\textbf{ERROR-HANDLER}
+\subsubsection{\textrm{*ERROR-HANDLER*}}
+\label{sec-4-2-3}
 
 Bound to a function to handle errors.  The function should take two
-arguments, the function where the error occured and the environment at
-the time of the error.  It shouldn't return.
-
-\textbf{UNBOUND-HANDLER}
+arguments, the function where the error occured and the environment
+at the time of the error.  It shouldn't return.
+\subsubsection{\textrm{*UNBOUND-HANDLER*}}
+\label{sec-4-2-4}
 
 Bound to a function to handle unbound symbol errors.  The function
-should take two arguments, the symbol that is unbound and a continuation
-to call after correcting the error.
+should take two arguments, the symbol that is unbound and a
+continuation to call after correcting the error.
+\subsubsection{\textrm{*LOAD-PATH*}}
+\label{sec-4-2-5}
 
-\textbf{LOAD-PATH}
-
-Bound to the path used by the LOAD function.  This is initialized to the
-contents of the XLISP environment variable or, if that is not defined,
-to the path where the XLISP executable was found.  The value consists of
-a list of strings that should be paths to directories XLISP should
-search for files being loaded.  Each string should end with an
-appropriate directory terminator (the backslash under MS-DOS, the slash
-under UNIX or a colon on the Macintosh.
-
-\textbf{STANDARD-INPUT}
+Bound to the path used by the LOAD function.  This is initialized to
+the contents of the XLISP environment variable or, if that is not
+defined, to the path where the XLISP executable was found.  The value
+consists of a list of strings that should be paths to directories
+XLISP should search for files being loaded.  Each string should end
+with an appropriate directory terminator (the backslash under MS-DOS,
+the slash under UNIX or a colon on the Macintosh.
+\subsubsection{\textrm{*STANDARD-INPUT*}}
+\label{sec-4-2-6}
 
 Bound to the standard input port.
-
-\textbf{STANDARD-OUTPUT}
+\subsubsection{\textrm{*STANDARD-OUTPUT*}}
+\label{sec-4-2-7}
 
 Bound to the standard output port.
-
-\textbf{ERROR-OUTPUT}
+\subsubsection{\textrm{*ERROR-OUTPUT*}}
+\label{sec-4-2-8}
 
 Bound to the error output port.
+\subsubsection{\textrm{*FIXNUM-FORMAT*}}
+\label{sec-4-2-9}
 
-\textbf{FIXNUM-FORMAT}
-
-A printf style format string for printing fixed point numbers.  FIXNUMs
-are generally represented by long integers so this should usually be set
-to "\%ld".
-
-\textbf{HEXNUM-FORMAT}
+A printf style format string for printing fixed point numbers.
+FIXNUMs are generally represented by long integers so this should
+usually be set to "\%ld".
+\subsubsection{\textrm{*HEXNUM-FORMAT*}}
+\label{sec-4-2-10}
 
 A printf style format string for printing fixed point numbers in
-hexadecimal.  FIXNUMs are generally represented by long integers so this
-should usually be set to "\%lx".
+hexadecimal.  FIXNUMs are generally represented by long integers so
+this should usually be set to "\%lx".
+\subsubsection{\textrm{*FLONUM-FORMAT*}}
+\label{sec-4-2-11}
 
-\textbf{FLONUM-FORMAT}
+A printf style format string for printing floating point numbers.
+This is usually set to "\%.15g".
+\subsubsection{\textrm{*PRINT-CASE*}}
+\label{sec-4-2-12}
 
-A printf style format string for printing floating point numbers.  This
-is usually set to "\%.15g".
+Bound to a symbol that controls the case in which symbols are
+printed.  Can be set to UPCASE or DOWNCASE.
+\subsubsection{\textrm{*SOFTWARE-TYPE*}}
+\label{sec-4-2-13}
 
-\textbf{PRINT-CASE}
+Bound to a symbol that indicates the host software.  The following
+types are defined currently:
 
-Bound to a symbol that controls the case in which symbols are printed.
-Can be set to UPCASE or DOWNCASE.
-
-\textbf{SOFTWARE-TYPE}
-
-Bound to a symbol that indicates the host software.  The following types
-are defined currently:
-
-    win95    Windows 95
-    dos32    Command line DOS under Windows 95
-    unix    Unix or Linux
-    mac    Macintosh
-T
+\begin{description}
+\item[{win95}] Windows 95
+\item[{dos32}] Command line DOS under Windows 95
+\item[{unix}] Unix or Linux
+\item[{mac}] Macintosh
+\end{description}
+\subsubsection{T}
+\label{sec-4-2-14}
 
 Bound to \#t.
-
-NIL
+\subsubsection{NIL}
+\label{sec-4-2-15}
 
 Bound to the empty list.
-
-OBJECT
+\subsubsection{OBJECT}
+\label{sec-4-2-16}
 
 Bound to the class "Object".
-
-CLASS
+\subsubsection{CLASS}
+\label{sec-4-2-17}
 
 Bound to the class "Class".
-
 \subsection{Expressions}
-\label{sec-1-5}
+\label{sec-4-3}
 
-variable
+\subsubsection{variable}
+\label{sec-4-3-1}
 
-An expression consisting of a variable is a variable reference. The
-value of the variable reference is the value stored in the location to
-which the variable is bound. It is an error to reference an unbound
-variable.
+An expression consisting of a variable is a variable reference.  The
+value of the variable reference is the value stored in the location
+to which the variable is bound.  It is an error to reference an
+unbound variable.
+\subsubsection{(QUOTE datum)}
+\label{sec-4-3-2}
+\subsubsection{'datum}
+\label{sec-4-3-3}
 
-(QUOTE datum)
-'datum
-
-(QUOTE datum) evaluates to datum. Datum may be any external
-representation of an XLISP value. This notation is used to include
-literal constants in XLISP code. (QUOTE datum) may be abbreviated as
-'datum. The two notations are equivalent in all respects.
-
-constant
+(QUOTE datum) evaluates to datum.  Datum may be any external
+representation of an XLISP value.  This notation is used to include
+literal constants in XLISP code.  (QUOTE datum) may be abbreviated as
+'datum.  The two notations are equivalent in all respects.
+\subsubsection{constant}
+\label{sec-4-3-4}
 
 Numeric constants, string constants, character constants and boolean
 constants evaluate "to themselves"; they need not be quoted.
-
-(operator operand\ldots{})
+\subsubsection{(operator operand\ldots{})}
+\label{sec-4-3-5}
 
 A procedure call is written by simply enclosing in parentheses
 expressions for the procedure to be called and the arguments to be
-passed to it. The operator and operand expressions are evaluated and the
-resulting procedure is passed the resulting arguments.
+passed to it. The operator and operand expressions are evaluated and
+the resulting procedure is passed the resulting arguments.
+\subsubsection{(object selector operand\ldots{})}
+\label{sec-4-3-6}
 
-(object selector operand\ldots{})
-
-A message sending form is written by enclosing in parentheses
+A message-sending form is written by enclosing in parentheses
 expressions for the receiving object, the message selector, and the
-arguments to be passed to the method. The receiver, selector, and
+arguments to be passed to the method.  The receiver, selector, and
 argument expressions are evaluated, the message selector is used to
 select an appropriate method to handle the message, and the resulting
-method is passed the resulting arguments.  (LAMBDA formals body)
+method is passed the resulting arguments.
+\subsubsection{(LAMBDA formals body)}
+\label{sec-4-3-7}
 
 Formals should be a formal argument list as described below, and body
-should be a sequence of one or more expressions. A lambda expression
-evaluates to a procedure. The environment in effect when the lambda
-expression is evaluated is remembered as part of the procedure. When the
-procedure is later called with some actual arguments, the environment in
-which the lambda expression was evaluated will be extended by binding
-the variables in the formal argument list to fresh locations, the
-corresponding actual argument values will be stored in those locations,
-and the expressions in the body of the lambda expression will be
-evaluated sequentially in the extended environment. The result of the
-last expression in the body will be returned as the result of the
-procedure call.
+should be a sequence of one or more expressions.  A lambda expression
+evaluates to a procedure.  The environment in effect when the lambda
+expression is evaluated is remembered as part of the procedure.  When
+the procedure is later called with some actual arguments, the
+environment in which the lambda expression was evaluated will be
+extended by binding the variables in the formal argument list to
+fresh locations, the corresponding actual argument values will be
+stored in those locations, and the expressions in the body of the
+lambda expression will be evaluated sequentially in the extended
+environment.  The result of the last expression in the body will be
+returned as the result of the procedure call.
 
 Formals should have the following form:
 
@@ -283,25 +344,25 @@ var is a required argument
 ovar is an optional argument
 rvar is a "rest" argument
 
-There are three parts to a formals list. The first lists the required
-arguments of the procedure. All calls to the procedure must supply
-values for each of the required arguments. The second part lists the
-optional arguments of the procedure. An optional argument may be
-supplied in a call or omitted. If it is omitted, a special value is
-given to the argument that satisfies the default-object? predicate. This
-provides a way to test to see if an optional argument was provided in a
-call or omitted. The last part of the formals list gives the "rest"
-argument. This argument will be bound to the rest of the list of
-arguments supplied to a call after the required and optional arguments
-have been removed.
+There are three parts to a formals list.  The first lists the
+required arguments of the procedure.  All calls to the procedure must
+supply values for each of the required arguments.  The second part
+lists the optional arguments of the procedure.  An optional argument
+may be supplied in a call or omitted.  If it is omitted, a special
+value is given to the argument that satisfies the default-object?
+predicate.  This provides a way to test to see if an optional
+argument was provided in a call or omitted.  The last part of the
+formals list gives the "rest" argument.  This argument will be bound
+to the rest of the list of arguments supplied to a call after the
+required and optional arguments have been removed.
 
 Alternatively, you can use Common Lisp syntax for the formal parameters:
 
 (var\ldots{}
- [\&optional \{ovar | (ovar [init [svar]])\}\ldots{}
- [\&rest rvar]
- [\&key \{kvar | (\{kvar | (key kvar)\} [init [svar]])\}\ldots{}
- [\&aux \{avar | (avar [init])\}])
+[\&optional \{ovar | (ovar [init [svar]])\}\ldots{}
+[\&rest rvar]
+[\&key \{kvar | (\{kvar | (key kvar)\} [init [svar]])\}\ldots{}
+[\&aux \{avar | (avar [init])\}])
 
 where:
 
@@ -312,254 +373,273 @@ kvar is a keyword argument
 avar is an aux variable
 svar is a "supplied-p" variable
 
-See "Common Lisp, the Language" by Guy Steele Jr. for a description of
-this syntax.
-
-(NAMED-LAMBDA name formals body)
+See "Common Lisp, the Language" by Guy Steele Jr. for a description
+of this syntax.
+\subsubsection{(NAMED-LAMBDA name formals body)}
+\label{sec-4-3-8}
 
 NAMED-LAMBDA is the same as LAMBDA except that the specified name is
 associated with the procedure.
+\subsubsection{(IF test consequent [alternate])}
+\label{sec-4-3-9}
 
-(IF test consequent [alternate])
-
-An if expression is evaluated as follows: first, test is evaluated. If
-it yields a true value, then consequent is evaluated and its value is
-returned. Otherwise, alternate is evaluated and its value is
-returned. If test yields a false value and no alternate is specified,
-then the result of the expression is unspecified.
+An if expression is evaluated as follows: first, test is evaluated.
+If it yields a true value, then consequent is evaluated and its value
+is returned.  Otherwise, alternate is evaluated and its value is
+returned.  If test yields a false value and no alternate is
+specified, then the result of the expression is unspecified.
 
 A false value is nil or the empty list.  Every other value is a true
 value.
-
-(SET! variable expression)
+\subsubsection{(SET! variable expression)}
+\label{sec-4-3-10}
 
 Expression is evaluated, and the resulting value is stored in the
-location to which variable is bound. Variable must be bound in some
-region or at the top level. The result of the set! expression is
+location to which variable is bound.  Variable must be bound in some
+region or at the top level.  The result of the set! expression is
 unspecified.
-
-(COND clause\ldots{})
+\subsubsection{(COND clause\ldots{})}
+\label{sec-4-3-11}
 
 Each clause should be of the form
 
 (test expression\ldots{})
 
-where test is any expression. The last clause may be an "else clause,"
-which has the form
+where test is any expression.  The last clause may be an "else
+clause," which has the form
 
 (ELSE expression\ldots{})
 
 A cond expression is evaluated by evaluating the test expressions of
-successive clauses in order until one of them evaluates to a true
-value. When a test evaluates to a true value, then the remaining
-expressions in its clause are evaluated in order, and the result of the
-last expression in the clause is returned as the result of the entire
-cond expression. If the selected clause contains only the test and no
-expressions, then the value of the test is returned as the result. If
-all tests evaluate to false values, and there is no else clause, then
-the result of the conditional expression is unspecified; if there is an
-else clause, then its expressions are evaluated, and the value of the
-last one is returned.
+successive clauses, in order, until one of them evaluates to a true
+value.  When a test evaluates to a true value, then the remaining
+expressions in its clause are evaluated in order, and the result of
+the last expression in the clause is returned as the result of the
+entire cond expression.  If the selected clause contains only the
+test and no expressions, then the value of the test is returned as
+the result.  If all tests evaluate to false values, and there is no
+else clause, then the result of the conditional expression is
+unspecified; if there is an else clause, then its expressions are
+evaluated, and the value of the last one is returned.
 
 (AND test\ldots{})
 
-The test expressions are evaluated from left to right, and the value of
-the first expression that evaluates to a false value is returned. Any
-remaining expressions are not evaluated. If all the expressions evaluate
-to true values, the value of the last expression is returned. If there
-are no expressions then \#t is returned.
+The test expressions are evaluated from left to right, and the value
+of the first expression that evaluates to a false value is returned.
+Any remaining expressions are not evaluated.  If all the expressions
+evaluate to true values, the value of the last expression is
+returned.  If there are no expressions then \#t is returned.
 
 (OR test\ldots{})
 
-The test expressions are evaluated from left to right, and the value of
-the first expression that evaluates to a true value is returned. Any
-remaining expressions are not evaluated. If all expressions evaluate to
-false values, the value of the last expression is returned. If there are
-no expressions then \#f is returned.
-
+The test expressions are evaluated from left to right, and the value
+of the first expression that evaluates to a true value is returned.
+Any remaining expressions are not evaluated.  If all expressions
+evaluate to false values, the value of the last expression is
+returned.  If there are no expressions then \#f is returned.
 \subsection{Multiple Values}
-\label{sec-1-6}
+\label{sec-4-4}
 
-(VALUES expr\ldots{})
+\subsubsection{(VALUES expr\ldots{})}
+\label{sec-4-4-1}
 
 The results of evaluating this expression are the values of the
 expressions given as arguments.  It is legal to pass no values as in
 (VALUES) to indicate no values.
-
-(VALUES-LIST list)
+\subsubsection{(VALUES-LIST list)}
+\label{sec-4-4-2}
 
 The results of evaluating this expression are the values in the
 specified list.
-
-(MULTIPLE-VALUE-BIND (var\ldots{}) vexpr expr\ldots{})
+\subsubsection{(MULTIPLE-VALUE-BIND (var\ldots{}) vexpr expr\ldots{})}
+\label{sec-4-4-3}
 
 The multiple values produced by vexpr are bound to the specified
-variables and the remaining expressions are evaluated in an environment
-that includes those variables.
-
-(MULTIPLE-VALUE-CALL function expr)
+variables and the remaining expressions are evaluated in an
+environment that includes those variables.
+\subsubsection{(MULTIPLE-VALUE-CALL function expr)}
+\label{sec-4-4-4}
 
 The multiple values of expr are passed as arguments to the specified
 function.
 \subsection{Non-Local Exits}
-\label{sec-1-7}
+\label{sec-4-5}
 
-(CATCH tag expr\ldots{})
+\subsubsection{(CATCH tag expr\ldots{})}
+\label{sec-4-5-1}
 
-Evaluate the specified expressions in an environment where the specified
-tag is visible as a target for THROW.  If no throw occurs, return the
-value(s) of the last expression.  If a throw occurs that matches the
-tag, return the value(s) specified in the THROW form.
-
-(THROW tag expr\ldots{})
+Evaluate the specified expressions in an environment where the
+specified tag is visible as a target for THROW.  If no throw occurs,
+return the value(s) of the last expression.  If a throw occurs that
+matches the tag, return the value(s) specified in the THROW form.
+\subsubsection{(THROW tag expr\ldots{})}
+\label{sec-4-5-2}
 
 Throw to a tag established by the CATCH form.  In the process of
 unwinding the stack, evaluate any cleanup forms associated with
-UNWIND-PROTECT forms established between the target CATCH and the THROW
-form.
-
-(THROW-ERROR arg)
+UNWIND-PROTECT forms established between the target CATCH and the
+THROW form.
+\subsubsection{(THROW-ERROR arg)}
+\label{sec-4-5-3}
 
 Throw an error.  This is basically equivilent to (THROW ‘ERROR arg)
 except that care is taken to make sure that recursive errors are not
 produced if there is no corresponding CATCH for the ‘ERROR tag.
+\subsubsection{(UNWIND-PROTECT pexpr expr\ldots{})}
+\label{sec-4-5-4}
 
-(UNWIND-PROTECT pexpr expr\ldots{})
-
-Evaluate pexpr (the protected expression) and then the other expressions
-and return the value(s) of pexpr.  If an error or a THROW occurs during
-the evaluation of the protected form, the other expressions (known as
-cleanup forms) are evaluated during the unwind process.
+Evaluate pexpr (the protected expression) and then the other
+expressions and return the value(s) of pexpr.  If an error or a THROW
+occurs during the evaluation of the protected form, the other
+expressions (known as cleanup forms) are evaluated during the unwind
+process.
 \subsection{Binding Forms}
-\label{sec-1-8}
+\label{sec-4-6}
 
-(LET [name] bindings body)
-
-Bindings should have the form
-
-((variable init)\ldots{})
-
-where each init is an expression, and body should be a sequence of one
-or more expressions. The inits are evaluated in the current envirnoment,
-the variables are bound to fresh locations holding the results, the body
-is evaluated in the
-
-If a name is supplied, a procedure that takes the bound variables as its
-arguments and has the body of the LET as its body is bound to that name.
-
-(LET* bindings body)
-
-Same as LET except that the bindings are done sequentially from left to
-right and the bindings to the left are visible while evaluating the
-initialization expressions for each variable.
-
-(LETREC bindings body)
+\subsubsection{(LET [name] bindings body)}
+\label{sec-4-6-1}
 
 Bindings should have the form
 
 ((variable init)\ldots{})
 
-and body should be a sequence of one or more expressions. The variables
-are bound to fresh locations holding undefined values; the inits are
-evaluated in the resulting environment; each variable is assigned to the
-result of the corresponding init; the body is evaluated in the resulting
-environment; and the value of the last expression in body is
-returned. Each binding of a variable has the entire letrec expression as
-its region, making it possible to define mutually recursive
-procedures. One restriction of letrec is very important: it must be
-possible to evaluate each init without referring to the value of any
-variable. If this restriction is violated, then the effect is undefined,
-and an error may be signalled during evaluation of the inits. The
-restriction is necessary because XLISP passes arguments by value rather
-than by name. In the most common uses of letrec, all the inits are
-lambda expressions and the restriction is satisfied automatically.
+where each init is an expression, and body should be a sequence of
+one or more expressions.  The inits are evaluated in the current
+envirnoment, the variables are bound to fresh locations holding the
+results, the body is evaluated in the
+
+If a name is supplied, a procedure that takes the bound variables as
+its arguments and has the body of the LET as its body is bound to
+that name.
+\subsubsection{(LET* bindings body)}
+\label{sec-4-6-2}
+
+Same as LET except that the bindings are done sequentially from left
+to right and the bindings to the left are visible while evaluating
+the initialization expressions for each variable.
+\subsubsection{(LETREC bindings body)}
+\label{sec-4-6-3}
+
+Bindings should have the form
+
+((variable init)\ldots{})
+
+and body should be a sequence of one or more expressions.  The
+variables are bound to fresh locations holding undefined values; the
+inits are evaluated in the resulting environment; each variable is
+assigned to the result of the corresponding init; the body is
+evaluated in the resulting environment; and the value of the last
+expression in body is returned.  Each binding of a variable has the
+entire letrec expression as its region, making it possible to define
+mutually recursive procedures.  One restriction of letrec is very
+important: it must be possible to evaluate each init without
+referring to the value of any variable.  If this restriction is
+violated, then the effect is undefined, and an error may be signalled
+during evaluation of the inits.  The restriction is necessary because
+XLISP passes arguments by value rather than by name.  In the most
+common uses of letrec, all the inits are lambda expressions and the
+restriction is satisfied automatically.
 \subsection{Sequencing}
-\label{sec-1-9}
+\label{sec-4-7}
 
-(BEGIN expression\ldots{})
-(SEQUENCE expression\ldots{})
+\subsubsection{(BEGIN expression\ldots{})}
+\label{sec-4-7-1}
+\subsubsection{(SEQUENCE expression\ldots{})}
+\label{sec-4-7-2}
 
-The expressions are evaluated sequentially from left to right, and the
-value of the last expression is returned. This expression type is used
-to sequence side effects such as input and output.
+The expressions are evaluated sequentially from left to right, and
+the value of the last expression is returned.  This expression type
+is used to sequence side effects such as input and output.
 \subsection{Delayed Evaluation}
-\label{sec-1-10}
+\label{sec-4-8}
 
-(CONS-STREAM expr1 expr2)
+\subsubsection{(CONS-STREAM expr1 expr2)}
+\label{sec-4-8-1}
 
 Create a cons stream whose head is expr1 (which is evaluated
-immediately) and whose tail is expr2 (whose evaluation is delayed until
-TAIL is called).
-
-(HEAD expr)
+immediately) and whose tail is expr2 (whose evaluation is delayed
+until TAIL is called).
+\subsubsection{(HEAD expr)}
+\label{sec-4-8-2}
 
 Returns the head of a stream.
+\subsubsection{(EMPTY-STREAM? expr)}
+\label{sec-4-8-3}
 
-(TAIL expr)
+Returns \#T if the expr is the empty stream.
+\subsubsection{THE-EMPTY-STREAM}
+\label{sec-4-8-4}
 
-Returns the tail of a stream by calling FORCE on the promise created by
-CONS-STREAM.
+A constant representing the empty stream.
+\subsubsection{(TAIL expr)}
+\label{sec-4-8-5}
 
-(DELAY expression)
+Returns the tail of a stream by calling FORCE on the promise created
+by CONS-STREAM.
+\subsubsection{(DELAY expression)}
+\label{sec-4-8-6}
 
-Evaluating this expression creates a "promise" to evaluate expression at
-a later time.
+Evaluating this expression creates a "promise" to evaluate expression
+at a later time.
+\subsubsection{(FORCE promise)}
+\label{sec-4-8-7}
 
-(FORCE promise)
-
-Applying FORCE to a promise generated by DELAY requests that the promise
-produce the value of the expression passed to DELAY. The first time a
-promise is FORCEed, the DELAY expression is evaluated and the value
-stored. On subsequent calls to FORCE with the same promise, the saved
-value is returned.
+Applying FORCE to a promise generated by DELAY requests that the
+promise produce the value of the expression passed to DELAY.  The
+first time a promise is FORCEed, the DELAY expression is evaluated
+and the value stored.  On subsequent calls to FORCE with the same
+promise, the saved value is returned.
 \subsection{Iteration}
-\label{sec-1-11}
+\label{sec-4-9}
 
-(WHILE test expression\ldots{})
+\subsubsection{(WHILE test expression\ldots{})}
+\label{sec-4-9-1}
 
-While is an iteration construct. Each iteration begins by evaluating
-test; if the result is false, then the loop terminates and the value of
-test is returned as the value of the while expression. If test evaluates
-to a true value, then the expressions are evaluated in order for effect
-and the next iteration begins.
+While is an iteration construct.  Each iteration begins by evaluating
+test; if the result is false, then the loop terminates and the value
+of test is returned as the value of the while expression.  If test
+evaluates to a true value, then the expressions are evaluated in
+order for effect and the next iteration begins.
 \subsection{Definitions}
-\label{sec-1-12}
+\label{sec-4-10}
 
-(DEFINE variable expression)
+\subsubsection{(DEFINE variable expression)}
+\label{sec-4-10-1}
 
 Define a variable and give it an initial value.
+\subsubsection{(DEFINE (variable . formals) body)}
+\label{sec-4-10-2}
 
-(DEFINE (variable . formals) body)
-
-Define a procedure.  Formals should be specified in the same way as with
-LAMBDA.
-
-(DEFINE-MACRO (name . formals) body)
+Define a procedure.  Formals should be specified in the same way as
+with LAMBDA.
+\subsubsection{(DEFINE-MACRO (name . formals) body)}
+\label{sec-4-10-3}
 
 Defines a macro with the specified name.
 \subsection{The Object System}
-\label{sec-1-13}
+\label{sec-4-11}
 
-XLISP provides a fairly simple single inheritance object system.  Each
-object is an instance of a class and classes themselves are objects.
-Each object has a set of instance variables where it stores its private
-data and in addition has access to a set of class variables that are
-shared amongst all instances of the same class.
+XLISP provides a fairly simple, single-inheritance object system.
+Each object is an instance of a class and classes themselves are
+objects.  Each object has a set of instance variables where it stores
+its private data and in addition has access to a set of class
+variables that are shared amongst all instances of the same class.
 
-Each class has a set of methods with which it responds to messages sent
-to its instances.  A message is sent using a syntax similar to a
+Each class has a set of methods with which it responds to messages
+sent to its instances.  A message is sent using a syntax similar to a
 function call:
 
 (object selector expr\ldots{})
 
-Where object is the object receiving the message, selector is a symbol
-used to select the appropriate method for handling the message and the
-expressions are arguments to pass to the method.  A method may return
-zero or more values.  Within a method, the object's instance variables
-and class variables are bound as if they were lexical variables.
+Where object is the object receiving the message, selector is a
+symbol used to select the appropriate method for handling the message
+and the expressions are arguments to pass to the method.  A method
+may return zero or more values.  Within a method, the object's
+instance variables and class variables are bound as if they were
+lexical variables.
 
-
-(DEFINE-CLASS name decl\ldots{})
+\subsubsection{(DEFINE-CLASS name decl\ldots{})}
+\label{sec-4-11-1}
 
 Creates a class with the specified class name and binds the global
 variable with that name to the new class.
@@ -580,1182 +660,1387 @@ Specifies the instance variables of the new class.
 (CVARS \{cvar | (cvar init)\}\ldots{})
 
 Specifies the class variables of the new class.
-
-(DEFINE-METHOD (class selector formals) expr\ldots{})
+\subsubsection{(DEFINE-METHOD (class selector formals) expr\ldots{})}
+\label{sec-4-11-2}
 
 Defines a method for the specified class with the specified selector.
 Within a method, the symbol self refers to the object receiving the
-message.  Also, all instance variables and class variables are available
-as if they were lexical variables.
-
-(DEFINE-CLASS-METHOD (class selector formals) expr\ldots{})
+message.  Also, all instance variables and class variables are
+available as if they were lexical variables.
+\subsubsection{(DEFINE-CLASS-METHOD (class selector formals) expr\ldots{})}
+\label{sec-4-11-3}
 
 Defines a class method for the specified class with the specified
 selector.  Within a method, the symbol self refers to the class
 receiving the message.  Also class variables are available as if they
 were lexical variables.
-
-(SUPER selector expr\ldots{})
+\subsubsection{(SUPER selector expr\ldots{})}
+\label{sec-4-11-4}
 
 When used within a method, sends a message to the superclass of the
 class where the current method was found.
+\subsubsection{(\%GET-METHOD-LIST class)}
+\label{sec-4-11-5}
+
+\subsubsection{(\%GET-SUPERCLASS class)}
+\label{sec-4-11-6}
+
+\subsubsection{(\%FIND-METHOD class selector)}
+\label{sec-4-11-7}
 \subsection{Methods for the Built-In Classes}
-\label{sec-1-14}
+\label{sec-4-12}
 
-Class:
+\subsubsection{Class:}
+\label{sec-4-12-1}
 
-(Class 'make-instance)
+\begin{enumerate}
+\item (Class 'make-instance)
+\label{sec-4-12-1-1}
 
-Make an uninitialize instance of a class.
-
-(Class 'new \&rest args)
+Make an uninitialized instance of a class.
+\item (Class 'new \&rest args)
+\label{sec-4-12-1-2}
 
 Make and initialize an instance of a class.  The new instance is
 initialized by sending it the 'initialize message with the arguments
 passed to 'new.  The result of the 'initialize method is returned as
 the result of 'new.  The 'initialize method should return self as
 its value.
-
-(Class 'initialize ivars \&optional cvars super name)
+\item (Class 'initialize ivars \&optional cvars super name)
+\label{sec-4-12-1-3}
 
 Default class initialization method.
-
-(Class 'answer selector formals body)
+\item (Class 'answer selector formals body)
+\label{sec-4-12-1-4}
 
 Add a method to a class.
-
-(Class 'show \&optional port)
+\item (Class 'show \&optional port)
+\label{sec-4-12-1-5}
 
 Display information about a class.
+\end{enumerate}
 
+\subsubsection{Object:}
+\label{sec-4-12-2}
 
-Object:
-
-(Object 'initialize)
+\begin{enumerate}
+\item (Object 'initialize)
+\label{sec-4-12-2-1}
 
 Default initialization method.
-
-(Object 'class)
+\item (Object 'class)
+\label{sec-4-12-2-2}
 
 Return the class of an object.
-
-(Object 'get-variable var)
+\item (Object 'get-variable var)
+\label{sec-4-12-2-3}
 
 Get the value of an instance variable.
-
-(Object 'set-variable! var expr)
+\item (Object 'set-variable! var expr)
+\label{sec-4-12-2-4}
 
 Set the value of an instance variable.
-
-(Object 'show  \&optional port)
+\item (Object 'show  \&optional port)
+\label{sec-4-12-2-5}
 
 Display information about an object.
+\end{enumerate}
 \subsection{List Functions}
-\label{sec-1-15}
+\label{sec-4-13}
 
-(CONS expr1 expr2)
+\subsubsection{(CONS expr1 expr2)}
+\label{sec-4-13-1}
 
 Create a new pair whose car is expr1 and whose cdr is expr2.
+\subsubsection{(ACONS key data alist)}
+\label{sec-4-13-2}
 
-(ACONS key data alist)
-
-Is equivilent to (CONS (CONS key data) alist) and is used to add a pair
-to an association list.
-
-(CAR pair)
-(FIRST pair)
+Is equivilent to (CONS (CONS key data) alist) and is used to add a
+pair to an association list.
+\subsubsection{(CAR pair)}
+\label{sec-4-13-3}
+\subsubsection{(FIRST pair)}
+\label{sec-4-13-4}
 
 Extract the car of a pair.
-
-(CDR pair)
-(REST pair)
+\subsubsection{(CDR pair)}
+\label{sec-4-13-5}
+\subsubsection{(REST pair)}
+\label{sec-4-13-6}
 
 Extract the cdr of a pair.
+\subsubsection{(CxxR pair)}
+\label{sec-4-13-7}
+\subsubsection{(CxxxR pair)}
+\label{sec-4-13-8}
+\subsubsection{(CxxxxR pair)}
+\label{sec-4-13-9}
 
-(CxxR pair)
-(CxxxR pair)
-(CxxxxR pair)
-
-These functions are short for combinations of CAR and CDR. Each 'x' is stands for either 'A' or 'D'. An 'A' stands for the CAR function and a 'D' stands for the CDR function. For instance, (CADR x) is the same as (CAR (CDR x)).
-
-(SECOND list)
-(THIRD list)
-(FOURTH list)
+These functions are short for combinations of CAR and CDR.  Each 'x'
+is stands for either 'A' or 'D'.  An 'A' stands for the CAR function
+and a 'D' stands for the CDR function.  For instance, (CADR x) is the
+same as (CAR (CDR x)).
+\subsubsection{(SECOND list)}
+\label{sec-4-13-10}
+\subsubsection{(THIRD list)}
+\label{sec-4-13-11}
+\subsubsection{(FOURTH list)}
+\label{sec-4-13-12}
+\subsubsection{(N-TH list n) see LIST-REF}
+\label{sec-4-13-13}
 
 Extract the specified elements of a list.
+\subsubsection{(LIST expr\ldots{})}
+\label{sec-4-13-14}
 
-(LIST expr\ldots{})
-
-Create a list whose elements are the arguments to the function. This
-function can take an arbitrary number of arguments. Passing no arguments
-results in the empty list.
-
-(LIST* expr\ldots{})
+Create a list whose elements are the arguments to the function.  This
+function can take an arbitrary number of arguments.  Passing no
+arguments results in the empty list.
+\subsubsection{(LIST* expr\ldots{})}
+\label{sec-4-13-15}
 
 Create a list whose elements are the arguments to the function except
-that the last argument is used as the tail of the list. This means that
-the call (LIST* 1 2 3) produce the result (1 2 . 3).
+that the last argument is used as the tail of the list.  This means
+that the call (LIST* 1 2 3) produce the result (1 2 . 3).
+\subsubsection{(APPEND list\ldots{})}
+\label{sec-4-13-16}
 
-(APPEND list\ldots{})
-
-Append lists to form a single list. This function takes an arbitrary
-number of arguments. Passing no arguments results in the empty list.
-
-(REVERSE list)
+Append lists to form a single list.  This function takes an arbitrary
+number of arguments.  Passing no arguments results in the empty list.
+\subsubsection{(REVERSE list)}
+\label{sec-4-13-17}
 
 Create a list whose elements are the same as the argument except in
 reverse order.
-
-(LAST-PAIR list)
+\subsubsection{(LAST-PAIR list)}
+\label{sec-4-13-18}
 
 Return the last pair in a list.
-
-(LENGTH list)
+\subsubsection{(LENGTH list)}
+\label{sec-4-13-19}
 
 Compute the length of a list.
-
-(PAIRLIS keys data \&optional alist)
+\subsubsection{(PAIRLIS keys data \&optional alist)}
+\label{sec-4-13-20}
 
 Creates pairs from corresponding elements of keys and data and pushes
 these onto alist.  For instance:
 
 (pairlis '(x y) '(1 2) '((z . 3)))  =>  ((x . 1) (y . 2) (z . 3))
-
-(COPY-LIST list)
+\subsubsection{(COPY-LIST list)}
+\label{sec-4-13-21}
 
 Makes a top level copy of the list.
-
-(COPY-TREE list)
+\subsubsection{(COPY-TREE list)}
+\label{sec-4-13-22}
 
 Make a deep copy of a list.
-
-(COPY-ALIST alist)
+\subsubsection{(COPY-ALIST alist)}
+\label{sec-4-13-23}
 
 Copy an association list by copying each top level pair in the list.
-
-(END? list)
+\subsubsection{(END? list)}
+\label{sec-4-13-24}
 
 Returns \#f for a pair, \#t for the empty list and signals an error for
 all other types.
+\subsubsection{(MEMBER expr list)}
+\label{sec-4-13-25}
+\subsubsection{(MEMV expr list)}
+\label{sec-4-13-26}
+\subsubsection{(MEMQ expr list)}
+\label{sec-4-13-27}
 
-(MEMBER expr list)
-(MEMV expr list)
-(MEMQ expr list)
-
-Find an element in a list. Each of these functions searches the list
-looking for an element that matches expr. If a matching element is
+Find an element in a list.  Each of these functions searches the list
+looking for an element that matches expr.  If a matching element is
 found, the remainder of the list starting with that element is
-returned. If no matching element is found, the empty list is
-returned. The functions differ in the test used to determine if an
-element matches expr. The MEMBER function uses EQUAL?, the MEMV function
-uses EQV? and the MEMQ function uses EQ?.
+returned.  If no matching element is found, the empty list is
+returned.  The functions differ in the test used to determine if an
+element matches expr.  The MEMBER function uses EQUAL?, the MEMV
+function uses EQV? and the MEMQ function uses EQ?.
+\subsubsection{(ASSOC expr alist)}
+\label{sec-4-13-28}
+\subsubsection{(ASSV expr alist)}
+\label{sec-4-13-29}
+\subsubsection{(ASSQ expr alist)}
+\label{sec-4-13-30}
 
-(ASSOC expr alist)
-(ASSV expr alist)
-(ASSQ expr alist)
+Find an entry in an association list.  An association list is a list
+of pairs.  The car of each pair is the key and the cdr is the value.
+These functions search an association list for a pair whose key
+matches expr.  If a matching pair is found, it is returned.
+Otherwise, the empty list is returned.  The functions differ in the
+test used to determine if a key matches expr.  The ASSOC function
+uses EQUAL?, the ASSV function uses EQV? and the ASSQ function uses
+EQ?.
+\subsubsection{(LIST-REF list n)}
+\label{sec-4-13-31}
 
-Find an entry in an association list. An association list is a list of
-pairs. The car of each pair is the key and the cdr is the value. These
-functions search an association list for a pair whose key matches
-expr. If a matching pair is found, it is returned. Otherwise, the empty
-list is returned. The functions differ in the test used to determine if
-a key matches expr. The ASSOC function uses EQUAL?, the ASSV function
-uses EQV? and the ASSQ function uses EQ?.
-
-(LIST-REF list n)
-
-Return the nth element of a list (zero based).
-
-(LIST-TAIL list n)
+Return the $n$-th element of a list (zero-based).
+\subsubsection{(LIST-TAIL list n)}
+\label{sec-4-13-32}
 
 Return the sublist obtained by removing the first n elements of list.
 \subsection{Destructive List Functions}
-\label{sec-1-16}
+\label{sec-4-14}
 
-(SET-CAR! pair expr)
+\subsubsection{(SET-CAR! pair expr)}
+\label{sec-4-14-1}
 
-Set the car of a pair to expr. The value returned by this procedure is
-unspecified.
+Set the car of a pair to expr.  The value returned by this procedure
+is unspecified.
+\subsubsection{(SET-CDR! pair expr)}
+\label{sec-4-14-2}
 
-(SET-CDR! pair expr)
-
-Set the cdr of a pair to expr. The value returned by this procedure is
-unspecified.
-
-(APPEND!  list\ldots{})
+Set the cdr of a pair to expr.  The value returned by this procedure
+is unspecified.
+\subsubsection{(APPEND!  list\ldots{})}
+\label{sec-4-14-3}
 
 Append lists destructively.
 \subsection{Sequence Functions}
-\label{sec-1-17}
+\label{sec-4-15}
 
-At the moment these sequence functions work only with lists.
+TODO : This entire section should be replaced with modern
+higher-order operators, possibly following Clojure's example.
+The current collection is xlisp 3.0 as of 1997.
 
-(MAPCAR)
+At the moment, these sequence functions work only with lists.
 
-(MAPC)
+Please refer to
+\url{http://www.lispworks.com/documentation/HyperSpec/Body/c_conses.htm}
 
-(MAPCAN)
+\subsubsection{(MAPCAR n-ary-function . seq-1 seq-2 \ldots{} seq-n)}
+\label{sec-4-15-1}
 
-(MAPLIST)
+$n$ must be at least one.
 
-(MAPL)
+This is nowadays (2013) known as \verb|zip|.
 
-(MAPCON)
+Examples:
 
-(SOME)
+(mapcar (lambda (x) (* x x)) '(1 2 3)) => '(1 4 9)
 
-(EVERY)
+(mapcar (lambda (x y) (* x y)) '(1 2 3) '(42 43 44 45)) =>
+(42 86 132)
+\subsubsection{(MAPC)}
+\label{sec-4-15-2}
 
-(NOTANY)
+placeholder
+\subsubsection{(MAPCAN)}
+\label{sec-4-15-3}
 
-(NOTEVERY)
+placeholder
+\subsubsection{(MAPLIST)}
+\label{sec-4-15-4}
 
-(FIND)
+placeholder
+\subsubsection{(MAPL)}
+\label{sec-4-15-5}
 
-(FIND-IF)
+placeholder
+\subsubsection{(MAPCON)}
+\label{sec-4-15-6}
 
-(FIND-IF-NOT)
+placeholder
+\subsubsection{(SOME)}
+\label{sec-4-15-7}
 
-(MEMBER)
+placeholder
+\subsubsection{(EVERY)}
+\label{sec-4-15-8}
 
-(MEMBER-IF)
+placeholder
+\subsubsection{(NOTANY)}
+\label{sec-4-15-9}
 
-(MEMBER-IF-NOT)
+placeholder
+\subsubsection{(NOTEVERY)}
+\label{sec-4-15-10}
 
-(ASSOC)
+placeholder
+\subsubsection{(FIND)}
+\label{sec-4-15-11}
 
-(ASSOC-IF)
+placeholder
+\subsubsection{(FIND-IF)}
+\label{sec-4-15-12}
 
-(ASSOC-IF-NOT)
+placeholder
+\subsubsection{(FIND-IF-NOT)}
+\label{sec-4-15-13}
 
-(RASSOC)
+placeholder
+\subsubsection{(MEMBER)}
+\label{sec-4-15-14}
+\subsubsection{(MEMBER-IF)}
+\label{sec-4-15-15}
+\subsubsection{(MEMBER-IF-NOT)}
+\label{sec-4-15-16}
 
-(RASSOC-IF)
+\url{http://www.lispworks.com/documentation/HyperSpec/Body/f_mem_m.htm}
+\subsubsection{(ASSOC)}
+\label{sec-4-15-17}
+\subsubsection{(ASSOC-IF)}
+\label{sec-4-15-18}
+\subsubsection{(ASSOC-IF-NOT)}
+\label{sec-4-15-19}
 
-(RASSOC-IF-NOT)
+\url{http://www.lispworks.com/documentation/HyperSpec/Body/f_assocc.htm}
+\subsubsection{(RASSOC)}
+\label{sec-4-15-20}
+\subsubsection{(RASSOC-IF)}
+\label{sec-4-15-21}
+\subsubsection{(RASSOC-IF-NOT)}
+\label{sec-4-15-22}
 
-(REMOVE)
+\url{http://www.lispworks.com/documentation/HyperSpec/Body/f_rassoc.htm}
+\subsubsection{(REMOVE)}
+\label{sec-4-15-23}
 
-(REMOVE-IF)
+placeholder
+\subsubsection{(REMOVE-IF)}
+\label{sec-4-15-24}
 
-(REMOVE-IF-NOT)
+placeholder
+\subsubsection{(REMOVE-IF-NOT)}
+\label{sec-4-15-25}
 
-(DELETE)
+placeholder
+\subsubsection{(DELETE)}
+\label{sec-4-15-26}
 
-(DELETE-IF)
+placeholder
+\subsubsection{(DELETE-IF)}
+\label{sec-4-15-27}
 
-(DELETE-IF-NOT)
+placeholder
+\subsubsection{(DELETE-IF-NOT)}
+\label{sec-4-15-28}
 
-(COUNT)
+placeholder
+\subsubsection{(COUNT)}
+\label{sec-4-15-29}
 
-(COUNT-IF)
+placeholder
+\subsubsection{(COUNT-IF predicate-function seq)}
+\label{sec-4-15-30}
 
-(COUNT-IF-NOT)
+Counts how many elements of the sequence satisfy the predicate.
+\subsubsection{(COUNT-IF-NOT predicate-function seq)}
+\label{sec-4-15-31}
 
-(POSITION)
+Counts how many elements of the sequence do not satisfy the predicate.
+\subsubsection{(POSITION)}
+\label{sec-4-15-32}
 
-(POSITION-IF)
+placeholder
+\subsubsection{(POSITION-IF)}
+\label{sec-4-15-33}
 
-(POSITION-IF-NOT)
+placeholder
+\subsubsection{(POSITION-IF-NOT)}
+\label{sec-4-15-34}
+
+placeholder
 \subsection{Symbol Functions}
-\label{sec-1-18}
+\label{sec-4-16}
 
-(BOUND? sym [ env])
+\subsubsection{(BOUND? sym [ env])}
+\label{sec-4-16-1}
 
 Returns \#t if a global value is bound to the symbol and \#f otherwise.
-
-(SYMBOL-NAME sym)
+\subsubsection{(SYMBOL-NAME sym)}
+\label{sec-4-16-2}
 
 Get the print name of a symbol.
-
-(SYMBOL-VALUE sym [env])
+\subsubsection{(SYMBOL-VALUE sym [env])}
+\label{sec-4-16-3}
 
 Get the global value of a symbol.
+\subsubsection{(SET-SYMBOL-VALUE! sym expr [env])}
+\label{sec-4-16-4}
 
-(SET-SYMBOL-VALUE! sym expr [env])
+Set the global value of a symbol.  The value returned by this
+procedure is unspecified.
+\subsubsection{(SYMBOL-PLIST sym)}
+\label{sec-4-16-5}
 
-Set the global value of a symbol. The value returned by this procedure
-is unspecified.
+Get the property list associated with a symbol.  [bbeckman: A
+property list is a list of symbol-value lists, not a list of pairs
+like an alist.]
+\subsubsection{(SET-SYMBOL-PLIST! sym plist)}
+\label{sec-4-16-6}
 
-(SYMBOL-PLIST sym)
-
-Get the property list associated with a symbol.
-
-(SET-SYMBOL-PLIST! sym plist)
-
-Set the property list associate with a symbol. The value returned by
+Set the property list associate with a symbol.  The value returned by
 this procedure is unspecified.
-
-(SYMBOL-PACKAGE sym)
+\subsubsection{(SYMBOL-PACKAGE sym)}
+\label{sec-4-16-7}
 
 Returns the package containing the symbol.
+\subsubsection{(GENSYM \&optional sym | str | num)}
+\label{sec-4-16-8}
 
-(GENSYM \&optional sym | str | num)
+Generate a new, uninterned symbol.  The print name of the symbol will
+consist of a prefix with a number appended.  The initial prefix is
+"G" and the initial number is 1.  If a symbol is specified as an
+argument, the prefix is set to the print name of that symbol.  If a
+string is specified, the prefix is set to that string.  If a number
+is specified, the numeric suffix is set to that number.  After the
+symbol is generated, the number is incremented so subsequent calls to
+GENSYM will generate numbers in sequence.
+\subsubsection{(GET sym prop)}
+\label{sec-4-16-9}
 
-Generate a new, uninterned symbol. The print name of the symbol will
-consist of a prefix with a number appended. The initial prefix is "G"
-and the initial number is 1. If a symbol is specified as an argument,
-the prefix is set to the print name of that symbol. If a string is
-specified, the prefix is set to that string. If a number is specified,
-the numeric suffix is set to that number. After the symbol is generated,
-the number is incremented so subsequent calls to GENSYM will generate
-numbers in sequence.
+Get the value of a property of a symbol.  The prop argument is a
+symbol that is the property name.  If a property with that name
+exists on the symbols property list, the value of the property is
+returned.  Otherwise, the empty list is returned.
+\subsubsection{(PUT sym prop expr)}
+\label{sec-4-16-10}
 
-(GET sym prop)
-
-Get the value of a property of a symbol. The prop argument is a symbol
-that is the property name. If a property with that name exists on the
-symbols property list, the value of the property is returned. Otherwise,
-the empty list is returned.
-
-(PUT sym prop expr)
-
-Set the value of a property of a symbol. The prop argument is a symbol
-that is the property name. The property/value combination is added to
-the property list of the symbol.
-
-(REMPROP sym prop)
+Set the value of a property of a symbol.  The prop argument is a
+symbol that is the property name.  The property/value combination is
+added to the property list of the symbol.
+\subsubsection{(REMPROP sym prop)}
+\label{sec-4-16-11}
 
 Remove the specified property from the property list of the symbol.
 \subsection{Package Functions}
-\label{sec-1-19}
+\label{sec-4-17}
 
-(MAKE-PACKAGE name \&key uses)
+\subsubsection{(MAKE-PACKAGE name \&key uses)}
+\label{sec-4-17-1}
 
-(FIND-PACKAGE name)
+placeholder
+\subsubsection{(FIND-PACKAGE name)}
+\label{sec-4-17-2}
 
-(LIST-ALL-PACKAGES)
+placeholder
+\subsubsection{(LIST-ALL-PACKAGES)}
+\label{sec-4-17-3}
 
-(PACKAGE-NAME pack)
+placeholder
+\subsubsection{(PACKAGE-NAME pack)}
+\label{sec-4-17-4}
 
-(PACKAGE-NICKNAMES pack)
+placeholder
+\subsubsection{(PACKAGE-NICKNAMES pack)}
+\label{sec-4-17-5}
 
-(IN-PACKAGE pack)
+placeholder
+\subsubsection{(IN-PACKAGE pack)}
+\label{sec-4-17-6}
 
-(USE-PACKAGE name [pack])
+placeholder
+\subsubsection{(USE-PACKAGE name [pack])}
+\label{sec-4-17-7}
 
-(UNUSE-PACKAGE name [pack])
+placeholder
+\subsubsection{(UNUSE-PACKAGE name [pack])}
+\label{sec-4-17-8}
 
-(PACKAGE-USE-LIST pack)
+placeholder
+\subsubsection{(PACKAGE-USE-LIST pack)}
+\label{sec-4-17-9}
 
-(PACKAGE-USED-BY-LIST pack)
+placeholder
+\subsubsection{(PACKAGE-USED-BY-LIST pack)}
+\label{sec-4-17-10}
 
-(EXPORT sym [pack])
+placeholder
+\subsubsection{(EXPORT sym [pack])}
+\label{sec-4-17-11}
 
-(UNEXPORT sym [pack])
+placeholder
+\subsubsection{(UNEXPORT sym [pack])}
+\label{sec-4-17-12}
 
-(IMPORT sym [pack])
+placeholder
+\subsubsection{(IMPORT sym [pack])}
+\label{sec-4-17-13}
 
-(INTERN pname [pack])
+placeholder
+\subsubsection{(INTERN pname [pack])}
+\label{sec-4-17-14}
 
-(UNINTERN sym [pack])
+placeholder
+\subsubsection{(UNINTERN sym [pack])}
+\label{sec-4-17-15}
 
-(MAKE-SYMBOL pname)
+placeholder
+\subsubsection{(MAKE-SYMBOL pname)}
+\label{sec-4-17-16}
 
-(FIND-SYMBOL sym [pack])
+placeholder
+\subsubsection{(FIND-SYMBOL sym [pack])}
+\label{sec-4-17-17}
+
+placeholder
 \subsection{Vector Functions}
-\label{sec-1-20}
+\label{sec-4-18}
 
-(VECTOR expr\ldots{})
+\subsubsection{(VECTOR expr\ldots{})}
+\label{sec-4-18-1}
 
-Create a vector whose elements are the arguments to the function. This
-function can take an arbitrary number of arguments. Passing no arguments
-results in a zero length vector.
-
-(MAKE-VECTOR len)
+Create a vector whose elements are the arguments to the function.
+This function can take an arbitrary number of arguments.  Passing no
+arguments results in a zero length vector.
+\subsubsection{(MAKE-VECTOR len)}
+\label{sec-4-18-2}
 
 Make a vector of the specified length.
-
-(VECTOR-LENGTH vect)
+\subsubsection{(VECTOR-LENGTH vect)}
+\label{sec-4-18-3}
 
 Get the length of a vector.
-
-(VECTOR-REF vect n)
+\subsubsection{(VECTOR-REF vect n)}
+\label{sec-4-18-4}
 
 Return the nth element of a vector (zero based).
-
-(VECTOR-SET! vect n expr)
+\subsubsection{(VECTOR-SET! vect n expr)}
+\label{sec-4-18-5}
 
 Set the nth element of a vector (zero based).
 \subsection{Array Functions}
-\label{sec-1-21}
+\label{sec-4-19}
 
-(MAKE-ARRAY d1 d2\ldots{})
+\subsubsection{(MAKE-ARRAY d1 d2\ldots{})}
+\label{sec-4-19-1}
 
-Make an array (vector of vectors) with the specified dimensions. At
+Make an array (vector of vectors) with the specified dimensions.  At
 least one dimension must be specified.
+\subsubsection{(ARRAY-REF array s1 s2\ldots{})}
+\label{sec-4-19-2}
 
-(ARRAY-REF array s1 s2\ldots{})
-
-Get an array element. The sn arguments are integer subscripts (zero
+Get an array element.  The sn arguments are integer subscripts (zero
 based).
+\subsubsection{(ARRAY-SET! array s1 s2\ldots{} expr)}
+\label{sec-4-19-3}
 
-(ARRAY-SET! array s1 s2\ldots{} expr)
-
-Set an array element. The sn arguments are integer subscripts (zero
+Set an array element.  The sn arguments are integer subscripts (zero
 based).
 \subsection{Table Functions}
-\label{sec-1-22}
+\label{sec-4-20}
 
-(MAKE-TABLE \&optional size)
+\subsubsection{(MAKE-TABLE \&optional size)}
+\label{sec-4-20-1}
 
 Make a table with the specified size.  The size defaults to something
 useful hopefully.
-
-(TABLE-REF table key)
+\subsubsection{(TABLE-REF table key)}
+\label{sec-4-20-2}
 
 Find the value in the table associated with the specified key.
-
-(TABLE-SET! table key value)
+\subsubsection{(TABLE-SET! table key value)}
+\label{sec-4-20-3}
 
 Set the value in the table associated with the specified key.
+\subsubsection{(TABLE-REMOVE! table key)}
+\label{sec-4-20-4}
 
-(TABLE-REMOVE! table key)
-
-Remove the entry with the specified key from the table.  Return the old
-value associated with the key or nil if the key is not found.
-
-(EMPTY-TABLE! table)
+Remove the entry with the specified key from the table.  Return the
+old value associated with the key or nil if the key is not found.
+\subsubsection{(EMPTY-TABLE! table)}
+\label{sec-4-20-5}
 
 Remove all entries from a table.
+\subsubsection{(MAP-OVER-TABLE-ENTRIES table fun)}
+\label{sec-4-20-6}
 
-(MAP-OVER-TABLE-ENTRIES table fun)
-
-Apply the specified function to each entry in the table and return the
-list of values.  The function should take two arguments.  The first is
-the key and the second is the value associated with that key.
+Apply the specified function to each entry in the table and return
+the list of values.  The function should take two arguments.  The
+first is the key and the second is the value associated with that
+key.
 \subsection{Conversion Functions}
-\label{sec-1-23}
+\label{sec-4-21}
 
-(SYMBOL->STRING sym)
+\subsubsection{(SYMBOL->STRING sym)}
+\label{sec-4-21-1}
 
-Convert a symbol to a string. Returns the print name of the symbol as a
-string.
+Convert a symbol to a string.  Returns the print name of the symbol
+as a string.
+\subsubsection{(STRING->SYMBOL str)}
+\label{sec-4-21-2}
 
-(STRING->SYMBOL str)
+Convert a string to a symbol.  Returns a symbol with the string as
+its print name.  This can either be a new symbol or an existing one
+with the same print name.
+\subsubsection{(VECTOR->LIST vect)}
+\label{sec-4-21-3}
 
-Convert a string to a symbol. Returns a symbol with the string as its
-print name. This can either be a new symbol or an existing one with the
-same print name.
-
-(VECTOR->LIST vect)
-
-Convert a vector to a list. Returns a list of the elements of the
+Convert a vector to a list.  Returns a list of the elements of the
 vector.
+\subsubsection{(LIST->VECTOR list)}
+\label{sec-4-21-4}
 
-(LIST->VECTOR list)
-
-Convert a list to a vector. Returns a vector of the elements of the
+Convert a list to a vector.  Returns a vector of the elements of the
 list.
+\subsubsection{(STRING->LIST str)}
+\label{sec-4-21-5}
 
-(STRING->LIST str)
-
-Convert a string to a list. Returns a list of the characters in the
+Convert a string to a list.  Returns a list of the characters in the
 string.
+\subsubsection{(LIST->STRING list)}
+\label{sec-4-21-6}
 
-(LIST->STRING list)
-
-Convert a list of character to a string. Returns a string whose
+Convert a list of character to a string.  Returns a string whose
 characters are the elements of the list.
+\subsubsection{(CHAR->INTEGER char)}
+\label{sec-4-21-7}
 
-(CHAR->INTEGER char)
-
-Convert a character to an integer. Returns the ASCII code of the
+Convert a character to an integer.  Returns the ASCII code of the
 character as an integer.
+\subsubsection{(INTEGER->CHAR n)}
+\label{sec-4-21-8}
 
-(INTEGER->CHAR n)
-
-Convert an integer ASCII code to a character. Returns the character
+Convert an integer ASCII code to a character.  Returns the character
 whose ASCII code is the integer.
-
-(STRING->NUMBER str \&optional base)
+\subsubsection{(STRING->NUMBER str \&optional base)}
+\label{sec-4-21-9}
 
 Convert a string to a number.  Returns the value of the numeric
-interpretation of the string.  The base argument must be 2, 8, 10 or 16
-and defaults to 10.
+interpretation of the string.  The base argument must be 2, 8, 10 or
+16 and defaults to 10.
+\subsubsection{(NUMBER->STRING n \&optional base)}
+\label{sec-4-21-10}
 
-(NUMBER->STRING n \&optional base)
-
-Convert a number to a string.  Returns the string corresponding to the
-number.  The base argument must be 2, 8, 10 or 16 and defaults to 10.
+Convert a number to a string.  Returns the string corresponding to
+the number.  The base argument must be 2, 8, 10 or 16 and defaults
+to 10.
 \subsection{Logical Functions}
-\label{sec-1-24}
+\label{sec-4-22}
 
-(NOT expr)
+\subsubsection{(NOT expr)}
+\label{sec-4-22-1}
 
 Returns \#t if the expression is \#f and \#t otherwise.
 \subsection{Type Predicates}
-\label{sec-1-25}
+\label{sec-4-23}
 
-(NULL? expr)
+\subsubsection{(NULL? expr)}
+\label{sec-4-23-1}
 
 Returns \#t if the expression is the empty list and \#f otherwise.
-
-(ATOM? expr)
+\subsubsection{(ATOM? expr)}
+\label{sec-4-23-2}
 
 Returns \#f if the expression is a pair and \#t otherwise.
+\subsubsection{(LIST? expr)}
+\label{sec-4-23-3}
 
-(LIST? expr)
-
-Returns \#t if the expression is either a pair or the empty list and \#f
-otherwise.
-
-(NUMBER? expr)
+Returns \#t if the expression is either a pair or the empty list
+and \#f otherwise.
+\subsubsection{(NUMBER? expr)}
+\label{sec-4-23-4}
 
 Returns \#t if the expression is a number and \#f otherwise.
-
-(BOOLEAN? expr)
+\subsubsection{(BOOLEAN? expr)}
+\label{sec-4-23-5}
 
 Returns \#t if the expression is either \#t or \#f and \#f otherwise.
-
-(PAIR? expr)
+\subsubsection{(PAIR? expr)}
+\label{sec-4-23-6}
 
 Returns \#t if the expression is a pair and \#f otherwise.
-
-(SYMBOL? expr)
+\subsubsection{(SYMBOL? expr)}
+\label{sec-4-23-7}
 
 Returns \#t if the expression is a symbol and \#f otherwise.
+\subsubsection{(COMPLEX? expr)}
+\label{sec-4-23-8}
 
-(COMPLEX? expr)
-
-Returns \#t if the expression is a complex number and \#f otherwise. Note:
-Complex numbers are not yet supported by XLISP.
-
-(REAL? expr)
+Returns \#t if the expression is a complex number and \#f otherwise.
+Note: Complex numbers are not yet supported by XLISP.
+\subsubsection{(REAL? expr)}
+\label{sec-4-23-9}
 
 Returns \#t if the expression is a real number and \#f otherwise.
+\subsubsection{(RATIONAL? expr)}
+\label{sec-4-23-10}
 
-(RATIONAL? expr)
-
-Returns \#t if the expression is a rational number and \#f
-otherwise. Note: Rational numbers are not yet supported by XLISP.
-
-(INTEGER? expr)
+Returns \#t if the expression is a rational number and \#f otherwise.
+Note: Rational numbers are not yet supported by XLISP.
+\subsubsection{(INTEGER? expr)}
+\label{sec-4-23-11}
 
 Returns \#t if the expression is an integer and \#f otherwise.
-
-(CHAR? expr)
+\subsubsection{(CHAR? expr)}
+\label{sec-4-23-12}
 
 Returns \#t if the expression is a character and \#f otherwise.
-
-(STRING? expr)
+\subsubsection{(STRING? expr)}
+\label{sec-4-23-13}
 
 Returns \# if the expression is a string and \#f otherwise.
-
-(VECTOR? expr)
+\subsubsection{(VECTOR? expr)}
+\label{sec-4-23-14}
 
 Returns \#t if the expression is a vector and \#f otherwise.
-
-(TABLE? expr)
+\subsubsection{(TABLE? expr)}
+\label{sec-4-23-15}
 
 Returns \#t if the expression is a table and \#f otherwise.
+\subsubsection{(PROCEDURE? expr)}
+\label{sec-4-23-16}
 
-(PROCEDURE? expr)
-
-Returns \#t if the expression is a procedure (closure) and \#f otherwise.
-
-(PORT? expr)
+Returns \#t if the expression is a procedure (closure) and \#f
+otherwise.
+\subsubsection{(PORT? expr)}
+\label{sec-4-23-17}
 
 Returns \#t if the expression is a port and \#f otherwise.
-
-(INPUT-PORT? expr)
+\subsubsection{(INPUT-PORT? expr)}
+\label{sec-4-23-18}
 
 Returns \#t if the expression is an input port and \#f otherwise.
-
-(OUTPUT-PORT? expr)
+\subsubsection{(OUTPUT-PORT? expr)}
+\label{sec-4-23-19}
 
 Returns \#t if the expression is an output port and \#f otherwise.
-
-(OBJECT? expr)
+\subsubsection{(OBJECT? expr)}
+\label{sec-4-23-20}
 
 Returns \#t if the expression is an object and \#f otherwise.
-
-(EOF-OBJECT? expr)
+\subsubsection{(EOF-OBJECT? expr)}
+\label{sec-4-23-21}
 
 Returns \#t if the expression is the object returned by READ upon
 detecting an end of file condition and \#f otherwise.
+\subsubsection{(DEFAULT-OBJECT? expr)}
+\label{sec-4-23-22}
 
-(DEFAULT-OBJECT? expr)
-
-Returns \#t if the expression is the object passed as the default value
-of an optional parameter to a procedure when that parameter is omitted
-from a call and \#f otherwise.
-
-(ENVIRONMENT? expr)
+Returns \#t if the expression is the object passed as the default
+value of an optional parameter to a procedure when that parameter is
+omitted from a call and \#f otherwise.
+\subsubsection{(ENVIRONMENT? expr)}
+\label{sec-4-23-23}
 
 Returns \#t if the expression is an environment and \#f otherwise.
 \subsection{Equality Predicates}
-\label{sec-1-26}
+\label{sec-4-24}
 
-(EQUAL? expr1 expr2)
+\subsubsection{(EQUAL? expr1 expr2)}
+\label{sec-4-24-1}
 
 Recursively compares two objects to determine if their components are
 the same and returns \#t if they are the same and \#f otherwise.
+\subsubsection{(EQV? expr1 expr2)}
+\label{sec-4-24-2}
 
-(EQV? expr1 expr2)
+Compares two objects to determine if they are the same object.
+Returns \#t if they are the same and \#f otherwise.  This function does
+not compare the elements of lists or vectors but will compare strings
+and all types of numbers.
+\subsubsection{(EQ? expr1 expr2)}
+\label{sec-4-24-3}
 
-Compares two objects to determine if they are the same
-object. Returns \#t if they are the same and \#f otherwise. This function
-does not compare the elements of lists or vectors but will compare
-strings and all types of numbers.
-
-(EQ? expr1 expr2)
-
-Compares two objects to determine if they are the same
-object. Returns \#t if they are the same and \#f otherwise. This function
+Compares two objects to determine if they are the same object.
+Returns \#t if they are the same and \#f otherwise.  This function
 performs a low level address compare on two objects and may return \#f
-for objects that appear on the surface to be the same. This is because
-the objects are not stored uniquely in memory. For instance, numbers may
-appear to be equal, but EQ? will return \#f when comparing them if they
-are stored at different addresses. The advantage of this function is
-that it is faster than the others. Symbols are guaranteed to compare
-correctly, so EQ? can safely be used to compare them.
+for objects that appear on the surface to be the same.  This is
+because the objects are not stored uniquely in memory.  For instance,
+numbers may appear to be equal, but EQ? will return \#f when comparing
+them if they are stored at different addresses.  The advantage of
+this function is that it is faster than the others.  Symbols are
+guaranteed to compare correctly, so EQ? can safely be used to compare
+them.
 \subsection{Arithmetic Functions}
-\label{sec-1-27}
+\label{sec-4-25}
 
-(IDENTITY expr)
+\subsubsection{(IDENTITY expr)}
+\label{sec-4-25-1}
 
 Returns the value of expr.  This is the identity function.
-
-(ZERO? n)
+\subsubsection{(ZERO? n)}
+\label{sec-4-25-2}
 
 Returns \#t if the number is zero and \#f otherwise.
-
-(POSITIVE? n)
+\subsubsection{(POSITIVE? n)}
+\label{sec-4-25-3}
 
 Returns \#t if the number is positive and \#f otherwise.
-
-(NEGATIVE? n)
+\subsubsection{(NEGATIVE? n)}
+\label{sec-4-25-4}
 
 Returns \#t if the number is negative and \#f otherwise.
-
-(ODD? n)
+\subsubsection{(ODD? n)}
+\label{sec-4-25-5}
 
 Returns \#t if the integer is odd and \#f otherwise.
-
-(EVEN? n)
+\subsubsection{(EVEN? n)}
+\label{sec-4-25-6}
 
 Returns \#t if the integer is even and \#f otherwise.
+\subsubsection{(EXACT? n)}
+\label{sec-4-25-7}
 
-(EXACT? n)
+Returns \#t if the number is exact and \#f otherwise.  Note: This
+function always returns \#f in XLISP since exact numbers are not yet
+supported.
+\subsubsection{(INEXACT? n)}
+\label{sec-4-25-8}
 
-Returns \#t if the number is exact and \#f otherwise. Note: This function
-always returns \#f in XLISP since exact numbers are not yet supported.
-
-(INEXACT? n)
-
-Returns \#t if the number is inexact and \#f otherwise. Note: This
+Returns \#t if the number is inexact and \#f otherwise.  Note: This
 function always returns \#t in XLISP since exact numbers are not yet
 supported.
-
-(TRUNCATE n)
+\subsubsection{(TRUNCATE n)}
+\label{sec-4-25-9}
 
 Truncates a number to an integer and returns the resulting value.
-
-(FLOOR n)
+\subsubsection{(FLOOR n)}
+\label{sec-4-25-10}
 
 Returns the largest integer not larger than n.
-
-(CEILING n)
+\subsubsection{(CEILING n)}
+\label{sec-4-25-11}
 
 Returns the smallest integer not smaller than n.
-
-(ROUND n)
+\subsubsection{(ROUND n)}
+\label{sec-4-25-12}
 
 Returns the closest integer to n, rounding to even when n is halfway
 between two integers.
-
-(1+ n)
+\subsubsection{(1+ n)}
+\label{sec-4-25-13}
 
 Returns the result of adding one to the number.
-
-(-1+ n)
+\subsubsection{(-1+ n)}
+\label{sec-4-25-14}
 
 Returns the result of subtracting one from the number.
-
-(ABS n)
+\subsubsection{(ABS n)}
+\label{sec-4-25-15}
 
 Returns the absolute value of the number.
-
-(GCD n1 n2\ldots{})
+\subsubsection{(GCD n1 n2\ldots{})}
+\label{sec-4-25-16}
 
 Returns the greatest common divisor of the specified numbers.
-
-(LCM n1 n2\ldots{})
+\subsubsection{(LCM n1 n2\ldots{})}
+\label{sec-4-25-17}
 
 Returns the least common multiple of the specified numbers.
-
-(RANDOM n)
+\subsubsection{(RANDOM n)}
+\label{sec-4-25-18}
 
 Returns a random number between zero and n-1 (n must be an integer).
-
-(SET-RANDOM-SEED! n)
+\subsubsection{(SET-RANDOM-SEED! n)}
+\label{sec-4-25-19}
 
 Sets the seed of the random number generator to n.
-
-(+ n1 n2\ldots{})
+\subsubsection{(+ n1 n2\ldots{})}
+\label{sec-4-25-20}
 
 Returns the sum of the numbers.
-
-(- n)
+\subsubsection{(- n)}
+\label{sec-4-25-21}
 
 Negates the number and returns the resulting value.
+\subsubsection{(- n1 n2\ldots{})}
+\label{sec-4-25-22}
 
-(- n1 n2\ldots{})
-
-Subtracts each remaining number from n1 and returns the resulting value.
-
-(* n1 n2\ldots{})
+Subtracts each remaining number from n1 and returns the resulting
+value.
+\subsubsection{(* n1 n2\ldots{})}
+\label{sec-4-25-23}
 
 Multiplies the numbers and returns the resulting value.
-
-(/ n)
+\subsubsection{(/ n)}
+\label{sec-4-25-24}
 
 Returns 1/n.
-
-(/ n1 n2\ldots{})
+\subsubsection{(/ n1 n2\ldots{})}
+\label{sec-4-25-25}
 
 Divides n1 by each of the remaining numbers and returns the resulting
 value.
+\subsubsection{(QUOTIENT n1 n2\ldots{})}
+\label{sec-4-25-26}
 
-(QUOTIENT n1 n2\ldots{})
-
-Divides the integer n1 by each of the remaining numbers and returns the
-resulting integer quotient. This function does integer division.
-
-(REMAINDER n1 n2)
+Divides the integer n1 by each of the remaining numbers and returns
+the resulting integer quotient.  This function does integer division.
+\subsubsection{(REMAINDER n1 n2)}
+\label{sec-4-25-27}
 
 Divides the integer n1 by the integer n2 and returns the remainder.
-
-(MODULO n1 n2)
+\subsubsection{(MODULO n1 n2)}
+\label{sec-4-25-28}
 
 Returns the integer n1 modulo the integer n2 .
-
-(MIN n1 n2\ldots{})
+\subsubsection{(MIN n1 n2\ldots{})}
+\label{sec-4-25-29}
 
 Returns the number with the minimum value.
-
-(MAX n1 n2\ldots{})
+\subsubsection{(MAX n1 n2\ldots{})}
+\label{sec-4-25-30}
 
 Returns the number with the maximum value.
-
-(SIN n)
+\subsubsection{(SIN n)}
+\label{sec-4-25-31}
 
 Returns the sine of the number.
-
-(COS n)
+\subsubsection{(COS n)}
+\label{sec-4-25-32}
 
 Returns the cosine of the number.
-
-(TAN n)
+\subsubsection{(TAN n)}
+\label{sec-4-25-33}
 
 Returns the tangent of the number.
-
-(ASIN n)
+\subsubsection{(ASIN n)}
+\label{sec-4-25-34}
 
 Returns the arc-sine of the number.
-
-(ACOS n)
+\subsubsection{(ACOS n)}
+\label{sec-4-25-35}
 
 Returns the arc-cosine of the number.
-
-(ATAN x)
+\subsubsection{(ATAN x)}
+\label{sec-4-25-36}
 
 Returns the arc-tangent of x.
-
-(ATAN y x)
+\subsubsection{(ATAN y x)}
+\label{sec-4-25-37}
 
 Returns the arc-tangent of y/x.
-
-(EXP n)
+\subsubsection{(EXP n)}
+\label{sec-4-25-38}
 
 Returns e raised to the n.
-
-(SQRT n)
+\subsubsection{(SQRT n)}
+\label{sec-4-25-39}
 
 Returns the square root of n.
-
-(EXPT n1 n2)
+\subsubsection{(EXPT n1 n2)}
+\label{sec-4-25-40}
 
 Returns n1 raised to the n2 power.
-
-(LOG n)
+\subsubsection{(LOG n)}
+\label{sec-4-25-41}
 
 Returns the natural logarithm of n.
 \subsection{Comparison Functions}
-\label{sec-1-28}
+\label{sec-4-26}
 
-(< n1 n2\ldots{})
-(= n1 n2\ldots{})
-(> n1 n2\ldots{})
-(<= n1 n2\ldots{})
-(/= n1 n2\ldots{})
-(>= n1 n2\ldots{})
+\subsubsection{(< n1 n2\ldots{})}
+\label{sec-4-26-1}
+\subsubsection{(= n1 n2\ldots{})}
+\label{sec-4-26-2}
+\subsubsection{(> n1 n2\ldots{})}
+\label{sec-4-26-3}
+\subsubsection{(<= n1 n2\ldots{})}
+\label{sec-4-26-4}
+\subsubsection{(/= n1 n2\ldots{})}
+\label{sec-4-26-5}
+\subsubsection{(>= n1 n2\ldots{})}
+\label{sec-4-26-6}
 
-These functions compare numbers and return \#t if the numbers match the
-predicate and \#f otherwise. For instance, (< x y z) will return \#t if x
-is less than y and y is less than z.
+These functions compare numbers and return \#t if the numbers match
+the predicate and \#f otherwise.  For instance, (< x y z) will
+return \#t if x is less than y and y is less than z.
 \subsection{Bitwise Logical Functions}
-\label{sec-1-29}
+\label{sec-4-27}
 
-(LOGAND n1 n2\ldots{})
+\subsubsection{(LOGAND n1 n2\ldots{})}
+\label{sec-4-27-1}
 
 Returns the bitwise AND of the integer arguments.
-
-(LOGIOR n1 n2\ldots{})
+\subsubsection{(LOGIOR n1 n2\ldots{})}
+\label{sec-4-27-2}
 
 Returns the bitwise inclusive OR of the integer arguments.
-
-(LOGXOR n1 n2\ldots{})
+\subsubsection{(LOGXOR n1 n2\ldots{})}
+\label{sec-4-27-3}
 
 Returns the bitwise exclusive OR of the integer arguments.
-
-(LOGNOT n)
+\subsubsection{(LOGNOT n)}
+\label{sec-4-27-4}
 
 Returns the bitwise complement of n.
+\subsubsection{(ASH n shift)}
+\label{sec-4-27-5}
 
-(ASH n shift)
-
-Arithmetically shift n left by the specified number of places (or right
-if shift is negative)
-
-(LSH n shift)
+Arithmetically shift n left by the specified number of places (or
+right if shift is negative)
+\subsubsection{(LSH n shift)}
+\label{sec-4-27-6}
 
 Logically shift n left by the specified number of places (or right if
 shift is negative).
 \subsection{String Functions}
-\label{sec-1-30}
+\label{sec-4-28}
 
-(MAKE-STRING size)
+\subsubsection{(MAKE-STRING size)}
+\label{sec-4-28-1}
 
 Makes a string of the specified size initialized to nulls.
-
-(STRING-LENGTH str)
+\subsubsection{(STRING-LENGTH str)}
+\label{sec-4-28-2}
 
 Returns the length of the string.
-
-(STRING-NULL? str)
+\subsubsection{(STRING-NULL? str)}
+\label{sec-4-28-3}
 
 Returns \#t if the string has a length of zero and \#f otherwise.
+\subsubsection{(STRING-APPEND str1\ldots{})}
+\label{sec-4-28-4}
 
-(STRING-APPEND str1\ldots{})
-
-Returns the result of appending the string arguments. If no arguments
-are supplied, it returns the null string.
-
-(STRING-REF str n)
+Returns the result of appending the string arguments.  If no
+arguments are supplied, it returns the null string.
+\subsubsection{(STRING-REF str n)}
+\label{sec-4-28-5}
 
 Returns the nth character in a string.
-
-(STRING-SET! str n c)
+\subsubsection{(STRING-SET! str n c)}
+\label{sec-4-28-6}
 
 Sets the nth character of the string to c.
-
-(SUBSTRING str \&optional start end)
+\subsubsection{(SUBSTRING str \&optional start end)}
+\label{sec-4-28-7}
 
 Returns the substring of str starting at start and ending at end
-(integers). The range is inclusive of start and exclusive of end.
+(integers).  The range is inclusive of start and exclusive of end.
+\subsubsection{(STRING-UPCASE str \&key start end)}
+\label{sec-4-28-8}
 
-(STRING-UPCASE str \&key start end)
+Return a copy of the specified string with lowercase letters
+converted to uppercase letters in the specified range (which defaults
+to the whole string).
+\subsubsection{(STRING-DOWNCASE str \&key start end)}
+\label{sec-4-28-9}
 
-Return a copy of the specified string with lowercase letters converted
-to uppercase letters in the specified range (which defaults to the whole
-string).
-
-(STRING-DOWNCASE str \&key start end)
-
-Return a copy of the specified string with uppercase letters converted
-to lowercase letters in the specified range (which defaults to the whole
-string).
-
-(STRING-UPCASE! str \&key start end)
+Return a copy of the specified string with uppercase letters
+converted to lowercase letters in the specified range (which defaults
+to the whole string).
+\subsubsection{(STRING-UPCASE! str \&key start end)}
+\label{sec-4-28-10}
 
 Like STRING-UPCASE but modifies the input string.
-
-(STRING-DOWNCASE! str \&key start end)
+\subsubsection{(STRING-DOWNCASE! str \&key start end)}
+\label{sec-4-28-11}
 
 Like STRING-DOWNCASE but modifies the input string.
+\subsubsection{(STRING-TRIM bag str)}
+\label{sec-4-28-12}
 
-(STRING-TRIM bag str)
+Return a string with characters that are in bag (which is also a
+string) removed from both the left and right ends.
+\subsubsection{(STRING-LEFT-TRIM bag str)}
+\label{sec-4-28-13}
 
-Return a string with characters that are in bag (which is also a string)
-removed from both the left and right ends.
+Return a string with characters that are in bag (which is also a
+string) removed from the left end.
+\subsubsection{(STRING-RIGHT-TRIM bag str)}
+\label{sec-4-28-14}
 
-(STRING-LEFT-TRIM bag str)
+Return a string with characters that are in bag (which is also a
+string) removed from right end.
+\subsubsection{(STRING-SEARCH str1 str2 \&key start1 end1 start2 end2 from-end?)}
+\label{sec-4-28-15}
 
-Return a string with characters that are in bag (which is also a string)
-removed from the left end.
-
-(STRING-RIGHT-TRIM bag str)
-
-Return a string with characters that are in bag (which is also a string)
-removed from right end.
-
-(STRING-SEARCH str1 str2 \&key start1 end1 start2 end2 from-end?)
-
-Search for the specified substring of str1 in the specified substring of
-str2 and return the starting offset when a match is found or nil if no
-match is found.
-
-(STRING-CI-SEARCH str1 str2 \&key start1 end1 start2 end2 from-end?)
+Search for the specified substring of str1 in the specified substring
+of str2 and return the starting offset when a match is found or nil
+if no match is found.
+\subsubsection{(STRING-CI-SEARCH str1 str2 \&key start1 end1 start2 end2 from-end?)}
+\label{sec-4-28-16}
 
 Like STRING-SEARCH but case insensitive.
 \subsection{String Comparison Functions}
-\label{sec-1-31}
+\label{sec-4-29}
 
-(STRING<? str1 str2 \&key start1 end1 start2 end2)
-(STRING=? str1 str2 \&key start1 end1 start2 end2)
-(STRING>? str1 str2 \&key start1 end1 start2 end2)
-(STRING<=? str1 str2 \&key start1 end1 start2 end2)
-(STRING/=? str1 str2 \&key start1 end1 start2 end2)
-(STRING>=? str1 str2 \&key start1 end1 start2 end2)
+\subsubsection{(STRING<? str1 str2 \&key start1 end1 start2 end2)}
+\label{sec-4-29-1}
+\subsubsection{(STRING=? str1 str2 \&key start1 end1 start2 end2)}
+\label{sec-4-29-2}
+\subsubsection{(STRING>? str1 str2 \&key start1 end1 start2 end2)}
+\label{sec-4-29-3}
+\subsubsection{(STRING<=? str1 str2 \&key start1 end1 start2 end2)}
+\label{sec-4-29-4}
+\subsubsection{(STRING/=? str1 str2 \&key start1 end1 start2 end2)}
+\label{sec-4-29-5}
+\subsubsection{(STRING>=? str1 str2 \&key start1 end1 start2 end2)}
+\label{sec-4-29-6}
 
-These functions compare strings and return \#t if the strings match the
-predicate and \#f otherwise. For instance, (STRING< x y) will return \#t
-if x is less than y. Case is significant. \#A does not match \#a.
+These functions compare strings and return \#t if the strings match
+the predicate and \#f otherwise.  For instance, (STRING< x y) will
+return \#t if x is less than y.  Case is significant.  \#A does not
+match \#a.
+\subsubsection{(STRING-CI<? str1 str2 \&key start1 end1 start2 end2)}
+\label{sec-4-29-7}
+\subsubsection{(STRING-CI>? str1 str2 \&key start1 end1 start2 end2)}
+\label{sec-4-29-8}
+\subsubsection{(STRING-CI<=? str1 str2 \&key start1 end1 start2 end2)}
+\label{sec-4-29-9}
+\subsubsection{(STRING-CI/=? str1 str2 \&key start1 end1 start2 end2)}
+\label{sec-4-29-10}
+\subsubsection{(STRING-CI>=? str1 str2 \&key start1 end1 start2 end2)}
+\label{sec-4-29-11}
 
-(STRING-CI<? str1 str2 \&key start1 end1 start2 end2)
-(STRING-CI=? str1 str2 \&key start1 end1 start2 end2)
-(STRING-CI>? str1 str2 \&key start1 end1 start2 end2)
-(STRING-CI<=? str1 str2 \&key start1 end1 start2 end2)
-(STRING-CI/=? str1 str2 \&key start1 end1 start2 end2)
-(STRING-CI>=? str1 str2 \&key start1 end1 start2 end2)
-
-These functions compare strings and return \#t if the strings match the
-predicate and \#f otherwise. For instance, (STRING-CI< x y) will
-return \#t if x is less than y. Case is not significant. \#A matches \#a.
+These functions compare strings and return \#t if the strings match
+the predicate and \#f otherwise.  For instance, (STRING-CI< x y) will
+return \#t if x is less than y.  Case is not significant.  \#A
+matches \#a.
 \subsection{Character Functions}
-\label{sec-1-32}
+\label{sec-4-30}
 
-(CHAR-UPPER-CASE? ch)
+\subsubsection{(CHAR-UPPER-CASE? ch)}
+\label{sec-4-30-1}
 
 Is the specified character an upper case letter?
-
-(CHAR-LOWER-CASE? ch)
+\subsubsection{(CHAR-LOWER-CASE? ch)}
+\label{sec-4-30-2}
 
 Is the specifed character a lower case letter?
-
-(CHAR-ALPHABETIC? ch)
+\subsubsection{(CHAR-ALPHABETIC? ch)}
+\label{sec-4-30-3}
 
 Is the specified character an upper or lower case letter?
-
-(CHAR-NUMERIC? ch)
+\subsubsection{(CHAR-NUMERIC? ch)}
+\label{sec-4-30-4}
 
 Is the specified character a digit?
-
-(CHAR-ALPHANUMERIC? ch)
+\subsubsection{(CHAR-ALPHANUMERIC? ch)}
+\label{sec-4-30-5}
 
 Is the specified character a letter or a digit?
-
-(CHAR-WHITESPACE? ch)
+\subsubsection{(CHAR-WHITESPACE? ch)}
+\label{sec-4-30-6}
 
 Is the specified character whitespace?
-
-(STRING ch)
+\subsubsection{(STRING ch)}
+\label{sec-4-30-7}
 
 Return a string containing just the specified character.
-
-(CHAR str [n])
+\subsubsection{(CHAR str [n])}
+\label{sec-4-30-8}
 
 Return the nth character of the string (n defaults to zero).
-
-(CHAR-UPCASE ch)
+\subsubsection{(CHAR-UPCASE ch)}
+\label{sec-4-30-9}
 
 Return the uppercase equivilent to the specified character if it is a
 letter.  Otherwise, just return the character.
-
-(CHAR-DOWNCASE ch)
+\subsubsection{(CHAR-DOWNCASE ch)}
+\label{sec-4-30-10}
 
 Return the lowercase equivilent to the specified character if it is a
 letter.  Otherwise, just return the character.
+\subsubsection{(DIGIT->CHAR n)}
+\label{sec-4-30-11}
 
-(DIGIT->CHAR n)
-
-Return the character associated with the specified digit.  The argument
-must be in the range of zero to nine.
+Return the character associated with the specified digit.  The
+argument must be in the range of zero to nine.
 \subsection{Character Comparison Functions}
-\label{sec-1-33}
+\label{sec-4-31}
 
-(CHAR<? ch1 ch2)
-(CHAR=? ch1 ch2)
-(CHAR>? ch1 ch2)
-(CHAR<=? ch1 ch2)
-(CHAR/=? ch1 ch2)
-(CHAR>=? ch1 ch2)
+\subsubsection{(CHAR<? ch1 ch2)}
+\label{sec-4-31-1}
+\subsubsection{(CHAR=? ch1 ch2)}
+\label{sec-4-31-2}
+\subsubsection{(CHAR>? ch1 ch2)}
+\label{sec-4-31-3}
+\subsubsection{(CHAR<=? ch1 ch2)}
+\label{sec-4-31-4}
+\subsubsection{(CHAR/=? ch1 ch2)}
+\label{sec-4-31-5}
+\subsubsection{(CHAR>=? ch1 ch2)}
+\label{sec-4-31-6}
 
-These functions compare characters and return \#t if the characters match
-the predicate and \#f otherwise. For instance, (CHAR< x y) will return \#t
-if x is less than y. Case is significant. \#A does not match \#a.
+These functions compare characters and return \#t if the characters
+match the predicate and \#f otherwise.  For instance, (CHAR< x y) will
+return \#t if x is less than y.  Case is significant.  \#A does not
+match \#a.
+\subsubsection{(CHAR-CI<? ch1 ch2)}
+\label{sec-4-31-7}
+\subsubsection{(CHAR-CI=? ch1 ch2)}
+\label{sec-4-31-8}
+\subsubsection{(CHAR-CI>? ch1 ch2)}
+\label{sec-4-31-9}
+\subsubsection{(CHAR-CI<=? ch1 ch2)}
+\label{sec-4-31-10}
+\subsubsection{(CHAR-CI>=? ch1 ch2)}
+\label{sec-4-31-11}
 
-(CHAR-CI<? ch1 ch2)
-(CHAR-CI=? ch1 ch2)
-(CHAR-CI>? ch1 ch2)
-(CHAR-CI<=? ch1 ch2)
-(CHAR-CI>=? ch1 ch2)
-
-These functions compare characters and return \#t if the characters match
-the predicate and \#f otherwise. For instance, (CHAR-CI< x y) will
-return \#t if x is less than y. Case is not significant. \#A matchs \#a.
+These functions compare characters and return \#t if the characters
+match the predicate and \#f otherwise.  For instance, (CHAR-CI< x y)
+will return \#t if x is less than y.  Case is not significant.  \#A
+matchs \#a.
 \subsection{The Reader}
-\label{sec-1-34}
+\label{sec-4-32}
 
-(READ \&optional port)
+\subsubsection{(READ \&optional port)}
+\label{sec-4-32-1}
 
-Reads an expression from the specified port. If no port is specified,
-the current input port is used. Returns the expression read or an object
-that satisfies the eof-object? predicate if it reaches the end of file
-on the port.
-
-(READ-DELIMITED-LIST ch \&optional port)
+Reads an expression from the specified port.  If no port is
+specified, the current input port is used.  Returns the expression
+read or an object that satisfies the eof-object? predicate if it
+reaches the end of file on the port.
+\subsubsection{(READ-DELIMITED-LIST ch \&optional port)}
+\label{sec-4-32-2}
 
 Read expressions building a list until the first occurance of the
 specified character.  Return the resulting list.
+\subsubsection{(SET-MACRO-CHARACTER! ch fun \&optional non-terminating? table)}
+\label{sec-4-32-3}
 
-(SET-MACRO-CHARACTER! ch fun \&optional non-terminating? table)
+\subsubsection{(GET-MACRO-CHARACTER ch \&optional table)}
+\label{sec-4-32-4}
 
-(GET-MACRO-CHARACTER ch \&optional table)
+\subsubsection{(MAKE-DISPATCH-MACRO-CHARACTER ch \&optional non-terminating? table)}
+\label{sec-4-32-5}
 
-(MAKE-DISPATCH-MACRO-CHARACTER ch \&optional non-terminating? table)
+\subsubsection{(SET-DISPATCH-MACRO-CHARACTER dch ch fun \&optional table)}
+\label{sec-4-32-6}
 
-(SET-DISPATCH-MACRO-CHARACTER dch ch fun \&optional table)
-
-(GET-DISPATCH-MACRO-CHARACTER dch ch \&optional table)
+\subsubsection{(GET-DISPATCH-MACRO-CHARACTER dch ch \&optional table)}
+\label{sec-4-32-7}
 \subsection{The Printer}
-\label{sec-1-35}
+\label{sec-4-33}
 
-(WRITE expr \&optional port)
+\subsubsection{(WRITE expr \&optional port)}
+\label{sec-4-33-1}
 
-Writes an expression to the specified port. If no port is specified, the
-current output port is used. The expression is written such that the
-READ function can read it back. This means that strings will be enclosed
-in quotes and characters will be printed with \# notation.
-
-(WRITE-SIZE expr)
+Writes an expression to the specified port.  If no port is specified,
+the current output port is used.  The expression is written such that
+the READ function can read it back.  This means that strings will be
+enclosed in quotes and characters will be printed with \# notation.
+\subsubsection{(WRITE-SIZE expr)}
+\label{sec-4-33-2}
 
 Returns the number of characters in the printed representation of the
 specified object when printed by the function WRITE.
-
-(DISPLAY-SIZE expr)
+\subsubsection{(DISPLAY-SIZE expr)}
+\label{sec-4-33-3}
 
 Returns the number of characters in the printed representation of the
 specified object when printed by the function DISPLAY.
+\subsubsection{(DISPLAY expr \&optional port)}
+\label{sec-4-33-4}
 
-(DISPLAY expr \&optional port)
-
-Writes an expression to the specified port. If no port is specified, the
-current output port is used. The expression is written without any
-quoting characters. No quotes will appear around strings and characters
-are written without the \# notation.
-
-(PRINT expr \&optional port)
+Writes an expression to the specified port.  If no port is specified,
+the current output port is used.  The expression is written without
+any quoting characters.  No quotes will appear around strings and
+characters are written without the \# notation.
+\subsubsection{(PRINT expr \&optional port)}
+\label{sec-4-33-5}
 
 The same as (NEWLINE port) followed by (WRITE expr port).
 \subsection{Input/Output Functions}
-\label{sec-1-36}
+\label{sec-4-34}
 
-(READ-LINE \&optional port)
+\subsubsection{(READ-LINE \&optional port)}
+\label{sec-4-34-1}
 
-Read a line from the specified port (which defaults to the current input
-port).  Returns the line read as a string or nil if it reaches end of
-file on the port.
+Read a line from the specified port (which defaults to the current
+input port).  Returns the line read as a string or nil if it reaches
+end of file on the port.
+\subsubsection{(READ-CHAR \&optional port)}
+\label{sec-4-34-2}
 
-(READ-CHAR \&optional port)
+Reads a character from the specified port.  If no port is specified,
+the current input port is used.  Returns the character read or an
+object that satisfies the default-object? predicate if it reaches the
+end of file on the port.
+\subsubsection{(UNREAD-CHAR ch \&optional port)}
+\label{sec-4-34-3}
 
-Reads a character from the specified port. If no port is specified, the
-current input port is used. Returns the character read or an object that
-satisfies the default-object? predicate if it reaches the end of file on
-the port.
-
-(UNREAD-CHAR ch \&optional port)
-
-Unread the specified character.  This causes it to be the next character
-read from the port.  Only one character can be "unread" at a time.  This
-allows for a one character look ahead for parsers.
-
-(PEEK-CHAR \&optional port)
+Unread the specified character.  This causes it to be the next
+character read from the port.  Only one character can be "unread" at
+a time.  This allows for a one character look ahead for parsers.
+\subsubsection{(PEEK-CHAR \&optional port)}
+\label{sec-4-34-4}
 
 Peek at the next character without actually reading it.
-
-(CHAR-READY? \&optional port)
+\subsubsection{(CHAR-READY? \&optional port)}
+\label{sec-4-34-5}
 
 Returns \#t if a character is ready on the specified port, \#f if not.
-
-(CLEAR-INPUT \&optional port)
+\subsubsection{(CLEAR-INPUT \&optional port)}
+\label{sec-4-34-6}
 
 Clears any buffered input on the specified port.
+\subsubsection{(READ-BYTE \&optional port)}
+\label{sec-4-34-7}
 
-(READ-BYTE \&optional port)
+Reads a byte from the specified port.  If no port is specified, the
+current input port is used.  Returns the byte read or an object that
+satisfies the default- object? predicate if it reaches the end of
+file on the port.
+\subsubsection{(READ-SHORT \&optional port)}
+\label{sec-4-34-8}
+\subsubsection{(READ-SHORT-HIGH-FIRST \&optional port)}
+\label{sec-4-34-9}
+\subsubsection{(READ-SHORT-LOW-FIRST \&optional port)}
+\label{sec-4-34-10}
 
-Reads a byte from the specified port. If no port is specified, the
-current input port is used. Returns the byte read or an object that
-satisfies the default- object? predicate if it reaches the end of file
-on the port.
+Read signed 16 bit value from the specified port in whatever byte
+order is native to the host machine.  Returns the 16 bit value or an
+object that satisfies the eof-object? predicate if it reaches the end
+of file on the port.  The -HIGH-FIRST and -LOW-FIRST forms read the
+high and low byte first respectively.
+\subsubsection{(READ-LONG \&optional port)}
+\label{sec-4-34-11}
+\subsubsection{(READ-LONG-HIGH-FIRST \&optional port)}
+\label{sec-4-34-12}
+\subsubsection{(READ-LONG-LOW-FIRST \&optional port)}
+\label{sec-4-34-13}
 
-(READ-SHORT \&optional port)
-(READ-SHORT-HIGH-FIRST \&optional port)
-(READ-SHORT-LOW-FIRST \&optional port)
+Read signed 32 bit value from the specified port in whatever byte
+order is native to the host machine.  Returns the 32 bit value or an
+object that satisfies the eof-object? predicate if it reaches the end
+of file on the port.  The -HIGH-FIRST and -LOW-FIRST forms read the
+high and low byte first respectively.
+\subsubsection{(WRITE-CHAR ch \&optional port)}
+\label{sec-4-34-14}
 
-Read signed 16 bit value from the specified port in whatever byte order
-is native to the host machine.  Returns the 16 bit value or an object
-that satisfies the eof-object? predicate if it reaches the end of file
-on the port.  The -HIGH-FIRST and -LOW-FIRST forms read the high and low
-byte first respectively.
+Writes a character to the specified port.  If no port is specified,
+the current output port is used.
+\subsubsection{(WRITE-BYTE ch \&optional port)}
+\label{sec-4-34-15}
 
-(READ-LONG \&optional port)
-(READ-LONG-HIGH-FIRST \&optional port)
-(READ-LONG-LOW-FIRST \&optional port)
-
-Read signed 32 bit value from the specified port in whatever byte order
-is native to the host machine.  Returns the 32 bit value or an object
-that satisfies the eof-object? predicate if it reaches the end of file
-on the port. .  The -HIGH-FIRST and -LOW-FIRST forms read the high and
-low byte first respectively.
-
-(WRITE-CHAR ch \&optional port)
-
-Writes a character to the specified port. If no port is specified, the
+Writes a byte to the specified port.  If no port is specified, the
 current output port is used.
-
-(WRITE-BYTE ch \&optional port)
-
-Writes a byte to the specified port. If no port is specified, the
-current output port is used.
-
-(WRITE-SHORT n \&optional port)
-(WRITE-SHORT-HIGH-FIRST n \&optional port)
-(WRITE-SHORT-LOW-FIRST n \&optional port)
+\subsubsection{(WRITE-SHORT n \&optional port)}
+\label{sec-4-34-16}
+\subsubsection{(WRITE-SHORT-HIGH-FIRST n \&optional port)}
+\label{sec-4-34-17}
+\subsubsection{(WRITE-SHORT-LOW-FIRST n \&optional port)}
+\label{sec-4-34-18}
 
 Write a signed 16 bit integer to the specified port.  If no port is
 specified, the current output port is used.  The -HIGH-FIRST and
 -LOW-FIRST forms write the high and low byte first respectively.
-
-(WRITE-LONG n \&optional port)
-(WRITE-LONG-HIGH-FIRST n \&optional port)
-(WRITE-LONG-LOW-FIRST n \&optional port)
+\subsubsection{(WRITE-LONG n \&optional port)}
+\label{sec-4-34-19}
+\subsubsection{(WRITE-LONG-HIGH-FIRST n \&optional port)}
+\label{sec-4-34-20}
+\subsubsection{(WRITE-LONG-LOW-FIRST n \&optional port)}
+\label{sec-4-34-21}
 
 Write a signed 32 bit integer to the specified port.  If no port is
-specified, the current output port is used. .  The -HIGH-FIRST and
+specified, the current output port is used.  The -HIGH-FIRST and
 -LOW-FIRST forms write the high and low byte first respectively.
+\subsubsection{(NEWLINE \&optional port)}
+\label{sec-4-34-22}
 
-
-(NEWLINE \&optional port)
-
-Starts a new line on the specified port. If no port is specified, the
-current output port is used.
-
-(FRESH-LINE \&optional port)
+Starts a new line on the specified port.  If no port is specified,
+the current output port is used.
+\subsubsection{(FRESH-LINE \&optional port)}
+\label{sec-4-34-23}
 
 Starts a fresh line on the specified port.  If the output position is
-already at the start of the line, FRESH-LINE does nothing.  If no port
-is specified, the current output port is used.
+already at the start of the line, FRESH-LINE does nothing.  If no
+port is specified, the current output port is used.
 \subsection{Format}
-\label{sec-1-37}
+\label{sec-4-35}
 
-(FORMAT port str \&rest args)
+\subsubsection{(FORMAT port str \&rest args)}
+\label{sec-4-35-1}
 
-If port is \#f, FORMAT collects its output into a string and returns the
-string.  If port is \#t, FORMAT sends its output to the current output
-port.  Otherwise, port should be an output port.
+If port is \#f, FORMAT collects its output into a string and returns
+the string.  If port is \#t, FORMAT sends its output to the current
+output port.  Otherwise, port should be an output port.
 
 \textasciitilde{}S print argument as if with WRITE
 
@@ -1767,275 +2052,304 @@ port.  Otherwise, port should be an output port.
 
 \textasciitilde{}\& print as if with FRESH-LINE
 \subsection{Output Control Functions}
-\label{sec-1-38}
+\label{sec-4-36}
 
-(PRINT-BREADTH [n])
+\subsubsection{(PRINT-BREADTH [n])}
+\label{sec-4-36-1}
 
 Controls the maximum number of elements of a list that will be
-printed. If n is an integer, the maximum number is set to n. If it
-is \#f, the limit is set to infinity. This is the default. If n is
+printed.  If n is an integer, the maximum number is set to n.  If it
+is \#f, the limit is set to infinity.  This is the default.  If n is
 omitted from the call, the current value is returned.
-
-(PRINT-DEPTH [n])
+\subsubsection{(PRINT-DEPTH [n])}
+\label{sec-4-36-2}
 
 Controls the maximum number of levels of a nested list that will be
-printed. If n is an integer, the maximum number is set to n. If it
-is \#f, the limit is set to infinity. This is the default. If n is
+printed.  If n is an integer, the maximum number is set to n.  If it
+is \#f, the limit is set to infinity.  This is the default.  If n is
 omitted from the call, the current value is returned.
 \subsection{File I/O Functions}
-\label{sec-1-39}
+\label{sec-4-37}
 
 All four of the following OPEN functions take an optional argument to
-indicate that file I/O is to be done in binary mode. For binary files,
-this argument should be the symbol BINARY. For text files, the argument
-can be left out or the symbol TEXT can be supplied.
+indicate that file I/O is to be done in binary mode.  For binary
+files, this argument should be the symbol BINARY.  For text files, the
+argument can be left out or the symbol TEXT can be supplied.
 
-(OPEN-INPUT-FILE str ['binary])
+\subsubsection{(OPEN-INPUT-FILE str ['binary])}
+\label{sec-4-37-1}
 
 Opens the file named by the string and returns an input port.
-
-(OPEN-OUTPUT-FILE str ['binary])
+\subsubsection{(OPEN-OUTPUT-FILE str ['binary])}
+\label{sec-4-37-2}
 
 Creates the file named by the string and returns an output port.
+\subsubsection{(OPEN-APPEND-FILE str ['binary])}
+\label{sec-4-37-3}
 
-(OPEN-APPEND-FILE str ['binary])
+Opens the file named by the string for appending returns an output
+port.
+\subsubsection{(OPEN-UPDATE-FILE str ['binary])}
+\label{sec-4-37-4}
 
-Opens the file named by the string for appending returns an output port.
-
-(OPEN-UPDATE-FILE str ['binary])
-
-Opens the file named by the string for input and output and returns an
-input/output port.
-
-(FILE-MODIFICATION-TIME str)
+Opens the file named by the string for input and output and returns
+an input/output port.
+\subsubsection{(FILE-MODIFICATION-TIME str)}
+\label{sec-4-37-5}
 
 Returns the time the file named by the string was last modified.
-
-(PARSE-PATH-STRING str)
+\subsubsection{(PARSE-PATH-STRING str)}
+\label{sec-4-37-6}
 
 Parses a path string and returns a list containing each path entry
 terminated by a path separator.
-
-(GET-FILE-POSITION port)
+\subsubsection{(GET-FILE-POSITION port)}
+\label{sec-4-37-7}
 
 Returns the current file position as an offset in bytes from the
 beginning of the file.
+\subsubsection{(SET-FILE-POSITION! port offset whence)}
+\label{sec-4-37-8}
 
-(SET-FILE-POSITION! port offset whence)
-
-Sets the current file position as an offset in bytes from the beginning
-of the file (when whence equals 0), the current file position (when
-whence equals 1) or the end of the file (when whence equals 2). Returns
-the new file position as an offset from the start of the file.
-
-(CLOSE-PORT port)
+Sets the current file position as an offset in bytes from the
+beginning of the file (when whence equals 0), the current file
+position (when whence equals 1) or the end of the file (when whence
+equals 2).  Returns the new file position as an offset from the start
+of the file.
+\subsubsection{(CLOSE-PORT port)}
+\label{sec-4-37-9}
 
 Closes any port.
-
-(CLOSE-INPUT-PORT port)
+\subsubsection{(CLOSE-INPUT-PORT port)}
+\label{sec-4-37-10}
 
 Closes an input port.
-
-(CLOSE-OUTPUT-PORT port)
+\subsubsection{(CLOSE-OUTPUT-PORT port)}
+\label{sec-4-37-11}
 
 Closes an output port.
-
-(CALL-WITH-INPUT-FILE str proc)
+\subsubsection{(CALL-WITH-INPUT-FILE str proc)}
+\label{sec-4-37-12}
 
 Open the file whose name is specifed by str and call proc passing the
-resulting input port as an argument. When proc returns, close the file
-and return the value returned by proc as the result.
+resulting input port as an argument.  When proc returns, close the
+file and return the value returned by proc as the result.
+\subsubsection{(CALL-WITH-OUTPUT-FILE str proc)}
+\label{sec-4-37-13}
 
-(CALL-WITH-OUTPUT-FILE str proc)
-
-Create the file whose name is specifed by str and call proc passing the
-resulting output port as an argument. When proc returns, close the file
-and return the value returned by proc as the result.
-
-(CURRENT-INPUT-PORT)
+Create the file whose name is specifed by str and call proc passing
+the resulting output port as an argument.  When proc returns, close
+the file and return the value returned by proc as the result.
+\subsubsection{(CURRENT-INPUT-PORT)}
+\label{sec-4-37-14}
 
 Returns the current input port.
-
-(CURRENT-OUTPUT-PORT)
+\subsubsection{(CURRENT-OUTPUT-PORT)}
+\label{sec-4-37-15}
 
 Returns the current output port.
-
-(CURRENT-ERROR-PORT)
+\subsubsection{(CURRENT-ERROR-PORT)}
+\label{sec-4-37-16}
 
 Returns the current error port.
 \subsection{String Stream Functions}
-\label{sec-1-40}
+\label{sec-4-38}
 
-(MAKE-STRING-INPUT-STREAM str)
+\subsubsection{(MAKE-STRING-INPUT-STREAM str)}
+\label{sec-4-38-1}
 
 Make a stream that can be used to retrieve the characters in the
-specified string.  The returned stream can be used as an input port in
-any function that takes an input port as an argument.
-
-(MAKE-STRING-OUTPUT-STREAM)
+specified string.  The returned stream can be used as an input port
+in any function that takes an input port as an argument.
+\subsubsection{(MAKE-STRING-OUTPUT-STREAM)}
+\label{sec-4-38-2}
 
 Make a stream that can be used as an output port in any function that
-takes an output port as an argument.  The stream accumulates characters
-until the GET-OUTPUT-STREAM-STRING function is called to retrieve them.
-
-(GET-OUTPUT-STREAM-STRING stream)
+takes an output port as an argument.  The stream accumulates
+characters until the GET-OUTPUT-STREAM-STRING function is called to
+retrieve them.
+\subsubsection{(GET-OUTPUT-STREAM-STRING stream)}
+\label{sec-4-38-3}
 
 Returns the contents of a string output stream as a string and clears
 the output stream.
 \subsection{Control Features}
-\label{sec-1-41}
+\label{sec-4-39}
 
-(EVAL expr [env])
+\subsubsection{(EVAL expr [env])}
+\label{sec-4-39-1}
 
-Evaluate the expression in the global environment and return its value.
-
-(APPLY proc args)
+Evaluate the expression in the global environment and return its
+value.
+\subsubsection{(APPLY proc args)}
+\label{sec-4-39-2}
 
 Apply the procedure to the list of arguments and return the result.
-
-(MAP proc list\ldots{})
+\subsubsection{(MAP proc list\ldots{})}
+\label{sec-4-39-3}
 
 Apply the procedure to argument lists formed by taking corresponding
-elements from each list. Form a list from the resulting values and
+elements from each list.  Form a list from the resulting values and
 return that list as the result of the MAP call.
-
-(FOR-EACH fun list\ldots{})
+\subsubsection{(FOR-EACH fun list\ldots{})}
+\label{sec-4-39-4}
 
 Apply the procedure to argument lists formed by taking corresponding
-elements from each list. The values returned by the procedure
-applications are discarded. The value returned by FOR-EACH is
+elements from each list.  The values returned by the procedure
+applications are discarded.  The value returned by FOR-EACH is
 unspecified.
+\subsubsection{(CALL-WITH-CURRENT-CONTINUATION proc)}
+\label{sec-4-39-5}
+\subsubsection{(CALL/CC proc)}
+\label{sec-4-39-6}
 
-(CALL-WITH-CURRENT-CONTINUATION proc)
-(CALL/CC proc)
-
-Form an "escape procedure" from the current continuation and pass it as
-an argument to proc. Calling the escape procedure with a single argument
-will cause that argument to be passed to the continuation that was in
-effect when the CALL-WITH-CURRENT-CONTINUATION procedure was called.
+Form an "escape procedure" from the current continuation and pass it
+as an argument to proc.  Calling the escape procedure with a single
+argument will cause that argument to be passed to the continuation
+that was in effect when the CALL-WITH-CURRENT-CONTINUATION procedure
+was called.
 \subsection{Environment Functions}
-\label{sec-1-42}
+\label{sec-4-40}
 
-(THE-ENVIRONMENT)
+\subsubsection{(THE-ENVIRONMENT)}
+\label{sec-4-40-1}
 
 Returns the current environment.
-
-(PROCEDURE-ENVIRONMENT proc)
+\subsubsection{(PROCEDURE-ENVIRONMENT proc)}
+\label{sec-4-40-2}
 
 Returns the environment from a procedure closure.
+\subsubsection{(ENVIRONMENT-BINDINGS env)}
+\label{sec-4-40-3}
 
-(ENVIRONMENT-BINDINGS env)
-
-Returns an association list corresponding to the top most frame of the
-specified environment.
-
-(ENVIRONMENT-PARENT env)
+Returns an association list corresponding to the top most frame of
+the specified environment.
+\subsubsection{(ENVIRONMENT-PARENT env)}
+\label{sec-4-40-4}
 
 Returns the parent environment of the specified environment.
-
-(BOUND? symbol [env])
+\subsubsection{(BOUND? symbol [env])}
+\label{sec-4-40-5}
 
 Returns \#t if the symbol is bound in the environment.
-
-(SYMBOL-VALUE symbol [env])
+\subsubsection{(SYMBOL-VALUE symbol [env])}
+\label{sec-4-40-6}
 
 Returns the value of a variable in an environment.
-
-(SET-SYMBOL-VALUE! symbol value [env])
+\subsubsection{(SET-SYMBOL-VALUE! symbol value [env])}
+\label{sec-4-40-7}
 
 Sets the value of a symbol in an environment.  The result of the
 set-symbol-value! expression is unspecified.
+\subsubsection{(EVAL expr [env])}
+\label{sec-4-40-8}
 
-(EVAL expr [env])
-
-Evaluate the expression in the specified environment and return its value.
+Evaluate the expression in the specified environment and return its
+value.
 \subsection{Utility Functions}
-\label{sec-1-43}
+\label{sec-4-41}
 
-(LOAD str)
+\subsubsection{(LOAD str)}
+\label{sec-4-41-1}
 
 Read and evaluate each expression from the specified file.
+\subsubsection{(LOAD-NOISILY str)}
+\label{sec-4-41-2}
 
-(LOAD-NOISILY str)
-
-Read and evaluate each expression from the specified file and print the
-results to the current output port.
-
-(LOAD-FASL-FILE str)
+Read and evaluate each expression from the specified file and print
+the results to the current output port.
+\subsubsection{(LOAD-FASL-FILE str)}
+\label{sec-4-41-3}
 
 Load a fasl file produced by COMPILE-FILE.
+\subsubsection{(TRANSCRIPT-ON str)}
+\label{sec-4-41-4}
 
-(TRANSCRIPT-ON str)
-
-Opens a transcript file with the specified name and begins logging the
-interactive session to that file.
-
-(TRANSCRIPT-OFF)
+Opens a transcript file with the specified name and begins logging
+the interactive session to that file.
+\subsubsection{(TRANSCRIPT-OFF)}
+\label{sec-4-41-5}
 
 Closes the current transcript file.
+\subsubsection{(COMPILE expr \&optional env)}
+\label{sec-4-41-6}
 
-(COMPILE expr \&optional env)
-
-Compiles an expression in the specified environment and returns a thunk
-that when called causes the expression to be evaluated.  The environment
-defaults to the top level environment if not specified.
-
-(SAVE name)
+Compiles an expression in the specified environment and returns a
+thunk that when called causes the expression to be evaluated.  The
+environment defaults to the top level environment if not specified.
+\subsubsection{(SAVE name)}
+\label{sec-4-41-7}
 
 Saves the current workspace to a file with the specified name.  The
 workspace can later be reloaded using RESTORE.
+\subsubsection{(RESTORE name)}
+\label{sec-4-41-8}
 
-(RESTORE name)
+Restores a previously saved workspace from the file with the
+specified name.
+\subsubsection{(GETARG n)}
+\label{sec-4-41-9}
 
-Restores a previously saved workspace from the file with the specified
-name.
-
-(GETARG n)
-
-Get the nth argument from the command line.  If there were fewer than n
-arguments, return nil.
-
-(GET-TIME)
+Get the nth argument from the command line.  If there were fewer than
+n arguments, return nil.
+\subsubsection{(GET-TIME)}
+\label{sec-4-41-10}
 
 Get the current time in seconds.
+\subsubsection{(GET-ENVIRONMENT-VARIABLE name)}
+\label{sec-4-41-11}
 
-(GET-ENVIRONMENT-VARIABLE name)
-
-Get the value of the environment variable with the specified name.  The
-name should be a string.  Returns the value of the environment variable
-if it exists.  Otherwise, returns nil.
-
-(EXIT)
-(QUIT)
+Get the value of the environment variable with the specified name.
+The name should be a string.  Returns the value of the environment
+variable if it exists.  Otherwise, returns nil.
+\subsubsection{(EXIT)}
+\label{sec-4-41-12}
+\subsubsection{(QUIT)}
+\label{sec-4-41-13}
 
 Exits from XLISP back to the operating system.
-
-(GC [ni vi])
+\subsubsection{(GC [ni vi])}
+\label{sec-4-41-14}
 
 Invokes the garbage collector and returns information on memory
-usage. If ni and vi are specified, they must be integers. Node and
-vector space are expanded by those amounts respectively and no garbage
-collection is triggered. GC returns an array of six values: the number
-of calls to the garbage collector, the total number of nodes, the
-current number of free nodes, the number of node segments, the number of
-vector segments and the total number of bytes allocated to the heap.
+usage.  If ni and vi are specified, they must be integers.  Node and
+vector space are expanded by those amounts respectively and no
+garbage collection is triggered.  GC returns an array of six values:
+the number of calls to the garbage collector, the total number of
+nodes, the current number of free nodes, the number of node segments,
+the number of vector segments and the total number of bytes allocated
+to the heap.
+\subsubsection{(ROOM)}
+\label{sec-4-41-15}
 
-(ROOM)
+Returns the same information as GC without actually invoking the
+garbage collector.
+\subsubsection{(\%E n)}
+\label{sec-4-41-16}
 
-Returns the same information as GC without actually invoking the garbage
-collector.
+Fetch expression $n$ from the history stack without eveluating it.
+\subsubsection{(\%V n \&optional (i 0))}
+\label{sec-4-41-17}
+
+Fetch the value of expression $n$ from the history stack, optionally
+picking an element from a multiple-value-list with a zero-based
+index $i$ via \verb|list-ref|.
 \subsection{Fast Loading}
-\label{sec-1-44}
+\label{sec-4-42}
 
-(LOAD-FASL-FILE name)
+\subsubsection{(LOAD-FASL-FILE name)}
+\label{sec-4-42-1}
 
-(FASL-WRITE-PROCEDURE proc \&optional port)
+\subsubsection{(FASL-WRITE-PROCEDURE proc \&optional port)}
+\label{sec-4-42-2}
 
-(FASL-READ-PROCEDURE \&optional port)
+\subsubsection{(FASL-READ-PROCEDURE \&optional port)}
+\label{sec-4-42-3}
 \subsection{C Records}
-\label{sec-1-45}
+\label{sec-4-43}
 
-(DEFINE-CRECORD name (field-definition\ldots{}))
+\subsubsection{(DEFINE-CRECORD name (field-definition\ldots{}))}
+\label{sec-4-43-1}
 
 Field definition:
 
@@ -2043,133 +2357,188 @@ Field definition:
 
 Where type is:
 
-char, uchar, short, ushort, int, uint, long, ulong, str
-**
-(ALLOCATE-CMEMORY type size)
+char, uchar, short, ushort, int, uint, long, ulong,
+str **
+\subsubsection{(ALLOCATE-CMEMORY type size)}
+\label{sec-4-43-2}
 
-(FREE-CMEMORY ptr)
+placeholder
+\subsubsection{(FREE-CMEMORY ptr)}
+\label{sec-4-43-3}
 
-(FOREIGN-POINTER? ptr)
+placeholder
+\subsubsection{(FOREIGN-POINTER? ptr)}
+\label{sec-4-43-4}
 
-(FOREIGN-POINTER-TYPE ptr)
+placeholder
+\subsubsection{(FOREIGN-POINTER-TYPE ptr)}
+\label{sec-4-43-5}
 
-(SET-FOREIGN-POINTER-TYPE! ptr type)
+placeholder
+\subsubsection{(SET-FOREIGN-POINTER-TYPE! ptr type)}
+\label{sec-4-43-6}
 
-(FOREIGN-POINTER-TYPE? ptr type)
+placeholder
+\subsubsection{(FOREIGN-POINTER-TYPE? ptr type)}
+\label{sec-4-43-7}
 
-(FOREIGN-POINTER-EQ? ptr1 ptr2)
+placeholder
+\subsubsection{(FOREIGN-POINTER-EQ? ptr1 ptr2)}
+\label{sec-4-43-8}
 
-(GET-CRECORD-FIELD ptr offset type)
+placeholder
+\subsubsection{(GET-CRECORD-FIELD ptr offset type)}
+\label{sec-4-43-9}
 
-(GET-CRECORD-FIELD-ADDRESS ptr offset type)
+placeholder
+\subsubsection{(GET-CRECORD-FIELD-ADDRESS ptr offset type)}
+\label{sec-4-43-10}
 
-(SET-CRECORD-FIELD! ptr offset type val)
+placeholder
+\subsubsection{(SET-CRECORD-FIELD! ptr offset type val)}
+\label{sec-4-43-11}
 
-(GET-CRECORD-STRING ptr offset length)
+placeholder
+\subsubsection{(GET-CRECORD-STRING ptr offset length)}
+\label{sec-4-43-12}
 
-(SET-CRECORD-STRING! ptr offset length str)
+placeholder
+\subsubsection{(SET-CRECORD-STRING! ptr offset length str)}
+\label{sec-4-43-13}
 
-(GET-CRECORD-TYPE-SIZE type)
-\textbf{*
-*}
+placeholder
+\subsubsection{(GET-CRECORD-TYPE-SIZE type)}
+\label{sec-4-43-14}
 
+placeholder
 \subsection{Debugging Functions}
-\label{sec-1-46}
+\label{sec-4-44}
 
-(DECOMPILE proc \&optional port)
+\subsubsection{(DECOMPILE proc \&optional port)}
+\label{sec-4-44-1}
 
 Decompiles the specified bytecode procedure and displays the bytecode
 instructions to the specified port.  If not specified, the port defaults
 to the current output port.
+\subsubsection{(INSTRUCTION-TRACE \&rest body)}
+\label{sec-4-44-2}
 
-(INSTRUCTION-TRACE \&rest body)
-
-Enables bytecode level instruction tracing during the evaluation of the
-expressions in the body.
-
-(TRACE-ON)
+Enables bytecode level instruction tracing during the evaluation of
+the expressions in the body.
+\subsubsection{(TRACE-ON)}
+\label{sec-4-44-3}
 
 Starts bytecode instruction level tracing.
-
-(TRACE-OFF)
+\subsubsection{(TRACE-OFF)}
+\label{sec-4-44-4}
 
 Stops bytecode instruction level tracing.
-
-(SHOW-STACK \&optional n)
+\subsubsection{(SHOW-STACK \&optional n)}
+\label{sec-4-44-5}
 
 Shows the call stack leading up to an error when invoked from a debug
-prompt.  Each line represents a procedure waiting for a value.  The line
-is displayed in the form of a function call with the procedure first
-followed by the actual values of the arguments that were passed to the
-procedure.  For method invocations, the method is first followed by the
-object receiving the message followed by the arguments.  N is the number
-of stack levels to display.  If unspecified, it defaults to 20.
+prompt.  Each line represents a procedure waiting for a value.  The
+line is displayed in the form of a function call with the procedure
+first followed by the actual values of the arguments that were passed
+to the procedure.  For method invocations, the method is first
+followed by the object receiving the message followed by the
+arguments.  N is the number of stack levels to display.  If
+unspecified, it defaults to 20.
+\subsubsection{(SHOW-CONTROL-STACK \&optional n)}
+\label{sec-4-44-6}
 
-(SHOW-CONTROL-STACK \&optional n)
-
-Shows frames on the continuation stack.  N is the number of stack levels
-to display.  If unspecified, it defaults to 20.
-
-(SHOW-VALUE-STACK \&optional n)
+Shows frames on the continuation stack.  N is the number of stack
+levels to display.  If unspecified, it defaults to 20.
+\subsubsection{(SHOW-VALUE-STACK \&optional n)}
+\label{sec-4-44-7}
 
 Shows frames on the value stack.  N is the number of stack levels to
 display.  If unspecified, it defaults to 20.
-
-(RESET)
+\subsubsection{(RESET)}
+\label{sec-4-44-8}
 
 Returns to the top level read/eval/print loop.
 \subsection{System Functions}
-\label{sec-1-47}
+\label{sec-4-45}
 
-(\%CAR pair)
-(\%CDR pair)
-(\%SET-CAR! pair expr)
-(\%SET-CDR! pair expr)
-(\%VECTOR-LENGTH vect)
-(\%VECTOR-REF vect n)
-(\%VECTOR-SET! vect n expr)
+\subsubsection{(\%CAR pair)}
+\label{sec-4-45-1}
+\subsubsection{(\%CDR pair)}
+\label{sec-4-45-2}
+\subsubsection{(\%SET-CAR! pair expr)}
+\label{sec-4-45-3}
+\subsubsection{(\%SET-CDR! pair expr)}
+\label{sec-4-45-4}
+\subsubsection{(\%VECTOR-LENGTH vect)}
+\label{sec-4-45-5}
+\subsubsection{(\%VECTOR-REF vect n)}
+\label{sec-4-45-6}
+\subsubsection{(\%VECTOR-SET! vect n expr)}
+\label{sec-4-45-7}
 
 These functions do the same as their counterparts without the leading
-'\%' character. The difference is that they don't check the type of their
-first argument. This makes it possible to examine data structures that
-have the same internal representation as pairs and vectors. It is \textbf{very}
-dangerous to modify objects using these functions and there is no
-guarantee that future releases of XLISP will represent objects in the
-same way that the current version does.
-
-(\%VECTOR-BASE vect)
+'\%' character.  The difference is that they don't check the type of
+their first argument.  This makes it possible to examine data
+structures that have the same internal representation as pairs and
+vectors.  It is \textbf{very} dangerous to modify objects using these
+functions and there is no guarantee that future releases of XLISP
+will represent objects in the same way that the current version does.
+\subsubsection{(\%VECTOR-BASE vect)}
+\label{sec-4-45-8}
 
 Returns the address of the base of the vector storage.
-
-(\%ADDRESS-OF expr)
+\subsubsection{(\%ADDRESS-OF expr)}
+\label{sec-4-45-9}
 
 Returns the address of the specified object in the heap.
-
-(\%FORMAT-ADDRESS addr)
+\subsubsection{(\%FORMAT-ADDRESS addr)}
+\label{sec-4-45-10}
 
 Returns the address of an object as a string formated for output as a
 hex number.
-
 \subsection{Object Representations}
-\label{sec-1-48}
+\label{sec-4-46}
 
 This version of XLISP uses the following object representations:
 
-Closures are represented as pairs. The car of the pair is the compiled
-function and the cdr of the pair is the saved environment.
+Closures are represented as pairs.  The car of the pair is the
+compiled function and the cdr of the pair is the saved environment.
 
-Compiled functions are represented as vectors. The element at offset 0
-is the bytecode string. The element at offset 1 is the function
-name. The element at offset 2 is a list of names of the function
-arguments. The elements at offsets above 2 are the literals refered to
-by the compiled bytecodes.
+Compiled functions are represented as vectors.  The element at offset
+0 is the bytecode string.  The element at offset 1 is the function
+name.  The element at offset 2 is a list of names of the function
+arguments.  The elements at offsets above 2 are the literals refered
+to by the compiled bytecodes.
 
-Environments are represented as lists of vectors. Each vector is an
-environment frame. The element at offset 0 is a list of the symbols that
-are bound in that frame. The symbol values start at offset 1.
+Environments are represented as lists of vectors.  Each vector is an
+environment frame.  The element at offset 0 is a list of the symbols
+that are bound in that frame.  The symbol values start at offset 1.
 
-Objects are represented as vectors. The element at offset 0 is the class
-of the object. The remaining elements are the object's instance variable
-values.
+Objects are represented as vectors.  The element at offset 0 is the
+class of the object.  The remaining elements are the object's instance
+variable values.
+\section{Initilization}
+\label{sec-5}
+
+This section by Brian Beckman.
+
+Some of xlisp is implemented in xlisp.  These implementations are
+loaded at initialization time.  When xlisp is initialized, it loads
+xlinit.lsp, which, in turn, loads several more files:
+\begin{itemize}
+\item qquote.lsp
+\item macros.lsp
+\item math.lsp
+\item objects.lsp
+\item fasl.lsp
+\item crec.lsp
+\item pp.lsp
+\end{itemize}
+
+A good way to understand and modify xlisp is to read these files.
+\section{Extensions and Modifications}
+\label{sec-6}
+
+This section by Brian Beckman.
 % Emacs 24.3.1 (Org mode 8.0)
 \end{document}

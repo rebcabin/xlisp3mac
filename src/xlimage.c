@@ -163,7 +163,7 @@ int xlRestoreImage(char *fname)
     xlPackages = cviptr(readptr());
     xlEofObject = cviptr(readptr());
     xlDefaultObject = cviptr(readptr());
-    
+
     /* read each node */
     for (off = (xlOFFTYPE)2; (type = getc(fp)) >= 0; )
         switch (type) {
@@ -326,7 +326,7 @@ static void freeimage(void)
         nextvseg = xlVSegments->vs_next;
         xlosFree(xlVSegments);
     }
-    
+
     /* free the stack */
     if (xlStkBase)
         xlosFree(xlStkBase);
@@ -468,7 +468,6 @@ static void fpdummy_free(void *p)
 static void fpdummy_print(xlValue val,char *buf)
 {
     strcpy(buf,"#<Null Pointer #");
-    sprintf(&buf[strlen(buf)],xlAFMT,val);
+    sprintf(&buf[strlen(buf)],xlAFMT,(unsigned long)val);
     strcat(buf,">");
 }
-

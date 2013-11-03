@@ -75,7 +75,7 @@ xlValue xreadline(void)
 	            xlFIXTYPE cnt = xlSTRMAX;
 	            xlVal = xlNewUStream();
 	            for (p = buf; --cnt >= 0; )
-	                xlPutC(xlVal,*p++);    
+	                xlPutC(xlVal,*p++);
 	        }
 	        xlPutC(xlVal,ch);
 	    }
@@ -130,11 +130,11 @@ xlValue xpkchar(void)
 xlValue xcharready(void)
 {
     xlValue fptr;
-    
+
     /* parse the argument list */
     fptr = xlMoreArgsP() ? xlGetInputPort() : xlCurInput();
     xlLastArg();
-    
+
     /* return true if there is a character to read */
     return xlInputReadyP(fptr) ? xlTrue : xlFalse;
 }
@@ -143,11 +143,11 @@ xlValue xcharready(void)
 xlValue xclearinput(void)
 {
     xlValue fptr;
-    
+
     /* parse the argument list */
     fptr = xlMoreArgsP() ? xlGetInputPort() : xlCurInput();
     xlLastArg();
-    
+
     /* flush buffered input */
     xlFlushInput(fptr);
     return xlNil;
@@ -540,7 +540,7 @@ xlValue xparsepathstring(void)
     /* get the load path */
     xlVal = xlGetArgString();
     xlLastArg();
-    
+
     /* initialize */
     p = xlGetString(xlVal);
     xlCPush(xlNil);
@@ -573,7 +573,7 @@ void xsplitpathfromfilename(void)
     /* initialize */
     pathstr = xlGetString(xlVal);
     xlCheck(2);
-    
+
     /* get the path string */
     if ((p = strrchr(pathstr,sch)) != NULL) {
         int len = p - pathstr;
@@ -843,7 +843,7 @@ xlValue xmkstrinput(void)
 {
     xlFIXTYPE start,end,len;
     xlValue val;
-    
+
     /* get the string and length */
     xlVal = xlGetArgString();
     len = xlGetSLength(xlVal);
@@ -871,7 +871,7 @@ xlValue xmkstrinput(void)
 
     /* create the stream */
     xlCPush(xlNewUStream());
-    
+
     /* copy the characters into the stream */
     for (; start < end; ++start) {
 	char *p = xlGetString(xlVal) + start;
@@ -913,7 +913,7 @@ xlValue xmkobjstream(void)
 xlValue xformat(void)
 {
     xlValue stream,val;
-    
+
     /* get the stream */
     stream = xlGetArg();
     if (stream == xlNil)
@@ -925,7 +925,7 @@ xlValue xformat(void)
 	    xlBadType(stream);
 	val = xlNil;
     }
-    
+
     /* do the formatted output */
     format(stream);
 
@@ -948,7 +948,7 @@ static void format(xlValue stream)
     /* setup the argument pointer and count */
     argp = xlSP;
     saveArgC = argc = xlArgC;
-    
+
     /* protect the stream and format string */
     xlCheck(2);
     xlPush(stream);
@@ -960,16 +960,16 @@ static void format(xlValue stream)
         if (i >= len)
             break;
 	else if ((ch = fmt[i++]) == '~' && i < len) {
-            
+
             /* check for the '@' modifier */
-            if (atseen = (fmt[i] == '@'))
+            if ((atseen = (fmt[i] == '@')))
                 ++i;
-            
+
             /* check for a numeric argument */
-            if (argseen = isdigit(fmt[i]))
+            if ((argseen = isdigit(fmt[i])))
                 for (arg = 0; isdigit(fmt[i]); ++i)
                     arg = arg * 10 + fmt[i] - '0';
-                
+
             /* dispatch on the formatting directive */
 	    switch (ch = fmt[i++]) {
 	    case 'a': case 'A':
@@ -1011,7 +1011,7 @@ static void format(xlValue stream)
 	else
 	    xlPutC(stream,ch);
     }
-    
+
     /* get rid of the format arguments */
     xlDrop(saveArgC + 2);
 }
@@ -1070,20 +1070,20 @@ xlValue xmakestring(void)
     xlFIXTYPE size;
     int fill;
     char *p;
-    
+
     /* parse the argument list */
     xlVal = xlGetArgFixnum(); size = xlGetFixnum(xlVal);
     fill = xlMoreArgsP() ? xlGetChCode(xlGetArgChar()) : -1;
     xlLastArg();
-    
+
     /* make the string */
     xlVal = xlNewString(size);
-    
+
     /* fill it if necessary */
     if (fill != -1)
         for (p = xlGetString(xlVal); --size >= 0; )
             *p++ = fill;
-    
+
     /* return the new string */
     return xlVal;
 }
@@ -1127,7 +1127,7 @@ xlValue xstrappend(void)
     /* restore the argument list */
     xlArgC = saveargc;
     xlSP = savesp;
-    
+
     /* create the result string */
     xlVal = xlNewString(len);
     str = xlGetString(xlVal);
@@ -1230,7 +1230,7 @@ xlValue xstrlist(void)
     /* get the vector */
     str = xlGetArgString();
     xlLastArg();
-    
+
     /* make a list from the vector */
     xlCPush(str);
     size = xlGetSLength(str);
@@ -1568,7 +1568,7 @@ xlValue xstring(void)
     /* return a zero length string if called with no arguments (for Scheme compatibility) */
     if (!xlMoreArgsP())
         return xlNewString(0);
-    
+
     /* get the first argument */
     arg = xlGetArg();
 
@@ -1603,7 +1603,7 @@ xlValue xnumstr(void)
     char buf[256],*str;
     int radix = 10;
     xlValue n;
-    
+
     /* parse argument list */
     n = xlGetArg();
     if (xlMoreArgsP()) {
@@ -1611,7 +1611,7 @@ xlValue xnumstr(void)
         radix = (int)xlGetFixnum(xlVal);
     }
     xlLastArg();
-    
+
     /* convert to a string */
     if (xlFixnumP(n))
         str = radixnumtostr(xlGetFixnum(n),radix,buf,sizeof(buf));
@@ -1628,7 +1628,7 @@ static char *radixnumtostr(xlFIXTYPE n,int radix,char *buf,int len)
     char *p = &buf[len];
     unsigned long un;
     int sign;
-    
+
     /* determine the sign */
     if (n < 0) {
         un = (unsigned long)-n;
@@ -1638,20 +1638,20 @@ static char *radixnumtostr(xlFIXTYPE n,int radix,char *buf,int len)
         un = (unsigned long)n;
         sign = 1;
     }
-    
+
     /* insert the terminating nul */
     *--p = '\0';
-    
+
     /* convert the number */
     do {
         *--p = "0123456789abcdefghijklmnopqrstuvwxyz"[un % radix];
         un /= radix;
     } while (un > 0);
-    
+
     /* insert the sign */
     if (sign < 0)
         *--p = '-';
-        
+
     /* return the string */
     return p;
 }
@@ -1661,7 +1661,7 @@ xlValue xstrnum(void)
 {
     int radix = 10;
     xlValue str;
-    
+
     /* parse argument list */
     str = xlGetArgString();
     if (xlMoreArgsP()) {
@@ -1669,7 +1669,7 @@ xlValue xstrnum(void)
         radix = (int)xlGetFixnum(xlVal);
     }
     xlLastArg();
-    
+
     /* convert to a string */
     if (radix == 10)
         return xlNumberStringP(xlGetString(str),&str) ? str : xlNil;
@@ -1735,7 +1735,7 @@ static xlValue chrcompare(int fcn,int icase)
 {
     int ch1,ch2,icmp;
     xlValue arg;
-    
+
     /* get the characters */
     arg = xlGetArgChar(); ch1 = xlGetChCode(arg);
 
@@ -1831,7 +1831,7 @@ xlValue xcompile(void)
     xlVal = xlGetArg();
     env = xlMoreArgsP() ? xlGetArgEnv() : xlNil;
     xlLastArg();
-    
+
     /* build the closure */
     xlCPush(env);
     xlVal = xlCompile(xlVal,xlTop());
@@ -1910,7 +1910,7 @@ xlValue xgc(void)
 {
     xlFIXTYPE arg1,arg2;
     xlValue arg;
-    
+
     /* check the argument list and call the garbage collector */
     if (xlMoreArgsP()) {
 	arg = xlGetArgFixnum(); arg1 = xlGetFixnum(arg);
@@ -2058,12 +2058,12 @@ xlValue xalloccmemory(void)
     xlValue type;
     xlFIXTYPE size;
     char *ptr;
-    
+
     /* parse the argument list */
     type = xlGetArgSymbol();
     xlVal = xlGetArgFixnum(); size = xlGetFixnum(xlVal);
     xlLastArg();
-    
+
     /* allocate the memory and create the foreign pointer */
     ptr = xlosAlloc(size);
     return ptr ? xlMakeForeignPtr(type,ptr) : xlNil;
@@ -2073,11 +2073,11 @@ xlValue xalloccmemory(void)
 xlValue xfreecmemory(void)
 {
     void *ptr;
-    
+
     /* parse the argument list */
     xlVal = xlGetArgForeignPtr(); ptr = xlGetFPtr(xlVal);
     xlLastArg();
-    
+
     /* free the pointer */
     if (ptr) xlosFree(ptr);
     xlSetFPtr(xlVal,0);
@@ -2088,12 +2088,12 @@ xlValue xfreecmemory(void)
 xlValue xforeignptrp(void)
 {
     xlValue ptr,type;
-    
+
     /* get the pointer */
     ptr = xlGetArg();
     type = xlMoreArgsP() ? xlGetArg() : xlNil;
     xlLastArg();
-    
+
     /* return its type */
     if (!xlForeignPtrP(ptr))
         return xlFalse;
@@ -2107,11 +2107,11 @@ xlValue xforeignptrp(void)
 xlValue xforeignptrtype(void)
 {
     xlValue ptr;
-    
+
     /* get the pointer */
     ptr = xlGetArgForeignPtr();
     xlLastArg();
-    
+
     /* return its type */
     return xlGetFPType(ptr);
 }
@@ -2120,12 +2120,12 @@ xlValue xforeignptrtype(void)
 xlValue xforeignptreqp(void)
 {
     xlValue ptr1,ptr2;
-    
+
     /* get the pointer */
     ptr1 = xlGetArgForeignPtr();
     ptr2 = xlGetArgForeignPtr();
     xlLastArg();
-    
+
     /* check the pointers */
     return xlGetFPtr(ptr1) == xlGetFPtr(ptr2) ? xlTrue : xlFalse;
 }
@@ -2134,12 +2134,12 @@ xlValue xforeignptreqp(void)
 xlValue xsetforeignptrtype(void)
 {
     xlValue ptr,type;
-    
+
     /* get the pointer and new type */
     ptr = xlGetArgForeignPtr();
     type = xlGetArg();
     xlLastArg();
-    
+
     /* set the type and return the pointer */
     xlSetFPType(ptr,type);
     return ptr;
@@ -2149,12 +2149,12 @@ xlValue xsetforeignptrtype(void)
 xlValue xforeignptrtypep(void)
 {
     xlValue ptr,type;
-    
+
     /* get the pointer and type */
     ptr = xlGetArgForeignPtr();
     type = xlGetArg();
     xlLastArg();
-    
+
     /* check the type */
     return xlGetFPType(ptr) == type ? xlTrue : xlFalse;
 }
@@ -2166,18 +2166,18 @@ xlValue xgetcrecfield(void)
     long offset;
     void *ptr;
     int type;
-    
+
     /* parse argument list */
     record = xlGetArgForeignPtr();
     xlVal = xlGetArgFixnum(); offset = xlGetFixnum(xlVal);
     xlVal = xlGetArgFixnum(); type = (int)xlGetFixnum(xlVal);
     xlLastArg();
-    
+
     /* get the field pointer */
     if ((ptr = xlGetFPtr(record)) == 0)
     	xlError("pointer is null",record);
     ptr = (void *)((char *)ptr + offset);
-    
+
     /* dispatch on field type */
     switch (type) {
     case CRTYPE_CHAR:
@@ -2238,18 +2238,18 @@ xlValue xgetcrecfieldaddr(void)
     xlValue record,type;
     long offset;
     void *ptr;
-    
+
     /* parse argument list */
     record = xlGetArgForeignPtr();
     xlVal = xlGetArgFixnum(); offset = xlGetFixnum(xlVal);
     type = xlGetArgSymbol();
     xlLastArg();
-    
+
     /* get the field pointer */
     if ((ptr = xlGetFPtr(record)) == 0)
     	xlError("pointer is null",record);
     ptr = (void *)((char *)ptr + offset);
-    
+
     /* make a pointer to the field */
     return xlMakeForeignPtr(type,ptr);
 }
@@ -2261,19 +2261,19 @@ xlValue xsetcrecfield(void)
     long offset;
     void *ptr;
     int type;
-    
+
     /* parse argument list */
     record = xlGetArgForeignPtr();
     xlVal = xlGetArgFixnum(); offset = xlGetFixnum(xlVal);
     xlVal = xlGetArgFixnum(); type = (int)xlGetFixnum(xlVal);
     value = xlGetArg();
     xlLastArg();
-    
+
     /* get the field pointer */
     if ((ptr = xlGetFPtr(record)) == 0)
     	xlError("pointer is null",record);
     ptr = (void *)((char *)ptr + offset);
-    
+
     /* dispatch on field type */
     switch (type) {
     case CRTYPE_CHAR:
@@ -2315,7 +2315,7 @@ xlValue xsetcrecfield(void)
     	break;
     }
     return value;
-} 
+}
 
 /* xgetcrecstring - built-in function 'get-crecord-string' */
 xlValue xgetcrecstring(void)
@@ -2323,52 +2323,52 @@ xlValue xgetcrecstring(void)
     xlFIXTYPE offset,length;
     char *src,*dst;
     xlValue val;
-    
+
     /* parse argument list */
     xlVal = xlGetArgForeignPtr();
     val = xlGetArgFixnum(); offset = xlGetFixnum(val);
     val = xlGetArgFixnum(); length = xlGetFixnum(val);
     xlLastArg();
-    
+
     /* get the field pointer */
     if ((src = (char *)xlGetFPtr(xlVal)) == 0)
     	xlError("pointer is null",xlVal);
     src += offset;
-    
+
     /* make a string */
     val = xlNewString(length);
-    
+
     /* copy the value */
     for (dst = xlGetString(val); --length >= 0; )
         *dst++ = *src++;
-    
+
     /* return the string */
     return val;
 }
-    
+
 /* xsetcrecstring - built-in function 'set-crecord-string!' */
 xlValue xsetcrecstring(void)
 {
     xlFIXTYPE offset,length,cnt;
     xlValue record,str;
     char *src,*dst;
-    
+
     /* parse argument list */
     record = xlGetArgForeignPtr();
     xlVal = xlGetArgFixnum(); offset = xlGetFixnum(xlVal);
     xlVal = xlGetArgFixnum(); length = xlGetFixnum(xlVal);
     str = xlGetArgString();
     xlLastArg();
-    
+
     /* get the field pointer */
     if ((dst = (char *)xlGetFPtr(record)) == 0)
     	xlError("pointer is null",record);
     dst += offset;
-    
+
     /* compute the number of bytes to copy */
     if ((cnt = xlGetSLength(str)) > length)
         cnt = length;
-    
+
     /* copy the value */
     for (src = xlGetString(str); --cnt >= 0; --length)
         *dst++ = *src++;
@@ -2376,21 +2376,21 @@ xlValue xsetcrecstring(void)
     /* fill the rest of the destination with nulls */
     while (--length >= 0)
         *dst++ = '\0';
-        
+
     /* return the string */
     return str;
 }
-    
+
 /* xgetcrectypesize - built-in function 'get-crecord-type-size' */
 xlValue xgetcrectypesize(void)
 {
     size_t size;
     int type;
-    
+
     /* parse argument list */
     xlVal = xlGetArgFixnum(); type = (int)xlGetFixnum(xlVal);
     xlLastArg();
-    
+
     /* dispatch on field type */
     switch (type) {
     case CRTYPE_CHAR:

@@ -128,7 +128,7 @@ static void print(xlValue fptr,xlValue vptr,int escflag,int depth)
                     break;
                 }
                 print(fptr,xlCar(nptr),escflag,depth+1);
-                if ((next = xlCdr(nptr)) != xlNil)
+                if ((next = xlCdr(nptr)) != xlNil) {
                     if (xlConsP(next))
                         xlPutC(fptr,' ');
                     else {
@@ -136,6 +136,7 @@ static void print(xlValue fptr,xlValue vptr,int escflag,int depth)
                         print(fptr,next,escflag,depth+1);
                         break;
                     }
+                }
             }
             xlPutC(fptr,')');
             break;
@@ -232,7 +233,8 @@ static void print(xlValue fptr,xlValue vptr,int escflag,int depth)
 static void putatm(xlValue fptr,char *tag,xlValue val)
 {
     sprintf(buf,"#<%s #x",tag); xlPutStr(fptr,buf);
-    sprintf(buf,xlAFMT,val); xlPutStr(fptr,buf);
+    sprintf(buf,xlAFMT,(unsigned long)val);
+    xlPutStr(fptr,buf);
     xlPutC(fptr,'>');
 }
 
@@ -240,9 +242,9 @@ static void putatm(xlValue fptr,char *tag,xlValue val)
 static void putfstream(xlValue fptr,xlValue val)
 {
     xlPutStr(fptr,"#<File-stream #x");
-    sprintf(buf,xlAFMT,val); xlPutStr(fptr,buf);
+    sprintf(buf,xlAFMT,(unsigned long)val); xlPutStr(fptr,buf);
     xlPutC(fptr,':');
-    sprintf(buf,xlAFMT,xlGetFile(val)); xlPutStr(fptr,buf);
+    sprintf(buf,xlAFMT,(unsigned long)xlGetFile(val)); xlPutStr(fptr,buf);
     xlPutC(fptr,'>');
 }
 
@@ -330,7 +332,7 @@ static void putsymbol(xlValue fptr,xlValue sym)
 static void putsympname(xlValue fptr,xlValue pname)
 {
     xlFIXTYPE len,i;
-   
+
     /* get the string length */
     len = xlGetSLength(pname);
 
@@ -440,9 +442,9 @@ static void putforeignptr(xlValue fptr,xlValue val)
     xlPutStr(fptr,"#<FP:");
     xlDisplay(xlGetFPType(val),fptr);
     xlPutStr(fptr," #");
-    sprintf(buf,xlAFMT,val);
+    sprintf(buf,xlAFMT,(unsigned long)val);
     strcat(buf,":");
-    sprintf(&buf[strlen(buf)],xlAFMT,xlGetFPtr(val));
+    sprintf(&buf[strlen(buf)],xlAFMT,(unsigned long)xlGetFPtr(val));
     strcat(buf,">");
     xlPutStr(fptr,buf);
 }
@@ -482,7 +484,7 @@ static void putfree(xlValue fptr,xlValue val)
     char buf[100];
     int typeid;
     xlPutStr(fptr,"#<Free #");
-    sprintf(buf,xlAFMT,val);
+    sprintf(buf,xlAFMT,(unsigned long)val);
     strcat(buf," was ");
     typeid = (int)(long)xlCar(val);
     if (typeid >= 0 && typeid <= xlMAXTYPEID)
@@ -492,5 +494,3 @@ static void putfree(xlValue fptr,xlValue val)
     strcat(buf,">");
     xlPutStr(fptr,buf);
 }
-
-

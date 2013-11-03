@@ -73,7 +73,7 @@ xlEXPORT xlValue xlClass(char *name,xlValue super,char *vars)
             ++iCnt;
         } while (*vars++ == ',');
     }
-    
+
     /* get the number of instance variables in the superclass */
     superCnt = super ? xlGetFixnum(xlGetIVar(super,xlivIVARTOTAL)) : 0;
 
@@ -202,7 +202,7 @@ void xsendsuper(void)
     /* get the method class and the message selector */
     class = xlGetArgObject();
     sym = xlGetArgSymbol();
-    
+
     /* look for the message in the superclasses */
     for (cls = xlGetIVar(class,xlivSUPERCLASS); cls; cls = xlGetIVar(cls,xlivSUPERCLASS))
         for (p = xlGetIVar(cls,xlivMESSAGES); p; p = xlCdr(p))
@@ -258,7 +258,7 @@ static xlValue obsetvariable(void)
 {
     int offset = xlFIRSTIVAR;
     xlValue self,sym,val;
-    
+
     /* parse the argument list */
     self = xlGetArgObject();
     sym = xlGetArgSymbol();
@@ -278,7 +278,7 @@ static xlValue obsetvariable(void)
 static xlValue obinstancebindings(void)
 {
     xlValue self,last;
-    
+
     /* parse the argument list */
     self = xlGetArgObject();
     xlLastArg();
@@ -322,12 +322,12 @@ static xlValue obprint(void)
 {
     xlValue self,class,fptr;
     char buf[256];
-    
+
     /* get self and the file pointer */
     self = xlGetArgObject();
     fptr = (xlMoreArgsP() ? xlGetOutputPort() : xlCurOutput());
     xlLastArg();
-    
+
     /* print the object */
     if ((class = xlGetClass(self)) != xlNil
     &&  (class = xlGetIVar(class,xlivNAME)) != xlNil) {
@@ -337,7 +337,7 @@ static xlValue obprint(void)
     }
     else
         xlPutStr(fptr,"#<Object #x");
-    sprintf(buf,xlAFMT,self);
+    sprintf(buf,xlAFMT,(unsigned long)self);
     strcat(buf,">");
     xlPutStr(fptr,buf);
     return self;
@@ -352,7 +352,7 @@ static xlValue obshow(void)
     self = xlGetArgObject();
     fptr = (xlMoreArgsP() ? xlGetOutputPort() : xlCurOutput());
     xlLastArg();
-    
+
     /* show the object */
     showobject(self,fptr);
     return self;
@@ -454,7 +454,7 @@ static xlValue clinitialize(void)
     xlSetIVar(self,xlivCVARS,xlVal);
     xlSetIVar(self,xlivSUPERCLASS,super);
     xlDrop(4);
-    
+
     /* compute the instance variable count */
     n = xlLength(ivars);
     xlSetIVar(self,xlivIVARCNT,xlMakeFixnum(n));
@@ -513,7 +513,7 @@ static xlValue clanswer(void)
     xlPush(msg);
     xlPush(fargs);
     xlPush(code);
-    
+
     /* make a new message list entry */
     mptr = entermsg(self,msg);
 
@@ -521,7 +521,7 @@ static xlValue clanswer(void)
     xlVal = xlCompileMethod(msg,fargs,code,xlGetIVar(self,xlivCVARS));
     xlSetCdr(mptr,xlMakeClosure(xlVal,xlGetIVar(self,xlivCVARS)));
     xlDrop(4);
-    
+
     /* return the object */
     return (self);
 }
@@ -531,12 +531,12 @@ static xlValue clshow(void)
 {
     xlValue self,fptr,env;
     int first = TRUE;
-    
+
     /* get self and the file pointer */
     self = xlGetArgObject();
     fptr = (xlMoreArgsP() ? xlGetOutputPort() : xlCurOutput());
     xlLastArg();
-    
+
     /* show the object */
     showobject(self,fptr);
 
@@ -590,10 +590,10 @@ static int getivcnt(xlValue cls,int ivar)
 static xlValue copylist(xlValue list)
 {
     xlValue last,next;
-    
+
     /* initialize */
     xlCPush(xlNil); last = xlNil;
-    
+
     /* copy the list */
     for (; xlConsP(list); list = xlCdr(list)) {
         next = xlCons(xlCar(list),xlNil);
@@ -601,7 +601,7 @@ static xlValue copylist(xlValue list)
         else xlSetTop(next);
         last = next;
     }
-    
+
     /* return the new list */
     return xlPop();
 }

@@ -214,7 +214,7 @@ xlValue xlCompileMethod(xlValue fun,xlValue fargs,xlValue body,xlValue ctenv)
 
     /* compile the lambda list and the function body */
     parse_lambda_expr(xlTop(),body,TRUE);
-    
+
     /* build the code object */
     xlSetTop(make_code_object(fun));
     return xlPop();
@@ -296,7 +296,7 @@ static void define1(xlValue list,xlValue body,int cont)
         xlCPush(list);
         do_begin(body,C_NEXT);
     }
-        
+
     /* define the variable value */
     if ((opcode = findcvariable(xlopESET,xlCar(info),xlTop(),&off)) != 0)
         cd_evariable(opcode,0,off);
@@ -413,7 +413,7 @@ static void cd_fundefinition(xlValue fun,xlValue fargs,xlValue body)
 
     /* build the code object */
     xlCPush(make_code_object(fun));
-    
+
     /* restore the previous environment */
     remove_level(oldcbase);
 
@@ -427,10 +427,10 @@ static void parse_lambda_expr(xlValue fargs,xlValue body,int mflag)
 {
     int rargc,oargc,kargc,extra;
     xlValue arg,key,restarg;
-    
+
     /* count the arguments */
     extra = count_arguments(fargs,&rargc,&oargc,&restarg,&kargc);
-    
+
     /* output the entry code */
     if (kargc == 0 && restarg == xlNil) {
         if (oargc == 0) {
@@ -447,7 +447,7 @@ static void parse_lambda_expr(xlValue fargs,xlValue body,int mflag)
         putcbyte(xlopARGSGE);
         putcbyte(rargc);
     }
-    
+
     /* handle each required argument */
     while (xlConsP(fargs)
     &&     (arg = xlCar(fargs)) != xlNil
@@ -506,7 +506,7 @@ static void parse_lambda_expr(xlValue fargs,xlValue body,int mflag)
         }
 
     }
-    
+
     /* compile the function body */
     do_begin(body,xlDebugModeP ? C_NEXT : C_RETURN);
     if (xlDebugModeP)
@@ -522,7 +522,7 @@ static int count_arguments(xlValue fargs,int *prargc,int *poargc,xlValue *presta
 {
     int extra=xlFIRSTENV,rargc=0,oargc=0,kargc=0;
     xlValue arg,restarg=NULL,key,def,svar;
-    
+
     /* skip each required argument */
     while (xlConsP(fargs)
     &&     (arg = xlCar(fargs)) != xlNil
@@ -608,7 +608,7 @@ static int count_arguments(xlValue fargs,int *prargc,int *poargc,xlValue *presta
     /* add the &rest argument */
     if (restarg)
         ++extra;
-    
+
     /* check for the end of the argument list */
     if (fargs != xlNil)
         xlError("bad argument list tail",fargs);
@@ -625,7 +625,7 @@ static int count_arguments(xlValue fargs,int *prargc,int *poargc,xlValue *presta
 static void add_extra_arguments(xlValue fargs)
 {
     xlValue arg,restarg=NULL,key,def,svar;
-    
+
     /* skip each required argument */
     while (xlConsP(fargs)
     &&     (arg = xlCar(fargs)) != xlNil
@@ -708,7 +708,7 @@ static void add_extra_arguments(xlValue fargs)
     /* add the &rest argument */
     if (restarg)
         add_argument_name(xlNil);               /* rest */
-    
+
     /* check for the end of the argument list */
     if (fargs != xlNil)
         xlError("bad argument list tail",fargs);
@@ -726,7 +726,7 @@ static void parse_optional_arguments(xlValue key,xlValue *pfargs,int base)
     while (xlConsP(fargs)
     &&     (arg = xlCar(fargs)) != xlNil
     &&     !lambdakey(arg)) {
-        
+
         /* parse the argument form */
         if (key == lk_optional)
             parse_optional_argument(arg,&arg,&def,&svar);
@@ -786,9 +786,9 @@ static void parse_optional_argument(xlValue form,xlValue *parg,xlValue *pdef,xlV
 {
     *pdef = *psvar = xlNil;
     if (xlConsP(form)) {
-        if ((*pdef = xlCdr(form)) != xlNil)
+        if ((*pdef = xlCdr(form)) != xlNil) {
             if (xlConsP(*pdef)) {
-                if ((*psvar = xlCdr(*pdef)) != xlNil)
+                if ((*psvar = xlCdr(*pdef)) != xlNil) {
                     if (xlConsP(*psvar)) {
                         *psvar = xlCar(*psvar);
                         if (!xlSymbolP(*psvar))
@@ -796,10 +796,12 @@ static void parse_optional_argument(xlValue form,xlValue *parg,xlValue *pdef,xlV
                     }
                     else
                         xlFmtError("expecting supplied-p variable");
+                }
                 *pdef = xlCar(*pdef);
             }
             else
                 xlFmtError("expecting init expression");
+        }
         *parg = xlCar(form);
     }
     else
@@ -819,10 +821,10 @@ static void parse_key_arguments(xlValue *pfargs,int base)
     while (xlConsP(fargs)
     &&     (arg = xlCar(fargs)) != xlNil
     &&     !lambdakey(arg)) {
-        
+
         /* parse the argument form */
         parse_key_argument(arg,&arg,&key,&def,&svar);
-        
+
         /* check for the &key argument */
         patch = putcbyte(xlopKEYARG);
         putcbyte(findliteral(key));
@@ -873,7 +875,7 @@ static void parse_key_argument(xlValue form,xlValue *parg,xlValue *pkey,xlValue 
     xlValue key;
     *pkey = *pdef = *psvar = xlNil;
     if (xlConsP(form)) {
-        if ((*pdef = xlCdr(form)) != xlNil)
+        if ((*pdef = xlCdr(form)) != xlNil) {
             if (xlConsP(*pdef)) {
                 if ((*psvar = xlCdr(*pdef)) != xlNil) {
                     if (xlConsP(*psvar)) {
@@ -888,6 +890,7 @@ static void parse_key_argument(xlValue form,xlValue *parg,xlValue *pkey,xlValue 
             }
             else
                 xlFmtError("expecting init expression");
+        }
         if ((*parg = xlCar(form)) != xlNil) {
             if (xlConsP(*parg)) {
                 *pkey = xlCar(*parg);
@@ -920,7 +923,7 @@ static void parse_aux_arguments(xlValue *pfargs)
     while (xlConsP(fargs)
     &&     (arg = xlCar(fargs)) != xlNil
     &&     !lambdakey(arg)) {
-        
+
         /* parse the argument form */
         parse_aux_argument(arg,&arg,&def);
 
@@ -930,11 +933,11 @@ static void parse_aux_arguments(xlValue *pfargs)
 
         /* add the argument name */
         patch_argument_name(arg);
-        
+
         /* store the initialization value */
         if (def)
             cd_evariable(xlopESET,0,get_argument_offset(arg));
-        
+
         /* move the formal argument list pointer ahead */
         fargs = xlCdr(fargs);
     }
@@ -948,11 +951,12 @@ static void parse_aux_argument(xlValue form,xlValue *parg,xlValue *pdef)
 {
     *pdef = xlNil;
     if (xlConsP(form)) {
-        if ((*pdef = xlCdr(form)) != xlNil)
+        if ((*pdef = xlCdr(form)) != xlNil) {
             if (xlConsP(*pdef))
                 *pdef = xlCar(*pdef);
             else
                 xlFmtError("expecting init expression");
+        }
         *parg = xlCar(form);
     }
     else
@@ -1036,7 +1040,7 @@ static void do_delay(xlValue form,int cont)
 
     /* build the code object */
     xlCPush(make_code_object(xlNil));
-    
+
     /* restore the previous environment */
     remove_level(oldcbase);
 
@@ -1052,7 +1056,7 @@ static void do_let(xlValue form,int cont)
     /* handle named let */
     if (xlConsP(form) && xlSymbolP(xlCar(form)))
         do_named_let(form,cont);
-    
+
     /* handle unnamed let */
     else
         do_unnamed_let(form,cont);
@@ -1066,7 +1070,7 @@ static void do_named_let(xlValue form,int cont)
     /* push the procedure */
     putcbyte(xlopNIL);
     putcbyte(xlopPUSH);
-    
+
     /* establish a new environment frame */
     add_frame();
     add_argument_name(xlCar(form));
@@ -1080,20 +1084,20 @@ static void do_named_let(xlValue form,int cont)
     /* make sure there is a binding list */
     if (xlAtomP(xlCdr(form)) || !xlListP(xlCar(xlCdr(form))))
         xlError("expecting binding list",form);
-    
+
     /* push the initialization expressions */
     push_init_expressions(xlCar(xlCdr(form)));
-    
+
     /* establish a new environment frame */
     oldcbase = add_level();
-    
+
     /* build a function */
     xlCPush(extract_let_variables(xlCar(xlCdr(form)),&rargc));
     parse_lambda_expr(xlTop(),xlCdr(xlCdr(form)),FALSE);
-    
+
     /* build the code object */
     xlSetTop(make_code_object(xlCar(form)));
-    
+
     /* restore the previous environment */
     remove_level(oldcbase);
 
@@ -1104,7 +1108,7 @@ static void do_named_let(xlValue form,int cont)
     /* store the procedure */
     opcode = findvariable(xlopESET,xlCar(form),&lev,&off);
     cd_evariable(opcode,lev,off);
-    
+
     /* apply the function */
     putcbyte(cont == C_RETURN ? xlopTCALL : xlopCALL);
     putcbyte(rargc);
@@ -1189,7 +1193,7 @@ static void do_letrec(xlValue form,int cont)
 
     /* compile instructions to set the bound variables */
     set_bound_variables(xlCar(form));
-    
+
     /* compile the body of the letrec */
     do_begin(xlCdr(form),cont);
     if (cont == C_NEXT) {
@@ -1211,7 +1215,7 @@ static void do_letstar(xlValue form,int cont)
     /* build the nested lambda expressions */
     if (xlConsP(xlCar(form)))
         letstar1(xlCar(form),xlCdr(form),cont);
-    
+
     /* handle the case where there are no bindings */
     else
         do_begin(xlCdr(form),cont);
@@ -1232,7 +1236,7 @@ static void letstar1(xlValue blist,xlValue body,int cont)
         generate_let_setup_code(xlTop());
         letstar1(xlCdr(blist),body,cont);
     }
-    
+
     /* handle the last binding */
     else {
         generate_let_setup_code(xlTop());
@@ -1245,7 +1249,7 @@ static void letstar1(xlValue blist,xlValue body,int cont)
         do_continuation(cont);
     }
     xlDrop(1);
-        
+
     /* restore the previous environment */
     remove_frame();
     do_continuation(cont);
@@ -1283,7 +1287,7 @@ static int push_init_expressions(xlValue blist)
 static void generate_let_setup_code(xlValue blist)
 {
     int rargc,extra;
-    parse_let_variables(blist,&rargc,&extra);    
+    parse_let_variables(blist,&rargc,&extra);
     putcbyte(xlopFRAME);
     putcbyte(rargc);
     putcbyte(extra);
@@ -1295,10 +1299,10 @@ static void parse_let_variables(xlValue blist,int *prargc,int *pextra)
 {
     int rargc;
     xlValue arg;
-    
+
     /* initialize the argument name list and slot number */
     rargc = 0;
-    
+
     /* handle each required argument */
     while (xlConsP(blist) && (arg = xlCar(blist)) != xlNil) {
 
@@ -1312,7 +1316,7 @@ static void parse_let_variables(xlValue blist,int *prargc,int *pextra)
 
         /* add the argument name to the name list */
         add_argument_name(arg);
-        
+
         /* move the formal argument list pointer ahead */
         blist = xlCdr(blist);
         ++rargc;
@@ -1343,7 +1347,7 @@ static void do_mvbind(xlValue form,int cont)
 {
     xlValue blist,arg,p;
     int size,n;
-    
+
     /* get the binding list */
     if (xlAtomP(form) || !xlListP(xlCar(form)))
         xlError("expecting binding list",form);
@@ -1594,25 +1598,25 @@ static void do_while(xlValue form,int cont)
 static void do_catch(xlValue form,int cont)
 {
     int nxt;
-    
+
     /* make sure there is a tag expression */
     if (xlAtomP(form))
         xlError("expecting tag expression",form);
 
     /* compile the catch tag expression */
     do_expr(xlCar(form),C_NEXT);
-    
+
     /* output a catch instruction to push a catch frame */
     putcbyte(xlopCATCH);
     nxt = putcword(0);
 
     /* compile the catch body */
     do_begin(xlCdr(form),C_NEXT);
-    
+
     /* pop the catch frame */
     putcbyte(xlopUNCATCH);
     fixup(nxt);
-    
+
     /* compile the continuation */
     do_continuation(cont);
 }
@@ -1644,7 +1648,7 @@ static void do_unwindprotect(xlValue form,int cont)
 static void do_call(xlValue form,int cont)
 {
     int n;
-    
+
     /* compile each argument expression */
     n = push_args(xlCdr(form));
 
@@ -1763,13 +1767,13 @@ static void remove_frame(void)
 static int add_level()
 {
     int oldcbase;
-    
+
     /* add a new environment frame */
-    add_frame(xlENV);
-    
+    add_frame(); // (xlENV);
+
     /* add a new literal list */
     xlSetCdr(info,xlCons(xlNil,xlCdr(info)));
-    
+
     /* setup the base of the code for this function */
     oldcbase = cbase;
     cbase = cptr;
@@ -1783,7 +1787,7 @@ static void remove_level(int oldcbase)
 {
     /* restore the previous environment */
     remove_frame();
-    
+
     /* remove the previous literal list */
     xlSetCdr(info,xlCdr(xlCdr(info)));
 

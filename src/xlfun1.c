@@ -210,7 +210,7 @@ xlValue xnappend(void)
 
     /* initialize */
     xlVal = xlNil;
-    
+
     /* concatenate each argument */
     if (xlMoreArgsP()) {
         while (xlArgC > 1) {
@@ -397,7 +397,7 @@ xlValue xappend(void)
 xlValue xreverse(void)
 {
     xlValue val;
-    
+
     /* get the list to reverse */
     xlVal = xlGetArgList();
     xlLastArg();
@@ -831,7 +831,7 @@ xlValue xboundp(void)
 {
     xlValue sym,env,tmp;
     int off;
-    
+
     /* parse the arguments */
     sym = xlGetArgSymbol();
     env = xlMoreArgsP() ? xlGetEnv() : xlNil;
@@ -871,7 +871,7 @@ xlValue xsymvalue(void)
     /* return an instance variable */
     else if xlObjectP(tmp)
         return xlGetIVar(tmp,off);
-    
+
     /* return a local variable */
     else
         return xlGetEnvElement(tmp,off);
@@ -898,7 +898,7 @@ xlValue xsetsymvalue(void)
         xlSetIVar(tmp,off,val);
 
     /* set a local variable */
-    else 
+    else
         xlSetEnvElement(tmp,off,val);
 
     /* return the value */
@@ -1076,7 +1076,7 @@ xlValue xmakevector(void)
 {
     xlValue arg,val,*p;
     xlFIXTYPE len;
-    
+
     /* get the vector size */
     arg = xlGetArgFixnum();
     len = xlGetFixnum(arg);
@@ -1095,7 +1095,7 @@ xlValue xmakevector(void)
     /* no initialization value */
     else
         val = xlNewVector(len); /* defaults to initializing to NIL */
-    
+
     /* return the new vector */
     return val;
 }
@@ -1198,7 +1198,7 @@ xlValue xvectlist(void)
     /* get the vector */
     vect = xlGetArgVector();
     xlLastArg();
-    
+
     /* make a list from the vector */
     xlCPush(vect);
     size = xlGetSize(vect);
@@ -1308,7 +1308,7 @@ xlValue xaset(void)
 xlValue xmaketable(void)
 {
     xlFIXTYPE len = xlHSIZE;
-    
+
     /* get the vector size */
     if (xlMoreArgsP()) {
         xlVal = xlGetArgFixnum();
@@ -1395,7 +1395,7 @@ xlValue xmapovertableentries(void)
 {
     xlValue table,fun,list,last,val;
     xlFIXTYPE size,i;
-    
+
     /* parse the arguments */
     table = xlGetArgTable();
     fun = xlGetArg();
@@ -1450,7 +1450,7 @@ xlValue xifmtaddr(void)
     xlValue arg;
     arg = xlGetArg();
     xlLastArg();
-    sprintf(buf,xlAFMT,arg);
+    sprintf(buf,xlAFMT,(unsigned long)arg);
     return xlMakeCString(buf);
 }
 
@@ -1777,7 +1777,7 @@ xlValue xgensym(void)
     xlLastArg();
 
     /* create the pname of the new symbol */
-    sprintf(sym,"%s%d",gsprefix,gsnumber++);
+    sprintf(sym,"%s%ld",gsprefix,gsnumber++);
 
     /* make a symbol with this print name */
     return xlMakeSymbol(xlMakeCString(sym));

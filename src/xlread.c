@@ -50,7 +50,7 @@ int xlRead(xlValue fptr,xlValue *pval)
     xlCPush(fptr);
     while ((sts = readone(fptr,pval)) == RO_COMMENT)
         ;
-        
+
     /* skip over any trailing spaces up to a newline */
     if (sts == RO_EXPR) {
         while (xlInputReadyP(fptr)) {
@@ -79,18 +79,18 @@ static int readone(xlValue fptr,xlValue *pval)
     /* get the next character */
     if ((ch = scan(fptr)) == EOF)
         return RO_EOF;
-    
+
     /* check for a constituent */
     else if ((entry = tentry(ch)) == xlSymConst) {
         xlUngetC(fptr,ch);
         *pval = read_symbol(fptr);
         return RO_EXPR;
     }
-    
+
     /* check for a read macro for this character (type . [function | vector]) */
     else if (xlConsP(entry)) {
         entry = xlCdr(entry);
-        
+
         /* check for a dispatch macro */
         if (xlVectorP(entry)) {
             ch = xlGetC(fptr);
@@ -100,7 +100,7 @@ static int readone(xlValue fptr,xlValue *pval)
                 xlFmtError("character out of bounds ~S",xlMakeChar(ch));
             argc = xlInternalCall(pval,1,xlGetElement(entry,ch),2,fptr,xlMakeChar(ch));
         }
-        
+
         /* handle a normal read macro */
         else
             argc = xlInternalCall(pval,1,entry,2,fptr,xlMakeChar(ch));
@@ -108,7 +108,7 @@ static int readone(xlValue fptr,xlValue *pval)
         /* treat as white space if macro returned no values */
         return argc == 0 ? RO_COMMENT : RO_EXPR;
     }
-    
+
     /* handle illegal characters */
     else {
         xlFmtError("unknown character ~S",xlMakeChar(ch));
@@ -143,10 +143,10 @@ xlValue xreaddelimitedlist(void)
     tch = xlGetChCode(xlGetArgChar());
     fptr = xlMoreArgsP() ? xlGetInputPort() : xlCurInput();
     xlLastArg();
-    
+
     /* protect the input stream */
     xlCPush(fptr);
-    
+
     /* build the list */
     xlVal = last = xlNil;
     while ((ch = scan(fptr)) != tch) {
@@ -176,12 +176,12 @@ xlValue xreaddelimitedlist(void)
 void xrmhash(void)
 {
     xlValue mch,val;
-    
+
     /* parse the argument list */
     xlVal = xlGetInputPort();
     mch = xlGetArgChar();
     xlLastArg();
-    
+
     /* return zero arguments for comments */
     if (read_special(xlVal,xlGetChCode(mch),&val) == RO_COMMENT)
         xlMVReturn(0);
@@ -193,12 +193,12 @@ void xrmhash(void)
 void xrmquote(void)
 {
     xlValue mch;
-    
+
     /* parse the argument list */
     xlVal = xlGetInputPort();
     mch = xlGetArgChar();
     xlLastArg();
-    
+
     /* return the result */
     xlVal = read_quote(xlVal,s_quote);
     xlSVReturn();
@@ -208,12 +208,12 @@ void xrmquote(void)
 void xrmdquote(void)
 {
     xlValue mch;
-    
+
     /* parse the argument list */
     xlVal = xlGetInputPort();
     mch = xlGetArgChar();
     xlLastArg();
-    
+
     /* return the result */
     xlVal = read_string(xlVal);
     xlSVReturn();
@@ -223,12 +223,12 @@ void xrmdquote(void)
 void xrmbquote(void)
 {
     xlValue mch;
-    
+
     /* parse the argument list */
     xlVal = xlGetInputPort();
     mch = xlGetArgChar();
     xlLastArg();
-    
+
     /* return the result */
     xlVal = read_quote(xlVal,s_quasiquote);
     xlSVReturn();
@@ -238,12 +238,12 @@ void xrmbquote(void)
 void xrmcomma(void)
 {
     xlValue mch;
-    
+
     /* parse the argument list */
     xlVal = xlGetInputPort();
     mch = xlGetArgChar();
     xlLastArg();
-    
+
     /* return the result */
     xlVal = read_comma(xlVal);
     xlSVReturn();
@@ -253,12 +253,12 @@ void xrmcomma(void)
 void xrmlparen(void)
 {
     xlValue mch;
-    
+
     /* parse the argument list */
     xlVal = xlGetInputPort();
     mch = xlGetArgChar();
     xlLastArg();
-    
+
     /* return the result */
     xlVal = read_list(xlVal);
     xlSVReturn();
@@ -268,12 +268,12 @@ void xrmlparen(void)
 void xrmrparen(void)
 {
     xlValue mch;
-    
+
     /* parse the argument list */
     xlVal = xlGetInputPort();
     mch = xlGetArgChar();
     xlLastArg();
-    
+
     /* illegal in this context */
     xlFmtError("misplaced right paren");
 }
@@ -282,12 +282,12 @@ void xrmrparen(void)
 void xrmsemi(void)
 {
     xlValue mch;
-    
+
     /* parse the argument list */
     xlVal = xlGetInputPort();
     mch = xlGetArgChar();
     xlLastArg();
-    
+
     /* skip over the comment */
     read_comment(xlVal);
     xlMVReturn(0);
@@ -330,12 +330,12 @@ static void read_cdr(xlValue fptr,xlValue last)
 {
     xlValue val;
     int ch;
-    
+
     /* read the cdr expression */
     if (!xlRead(fptr,&val))
         xlFmtError("unexpected EOF");
     xlSetCdr(last,val);
-    
+
     /* check for the close paren */
     while ((ch = scan(fptr)) == ';')
         read_comment(fptr);
@@ -357,7 +357,7 @@ static xlValue read_vector(xlValue fptr)
 {
     int len=0,ch,i;
     xlValue last,val;
-    
+
     xlCPush(xlNil); last = xlNil;
     while ((ch = scan(fptr)) != ')') {
         if (ch == EOF)
@@ -410,43 +410,43 @@ static xlValue read_symbol(xlValue fptr)
     extern xlValue xlKeywordPackage,k_external;
     char buf[xlSTRMAX+1],*sname;
     xlValue package,val,key;
-    
+
     /* get the symbol name */
     if (!getsymbol(fptr,buf))
         xlFmtError("expecting a symbol or number");
-    
+
     /* check to see if it's a number */
     if (xlNumberStringP(buf,&val))
         return val;
-    
+
     /* handle an implicit package reference */
     if ((sname = strchr(buf,':')) == '\0')
         return xlInternCString(buf,xlGetValue(s_package),&key);
-        
+
     /* handle an explicit package reference */
     else {
-        
+
         /* handle keywords */
         if (sname == buf) {
             if (strchr(++sname,':'))
                 xlFmtError("invalid symbol ~A",xlMakeCString(sname));
             return xlInternCString(sname,xlKeywordPackage,&key);
         }
-        
+
         /* terminate the package name */
         *sname++ = '\0';
-        
+
         /* find the package */
         if ((package = xlFindPackage(buf)) == xlNil)
             xlFmtError("no package ~A",xlMakeCString(buf));
-            
+
         /* handle an internal symbol reference */
         if (*sname == ':') {
             if (strchr(++sname,':'))
                 xlFmtError("invalid symbol ~A",xlMakeCString(sname));
             return xlFindSymbol(sname,package,&key);
         }
-        
+
         /* handle an external symbol reference */
         else {
             if (strchr(sname,':'))
@@ -469,7 +469,7 @@ static xlValue read_string(xlValue fptr)
     xlCPush(xlNil);
     p = buf;
     len = 0;
-    
+
     /* loop looking for a closing quote */
     while ((ch = checkeof(fptr)) != '"') {
 
@@ -509,7 +509,7 @@ static xlValue read_string(xlValue fptr)
                 xlFIXTYPE cnt = xlSTRMAX;
                 xlSetTop(xlNewUStream());
                 for (p = buf; --cnt >= 0; )
-                    xlPutC(xlTop(),*p++);    
+                    xlPutC(xlTop(),*p++);
             }
             xlPutC(xlTop(),ch);
         }
@@ -653,7 +653,7 @@ int xlRadixNumberStringP(char *str,int radix,xlValue *pval)
 {
     xlFIXTYPE val = 0;
     int ch;
-    
+
     /* get number */
     while ((ch = *str++) != '\0' && isconstituent(ch)) {
         if (islower(ch)) ch = toupper(ch);
@@ -692,7 +692,7 @@ static int getsymbol(xlValue fptr,char *buf)
     int ch,i;
 
     /* get symbol name */
-    for (i = 0; (ch = xlGetC(fptr)) != EOF && (type = xlCharType(ch)) == xlSymConst || type == xlSymNMacro; )
+    for (i = 0; ((ch = xlGetC(fptr)) != EOF && (type = xlCharType(ch)) == xlSymConst) || type == xlSymNMacro; )
         if (i < xlSTRMAX)
             buf[i++] = (islower(ch) ? toupper(ch) : ch);
     buf[i] = '\0';
@@ -815,11 +815,11 @@ void xlInitReader(void)
     xlValue rtable,dtable;
     char *p;
     int ch;
-    
+
     /* create the read table */
     rtable = xlNewVector(256);
     xlSetValue(xlSymReadTable,rtable);
-    
+
     /* initialize the readtable */
     for (p = WSPACE; (ch = *p++) != '\0'; )
         xlSetElement(rtable,ch,xlSymWSpace);
@@ -827,7 +827,7 @@ void xlInitReader(void)
         xlSetElement(rtable,ch,xlSymConst);
     for (p = CONST2; (ch = *p++) != '\0'; )
         xlSetElement(rtable,ch,xlSymConst);
-        
+
     /* install the built-in read macros */
     defmacro('\'',xlSymTMacro,"%RM-QUOTE");
     defmacro('"', xlSymTMacro,"%RM-DOUBLE-QUOTE");
@@ -836,11 +836,11 @@ void xlInitReader(void)
     defmacro('(', xlSymTMacro,"%RM-LEFT-PAREN");
     defmacro(')', xlSymTMacro,"%RM-RIGHT-PAREN");
     defmacro(';', xlSymTMacro,"%RM-SEMICOLON");
-    
+
     /* setup the # dispatch table */
     dtable = xlNewVector(256);
     xlSetElement(rtable,'#',xlCons(xlSymNMacro,dtable));
-    
+
     /* install the dispatch macros */
     defdmacro(dtable,'!', "%RM-HASH");
     defdmacro(dtable,'\\',"%RM-HASH");

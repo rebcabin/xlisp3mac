@@ -14,7 +14,7 @@
 xlErrorTarget *xlerrtarget = NULL;  /* error target */
 xlValue *xlcatch = NULL;            /* catch frame pointer */
 int xlTraceBytecodes = FALSE;       /* trace enable */
-xlEXPORT int xlArgC;                /* number of arguments remaining */
+xlEXPORT long xlArgC;                /* number of arguments remaining */
 xlEXPORT void (*xlNext)(void);      /* next function to call (xlApply or NULL) */
 
 /* external variables */
@@ -207,16 +207,16 @@ xlValue xlFindTopProcedure(void)
 static void show_call(xlValue code,xlValue frame)
 {
     xlValue name = xlGetCName(code);
-    
+
     /* start the function */
     xlErrPutStr("\n  (");
-    
+
     /* print the function name */
     if (name == xlNil)
         xlErrPrint(code);
     else
         xlErrPrint(name);
-    
+
     /* print the function arguments */
     if (frame != xlNil) {
         xlFIXTYPE i,max;
@@ -225,7 +225,7 @@ static void show_call(xlValue code,xlValue frame)
             xlErrPrint(xlGetElement(frame,i));
         }
     }
-    
+
     /* end the function */
     xlErrPutStr(")");
 }
@@ -265,7 +265,7 @@ void xGetStackFrame(void)
 {
     xlValue lastCode,lastFrame,*csp,*p;
     int index;
-    
+
     /* parse the arguments */
     csp = GetArgStackPointer();
     xlVal = xlGetArgFixnum(); index = (int)xlGetFixnum(xlVal);
@@ -318,11 +318,11 @@ static void unwind_restore(void)
 {
     xlValue *target,*p;
     int cnt;
-    
+
     /* restore the throw target */
     target = (xlValue *)xlCtlPop();
     xlArgC = (int)(xlFIXTYPE)xlCtlPop();
-    
+
     /* move the results back onto the stack */
     if (xlArgC > 0) {
         xlCheck(xlArgC);
@@ -939,7 +939,7 @@ static void opMVFRAME(void)
     size = *pc++;
     lit = *pc++;
     lit2 = *pc++;
-    
+
     /* push the multiple values onto the stack */
     xlCheck(xlArgC);
     xlSP -= xlArgC;
@@ -1205,8 +1205,8 @@ static void opGTR(void)
 /* opCATCH - handler for opcode CATCH */
 static void opCATCH(void)
 {
-    register unsigned int offset;
-    
+    register unsigned long offset;
+
     /* get the target offset */
     offset = *pc++ << 8;
     offset |= *pc++;
@@ -1270,7 +1270,7 @@ static void (*optab[256])(void);
 void xlInitInterpreter(void)
 {
     int i;
-    
+
     /* first fill in the default opcode handler */
     for (i = 0; i < 256; ++i)
         optab[i] = opBAD;
@@ -1336,12 +1336,12 @@ int xlInternalCall(xlValue *values,int vmax,xlValue fun,int argc,...)
 {
     va_list ap;
     int valc;
-    
+
     /* execute the function call */
     va_start(ap,argc);
     valc = xlInvokeInterpreter(values,vmax,fun,xlNil,argc,ap);
     va_end(ap);
-    
+
     /* return the value count */
     return valc;
 }
@@ -1354,7 +1354,7 @@ int xlInvokeInterpreter(xlValue *values,int vmax,xlValue fun,xlValue sel,int arg
     xlValue *save_csp,*save_sp,*p;
     void (*save_next)(void);
     int save_pcoff,cnt;
-    
+
     /* save the interpreter state */
     xlCheck(3);
     save_next = xlNext;
@@ -1364,7 +1364,7 @@ int xlInvokeInterpreter(xlValue *values,int vmax,xlValue fun,xlValue sel,int arg
     xlPush(xlFun);
     xlPush(xlEnv);
     save_sp = xlSP;
-    
+
     /* initialize the registers */
     xlNext = NULL;
 
@@ -1388,12 +1388,12 @@ int xlInvokeInterpreter(xlValue *values,int vmax,xlValue fun,xlValue sel,int arg
         xlSP -= argc;
         p = xlSP;
     }
-    
+
     /* setup the function and arguments */
     xlVal = fun;
     while (--argc >= 0)
         *p++ = va_arg(ap,xlValue);
-    
+
     /* setup a target for the error handler */
     xlPushTarget(&target);
     switch (setjmp(target.target)) {
@@ -1405,7 +1405,7 @@ int xlInvokeInterpreter(xlValue *values,int vmax,xlValue fun,xlValue sel,int arg
         break;
     case BCD_RETURN:
         xlPopTarget();
-        
+
         /* store the return value */
         if (vmax > 0) {
             xlValue *p = xlSP - xlArgC;
@@ -1413,7 +1413,7 @@ int xlInvokeInterpreter(xlValue *values,int vmax,xlValue fun,xlValue sel,int arg
             for (cnt = xlArgC; --cnt > 0 && --vmax > 0; )
                 *values++ = *++p;
         }
-        
+
         /* restore the interpreter state */
         xlNext = save_next;
         xlCSP = save_csp;
@@ -1425,11 +1425,11 @@ int xlInvokeInterpreter(xlValue *values,int vmax,xlValue fun,xlValue sel,int arg
             base = xlGetCodeStr(xlFun);
             pc = base + save_pcoff;
         }
-        
+
         /* return value count */
         return xlArgC;
     }
-    
+
     /* execute the code */
     for (;;) {
 
@@ -1491,7 +1491,7 @@ void xlThrowError(xlValue type)
 static void throwtotag(xlValue tag)
 {
     xlValue *target;
-    
+
     /* find the throw target */
     if ((target = findmatchingcatch(tag)) == NULL)
         xlError("no target for throw",tag);
@@ -1514,14 +1514,14 @@ static xlValue *findmatchingcatch(xlValue tag)
 static void throwtoreturn(void)
 {
     xlValue *target,*p;
-    
+
     /* find the return target */
     for (p = xlCSP, target = NULL; p > xlStkBase; p = xlCDUnmark(p))
         if ((xlCDispatch *)p[-1] == &cd_return) {
             target = p;
             break;
         }
-    
+
     /* make sure we found a target */
     if (target == NULL)
         xlFmtAbort("no target for return");
@@ -1529,24 +1529,24 @@ static void throwtoreturn(void)
     /* throw to the target */
     throwtotarget(target);
 }
-        
+
 /* throwtotarget - throw to the target in xltarget */
 static void throwtotarget(xlValue *target)
-{        
+{
     xlValue *dst,*p;
     int cnt;
 
     /* save the target */
     xltarget = target;
-    
+
     /* save the position of the return values */
     p = xlSP + xlArgC;
-    
+
     /* unwind to the target */
     while (xlCSP > xltarget)
         xlCDUnwind();
     xlCDRestore();
-    
+
     /* move the arguments to the new stack position */
     for (dst = xlSP, cnt = xlArgC; --cnt >= 0; )
         *--dst = *--p;
@@ -1647,7 +1647,7 @@ xlValue xlMakeContinuation(void)
     /* unstack all the environments saved on the control stack */
     for (p = xlCSP; p > xlStkBase; )
         p = xlCDUnstack(p);
- 
+
     /* create a continuation object */
     vsize = xlStkTop - xlSP;
     csize = xlCSP - xlStkBase;
@@ -1726,7 +1726,7 @@ xlValue xlUnstackEnvironment(xlValue env)
         else
             xlSetNextFrame(last,new);
         last = new;
-        
+
         /* store the forwarding address */
         xlSetFrameType(old,xlMSENV);
         xlSetForwardingAddr(old,new);
