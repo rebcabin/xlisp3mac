@@ -23,7 +23,7 @@ RANLIB=ranlib
 ECHO=echo
 MKDIR=mkdir
 
-CFLAGS=-g -DUNIX -I$(HDRDIR)
+CFLAGS=-g -Os -DUNIX -I$(HDRDIR)
 
 INC=$(HDRDIR)/xlisp.h
 
